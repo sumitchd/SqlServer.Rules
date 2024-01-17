@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SqlServer.Rules.Generator": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Code\\Github\\EFCorePowerTools\\src\\Core\\NUnitTestCore\\Dacpac\\AdventureWorks.dacpac\""
+    }
+  }
+}
