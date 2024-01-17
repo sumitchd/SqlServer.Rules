@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Index = Microsoft.SqlServer.Dac.Model.Index;
 
 namespace SqlServer.Rules.ReferentialIntegrity
 {

@@ -4,6 +4,7 @@ using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Index = Microsoft.SqlServer.Dac.Model.Index;
 
 namespace SqlServer.Rules.Design
 {
