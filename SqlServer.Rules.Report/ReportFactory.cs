@@ -58,7 +58,16 @@ namespace SqlServer.Rules.Report
                 {
                     SendNotification(err.Exception.Message, NotificationType.Error);
                 }
+
+                //TODO also show the other types of errors.
                 return;
+            }
+            else
+            {
+                foreach (var err in result.Problems)
+                {
+                    SendNotification(err.ErrorMessageString, NotificationType.Warning);
+                }
             }
             sw.Stop();
             SendNotification($"Running rules complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
