@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SqlServer.Rules.Report\SqlServer.Rules.Report.csproj" />
     <ProjectReference Include="..\SqlServer.Rules\SqlServer.Rules.csproj" />
+    <ProjectReference Include="..\SqlServer.TSQLSmells\TSQLSmellSCA.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

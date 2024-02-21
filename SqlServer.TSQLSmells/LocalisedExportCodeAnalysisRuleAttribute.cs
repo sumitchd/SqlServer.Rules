@@ -58,7 +58,7 @@ namespace TSQLSmellSCA
         {
             _resourceBaseName = resourceBaseName;
             _displayNameResourceId = displayNameResourceId;
-            _descriptionResourceId = descriptionResourceId;
+            _descriptionResourceId = displayNameResourceId; //descriptionResourceId;
         }
 
         /// <summary>
