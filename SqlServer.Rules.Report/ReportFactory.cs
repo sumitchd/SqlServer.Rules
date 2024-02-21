@@ -54,12 +54,21 @@ namespace SqlServer.Rules.Report
 
             if (!result.AnalysisSucceeded)
             {
-                foreach (var err in result.AnalysisErrors)
+                foreach (var err in result.InitializationErrors)
                 {
-                    SendNotification(err.Exception.Message, NotificationType.Error);
+                    SendNotification(err.Message, NotificationType.Error);
                 }
 
-                //TODO also show the other types of errors.
+                foreach (var err in result.SuppressionErrors)
+                {
+                    SendNotification(err.Message, NotificationType.Error);
+                }
+
+                foreach (var err in result.AnalysisErrors)
+                {
+                    SendNotification(err.Message, NotificationType.Error);
+                }
+
                 return;
             }
             else
@@ -68,6 +77,7 @@ namespace SqlServer.Rules.Report
                 {
                     SendNotification(err.ErrorMessageString, NotificationType.Warning);
                 }
+                result.SerializeResultsToXml(GetOutputFileName(request, ReportOutputType.XML));
             }
             sw.Stop();
             SendNotification($"Running rules complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
