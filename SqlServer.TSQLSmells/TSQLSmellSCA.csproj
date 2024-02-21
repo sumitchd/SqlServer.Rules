@@ -1,7 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<SignAssembly>true</SignAssembly>
+	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
+	<PackageVersion>1.0.0-preview1</PackageVersion>
+	<Authors>ErikEJ</Authors>
+	<Description>A package with some DacFX T-SQL analyzers</Description>
+	<PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
+	<PackageReleaseNotes>Preview</PackageReleaseNotes>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<MinClientVersion>5.0</MinClientVersion>
+	<SignAssembly>true</SignAssembly>
+	<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	<RepositoryUrl>https://github.com/ErikEJ/SqlServer.Rules</RepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<DebugType>embedded</DebugType>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
@@ -16,13 +31,15 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
+   </ItemGroup>
 	<ItemGroup>
-		<None Include="..\key.snk">
-			<Link>key.snk</Link>
-		</None>
+		<None Include="key.snk" />
 	</ItemGroup>
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
 	<ItemGroup>
-	    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
-    </ItemGroup>
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
 </Project>

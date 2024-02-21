@@ -4,14 +4,13 @@
     <OutputType>Library</OutputType>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<SignAssembly>true</SignAssembly>
+	<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>key.snk</Link>
-    </None>
+    <None Include="key.snk" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
