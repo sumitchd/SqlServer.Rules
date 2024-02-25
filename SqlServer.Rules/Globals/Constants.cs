@@ -8,7 +8,7 @@ namespace SqlServer.Rules.Globals
 {
     internal static class Constants
     {
-        public const string RuleNameSpace = "Rules.";
+        public const string RuleNameSpace = "SqlServer.Rules.";
         public const string Performance = "Performance";
         public const string Design = "Design";
         public const string Naming = "Naming";
