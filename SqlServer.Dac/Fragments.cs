@@ -118,7 +118,14 @@ namespace SqlServer.Dac
         {
             var tsqlParser = new TSql140Parser(true);
             TSqlFragment fragment = null;
-            using (StringReader stringReader = new StringReader(obj.GetScript()))
+
+            if (!obj.TryGetScript(out string script))
+            {
+                parseErrors = new List<ParseError>();
+                return fragment;
+            }
+
+            using (StringReader stringReader = new StringReader(script))
             {
                 fragment = tsqlParser.Parse(stringReader, out parseErrors);
 
