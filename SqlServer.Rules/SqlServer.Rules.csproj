@@ -7,8 +7,7 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<SignAssembly>true</SignAssembly> 
 	<PackageId>ErikEJ.DacFX.SqlServer.Rules</PackageId>
-    <PackageVersion>1.0.0-preview7</PackageVersion>
-	<FileVersion>1.0.0.7</FileVersion>
+    <PackageVersion>1.0.0-preview8</PackageVersion>
     <Authors>ErikEJ</Authors>
     <Description>A package with some DacFX T-SQL analyzers - see https://github.com/tcartwright/SqlServer.Rules/blob/master/docs/table_of_contents.md</Description>
     <PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
@@ -29,7 +28,7 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>	
   <ItemGroup>
-    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
+    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.2.111" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	<PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
   </ItemGroup>

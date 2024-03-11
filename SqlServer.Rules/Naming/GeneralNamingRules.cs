@@ -112,6 +112,12 @@ namespace SqlServer.Rules.Performance
                     break;
                 case "index":
                     var idx = fragment as CreateIndexStatement;
+                    
+                    if (idx == null)
+                    { 
+                        return problems;
+                    }
+
                     var re = $"^IX_{tableName}_.*";
                     var naming = $"IX_{tableName}*";
                     if (idx.Unique)

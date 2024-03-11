@@ -5,7 +5,6 @@
 	<SignAssembly>true</SignAssembly>
 	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
 	<PackageVersion>1.0.0-preview2</PackageVersion>
-	<FileVersion>1.0.0.2</FileVersion>
 	<Authors>ErikEJ</Authors>
 	<Description>A package with some DacFX T-SQL analyzers - see https://github.com/davebally/TSQL-Smells</Description>
 	<PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>

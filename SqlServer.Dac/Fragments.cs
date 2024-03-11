@@ -119,6 +119,12 @@ namespace SqlServer.Dac
             var tsqlParser = new TSql140Parser(true);
             TSqlFragment fragment = null;
 
+            if (!obj.TryGetAst(out TSqlScript ast))
+            {
+                parseErrors = new List<ParseError>();
+                return fragment;
+            }
+
             if (!obj.TryGetScript(out string script))
             {
                 parseErrors = new List<ParseError>();
@@ -130,7 +136,7 @@ namespace SqlServer.Dac
                 fragment = tsqlParser.Parse(stringReader, out parseErrors);
 
                 //so even after parsing, some scripts are coming back as tsql script, lets try to get the root object
-                if (fragment.GetType() == typeof(TSqlScript))
+                if (fragment != null && fragment.GetType() == typeof(TSqlScript))
                 {
                     fragment = ((TSqlScript)fragment).Batches.FirstOrDefault()?.Statements.FirstOrDefault();
                 }

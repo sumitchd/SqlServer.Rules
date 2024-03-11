@@ -76,7 +76,7 @@ namespace SqlServer.Rules.Design
             var indexVisitor = new CreateIndexStatementVisitor();
             foreach (var index in indexes)
             {
-                index.Accept(indexVisitor);
+                index?.Accept(indexVisitor);
             }
 
             var indexInfo = new Dictionary<CreateIndexStatement, List<string>>();
