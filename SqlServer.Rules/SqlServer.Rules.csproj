@@ -7,7 +7,7 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<SignAssembly>true</SignAssembly> 
 	<PackageId>ErikEJ.DacFX.SqlServer.Rules</PackageId>
-    <PackageVersion>1.0.0-preview9</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>ErikEJ</Authors>
     <Description>A package with some DacFX T-SQL analyzers - see https://github.com/tcartwright/SqlServer.Rules/blob/master/docs/table_of_contents.md</Description>
     <PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
