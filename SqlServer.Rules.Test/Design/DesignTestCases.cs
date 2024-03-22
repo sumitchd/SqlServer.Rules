@@ -12,7 +12,7 @@ using System.Text;
 namespace SqlServer.Rules.Tests.Performance
 {
     [TestClass]
-    [TestCategory("Performance")]
+    [TestCategory("Design")]
     public class DesignTestCases : TestCasesBase
     {
         [TestMethod]
@@ -29,6 +29,30 @@ namespace SqlServer.Rules.Tests.Performance
 
             Assert.IsTrue(problems.All(problem => Comparer.Equals(problem.Description, NotForReplication.Message)));
             Assert.IsTrue(problems.All(problem => problem.Severity == SqlRuleProblemSeverity.Warning));
+        }
+
+        [TestMethod]
+        public void TestMissingJoinPredicateFalsePositive()
+        {
+            var problems = GetTestCaseProblems(nameof(MissingJoinPredicateRule), MissingJoinPredicateRule.RuleId);
+
+            var expected = 4;
+            Assert.AreEqual(expected, problems.Count, $"Expected {expected} problem(s) to be found");
+
+            Assert.IsTrue(problems.Any(problem => Comparer.Equals(problem.SourceName, "dbo_table2_trigger_1_not_for_replication.sql")));
+            Assert.IsTrue(problems.Any(problem => Comparer.Equals(problem.SourceName, "fk_table2_table1_1_not_for_replication.sql")));
+            Assert.IsTrue(problems.Count(problem => Comparer.Equals(problem.SourceName, "table3.sql")) == 2);
+
+            Assert.IsTrue(problems.All(problem => Comparer.Equals(problem.Description, MissingJoinPredicateRule.Message)));
+            Assert.IsTrue(problems.All(problem => problem.Severity == SqlRuleProblemSeverity.Warning));
+        }
+
+        [TestMethod]
+        public void TestTableMissingClusteredIndexRule()
+        {
+            var problems = GetTestCaseProblems(nameof(TableMissingClusteredIndexRule), TableMissingClusteredIndexRule.RuleId);
+
+            Assert.AreEqual(0, problems.Count, "Expected 0 problems to be found");
         }
     }
 }

@@ -57,6 +57,7 @@ namespace SqlServer.Rules.Design
             var indexes = sqlObj.GetChildren(DacQueryScopes.All)
                 .Where(x =>
                     x.ObjectType == ModelSchema.Index
+                    || x.ObjectType == ModelSchema.UniqueConstraint
                     || x.ObjectType == ModelSchema.PrimaryKeyConstraint).ToList();
             if (!indexes.Any(i => IsClustered(i)))
             {
@@ -71,6 +72,10 @@ namespace SqlServer.Rules.Design
             if (i.ObjectType == ModelSchema.Index)
             {
                 return Convert.ToBoolean(i.GetProperty(Index.Clustered));
+            }
+            else if (i.ObjectType == ModelSchema.UniqueConstraint)
+            {
+                return Convert.ToBoolean(i.GetProperty(UniqueConstraint.Clustered));
             }
             else
             {

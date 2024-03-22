@@ -19,12 +19,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="TestScripts\Performance\TableMissingClusteredIndexRule\clustered.sql" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Naming\" />
     <Folder Include="TestScripts\Naming\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
+	<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.2.111" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
   </ItemGroup>
