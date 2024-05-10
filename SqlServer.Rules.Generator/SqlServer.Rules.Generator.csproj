@@ -9,12 +9,12 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlServer.Rules.Report\SqlServer.Rules.Report.csproj" />
-    <ProjectReference Include="..\SqlServer.TSQLSmells\TSQLSmellSCA.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ErikEJ.DacFX.SqlServer.Rules" Version="1.0.0-preview1" />
+    <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
   </ItemGroup>
+
 </Project>

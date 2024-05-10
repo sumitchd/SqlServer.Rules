@@ -7,22 +7,11 @@
   <PropertyGroup>
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Content Include="Resources\RulesTransform.xslt" />
-  </ItemGroup>
+  </ItemGroup>	
   <ItemGroup>
-    <ProjectReference Include="..\SqlServer.Dac\SqlServer.Dac.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>3.0.1</Version>
-    </PackageReference>
+    <PackageReference Include="ErikEJ.DacFX.TSQLSmellSCA" Version="1.0.0" />
+    <PackageReference Include="ErikEJ.DacFX.SqlServer.Rules" Version="1.0.0" />
   </ItemGroup>
 </Project>
