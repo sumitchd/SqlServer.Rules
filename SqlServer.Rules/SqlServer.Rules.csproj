@@ -7,7 +7,7 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<SignAssembly>true</SignAssembly> 
 	<PackageId>ErikEJ.DacFX.SqlServer.Rules</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>ErikEJ</Authors>
     <Description>A package with some DacFX T-SQL analyzers - see https://github.com/tcartwright/SqlServer.Rules/blob/master/docs/table_of_contents.md</Description>
     <PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
@@ -28,7 +28,7 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>	
   <ItemGroup>
-    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.2.111" />
+    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.4.92" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	<PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
   </ItemGroup>
@@ -42,7 +42,15 @@
 		 <Visible>false</Visible>
 		 <Pack>true</Pack>
 		 <PackagePath>lib\net462</PackagePath>
-	 </None>	 
+	 </None>
+    <None Include="..\SqlServer.Dac\bin\$(Configuration)\netstandard2.1\SqlServer.Dac.dll" 
+             Pack="true"
+             PackagePath="analyzers\dotnet\cs"
+             Visible="false" />
+    <None Include="..\SqlServer.Rules\bin\$(Configuration)\netstandard2.1\SqlServer.Rules.dll" 
+        Pack="true"
+        PackagePath="analyzers\dotnet\cs"
+        Visible="false" />
   </ItemGroup>	
   <ItemGroup>
     <None Include="key.snk" />

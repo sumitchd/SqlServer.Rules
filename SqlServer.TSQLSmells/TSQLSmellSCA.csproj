@@ -4,7 +4,7 @@
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<SignAssembly>true</SignAssembly>
 	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
-	<PackageVersion>1.0.0</PackageVersion>
+	<PackageVersion>1.0.1</PackageVersion>
 	<Authors>ErikEJ</Authors>
 	<Description>A package with some DacFX T-SQL analyzers - see https://github.com/davebally/TSQL-Smells</Description>
 	<PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
@@ -34,12 +34,16 @@
    </ItemGroup>
 	<ItemGroup>
 		<None Include="key.snk" />
+		<None Include="bin\$(Configuration)\netstandard2.1\TSQLSmellSCA.dll" 
+			Pack="true"
+			PackagePath="analyzers\dotnet\cs"
+			Visible="false" />
 	</ItemGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.1.172" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.4.92" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 		<PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
 	</ItemGroup>
