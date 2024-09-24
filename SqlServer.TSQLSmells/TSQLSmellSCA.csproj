@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net462</TargetFrameworks>
+    <TargetFramework>netstandard2.1</TargetFramework>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<SignAssembly>true</SignAssembly>
 	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
@@ -45,6 +45,5 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.4.92" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-		<PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
 	</ItemGroup>
 </Project>
