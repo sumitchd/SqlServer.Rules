@@ -2,22 +2,25 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<SignAssembly>true</SignAssembly>
 	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
-	<PackageVersion>1.1.0</PackageVersion>
+	<PackageVersion>1.1.1</PackageVersion>
 	<Authors>ErikEJ</Authors>
 	<Description>A package with some DacFX T-SQL analyzers - see https://github.com/davebally/TSQL-Smells</Description>
 	<PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
 	<PackageReleaseNotes>Preview</PackageReleaseNotes>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<MinClientVersion>5.0</MinClientVersion>
-	<SignAssembly>true</SignAssembly>
-	<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
 	<RepositoryUrl>https://github.com/ErikEJ/SqlServer.Rules</RepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<DebugType>embedded</DebugType>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+	  <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -33,7 +36,6 @@
     </EmbeddedResource>
    </ItemGroup>
 	<ItemGroup>
-		<None Include="key.snk" />
 		<None Include="bin\$(Configuration)\netstandard2.1\TSQLSmellSCA.dll" 
 			Pack="true"
 			PackagePath="analyzers\dotnet\cs"
