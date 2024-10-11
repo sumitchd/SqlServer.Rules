@@ -73,14 +73,12 @@ namespace SqlServer.Rules.Design
             {
                 return Convert.ToBoolean(i.GetProperty(Index.Clustered));
             }
-            else if (i.ObjectType == ModelSchema.UniqueConstraint)
+
+            if (i.ObjectType == ModelSchema.UniqueConstraint)
             {
                 return Convert.ToBoolean(i.GetProperty(UniqueConstraint.Clustered));
             }
-            else
-            {
-                return Convert.ToBoolean(i.GetProperty(PrimaryKeyConstraint.Clustered));
-            }
+            return Convert.ToBoolean(i.GetProperty(PrimaryKeyConstraint.Clustered));
         }
     }
 }

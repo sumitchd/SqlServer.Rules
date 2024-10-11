@@ -71,14 +71,12 @@ namespace SqlServer.Rules.Report
 
                 return;
             }
-            else
+
+            foreach (var err in result.Problems)
             {
-                foreach (var err in result.Problems)
-                {
-                    SendNotification(err.ErrorMessageString, NotificationType.Warning);
-                }
-                result.SerializeResultsToXml(GetOutputFileName(request, ReportOutputType.XML));
+                SendNotification(err.ErrorMessageString, NotificationType.Warning);
             }
+            result.SerializeResultsToXml(GetOutputFileName(request, ReportOutputType.XML));
             sw.Stop();
             SendNotification($"Running rules complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
             #endregion

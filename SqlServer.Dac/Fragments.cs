@@ -74,16 +74,14 @@ namespace SqlServer.Dac
                 {
                     return statements.Remove(stmt);
                 }
-                else
-                {
-                    if (stmt.RemoveRecursive(remove)) { return true; }
-                }
+
+                if (stmt.RemoveRecursive(remove)) { return true; }
             }
             return false;
         }
 
         /// <summary>
-        /// Converts a tsql object into a fragment, if it is not already one. 
+        /// Converts a tsql object into a fragment, if it is not already one.
         /// </summary>
         /// <param name="forceParse">If true will force the parsing of the sql into a fragment</param>
         /// <returns></returns>
@@ -152,7 +150,7 @@ namespace SqlServer.Dac
         /// <returns></returns>
         public static TSqlFragment GetFragment(this TSqlFragment baseFragment, params Type[] typesToLookFor)
         {
-            //for some odd reason, sometimes the fragments do not pass in properly to the rules.... 
+            //for some odd reason, sometimes the fragments do not pass in properly to the rules....
             //this function can re-parse that fragment into its true fragment, and not a sql script...
             if (!(baseFragment is TSqlScript)) { return baseFragment; }
 
@@ -192,7 +190,8 @@ namespace SqlServer.Dac
                 {
                     throw new ApplicationException($"Unable to parse file {file.ToString()}");
                 }
-                else if (parseErrors.Any())
+
+                if (parseErrors.Any())
                 {
                     throw new ApplicationException($"Unable to parse file {file.ToString()}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
                 }

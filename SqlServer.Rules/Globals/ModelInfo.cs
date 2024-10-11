@@ -59,14 +59,12 @@ namespace SqlServer.Rules.Globals
                 var dt = list.SelectMany(cols => cols.Value).FirstOrDefault(x => colName.StringEquals(x.Key));
                 return dt.Value;
             }
-            else
+
+            var columnList = list.Where(t => t.Key.IsMatch(colIdentifier)).ToList();
+            if (columnList.Any())
             {
-                var columnList = list.Where(t => t.Key.IsMatch(colIdentifier)).ToList();
-                if (columnList.Any())
-                {
-                    //ok, if there are multiples.... really don't know how to handle that.
-                    return columnList.First().Value.FirstOrDefault(x => x.Value.Name.StringEquals(colIdentifier.Parts.Last())).Value;
-                }
+                //ok, if there are multiples.... really don't know how to handle that.
+                return columnList.First().Value.FirstOrDefault(x => x.Value.Name.StringEquals(colIdentifier.Parts.Last())).Value;
             }
             return null;
         }
