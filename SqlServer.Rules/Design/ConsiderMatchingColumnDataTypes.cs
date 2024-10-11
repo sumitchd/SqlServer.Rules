@@ -99,7 +99,7 @@ namespace SqlServer.Rules.Design
             );
 
             problems.AddRange(offenders
-                .Select(col => new SqlRuleProblem(string.Format(Message, col.ToString()), col.Table, col.Column)));
+                .Select(col => new SqlRuleProblem(string.Format(Message, col), col.Table, col.Column)));
 
             return problems;
         }

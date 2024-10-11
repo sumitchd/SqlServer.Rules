@@ -187,12 +187,12 @@ namespace SqlServer.Dac
                 fragment = tsqlParser.Parse(textReader, out IList<ParseError> parseErrors) as TSqlScript;
                 if (fragment == null)
                 {
-                    throw new ApplicationException($"Unable to parse file {file.ToString()}");
+                    throw new ApplicationException($"Unable to parse file {file}");
                 }
 
                 if (parseErrors.Any())
                 {
-                    throw new ApplicationException($"Unable to parse file {file.ToString()}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
+                    throw new ApplicationException($"Unable to parse file {file}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
                 }
             }
             return fragment;

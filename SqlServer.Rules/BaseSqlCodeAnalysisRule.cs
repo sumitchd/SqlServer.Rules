@@ -613,7 +613,7 @@ namespace SqlServer.Rules
 
             foreach (var referencedTable in referencedTables)
             {
-                string fullColumnName = referencedTable.Name.ToString() + ".[" + column.MultiPartIdentifier.Identifiers.Last().Value + "]";
+                string fullColumnName = referencedTable.Name + ".[" + column.MultiPartIdentifier.Identifiers.Last().Value + "]";
                 var retColumn = referencedTable.GetReferencedRelationshipInstances(Table.Columns).FirstOrDefault(p => _comparer.Equals(p.ObjectName.ToString(), fullColumnName));
 
                 if (retColumn != null) { return referencedTable; }
