@@ -160,11 +160,10 @@ namespace SqlServer.Dac
             if (!(stmt.GetType() == typeof(TSqlStatement) || stmt.GetType() == typeof(TSqlStatementSnippet))) { return stmt; }
 
             var tsqlParser = new TSql140Parser(true);
-            TSqlFragment fragment;
             using (StringReader stringReader = new StringReader(((TSqlStatementSnippet)stmt).Script))
             {
                 IList<ParseError> parseErrors = new List<ParseError>();
-                fragment = tsqlParser.Parse(stringReader, out parseErrors);
+                var fragment = tsqlParser.Parse(stringReader, out parseErrors);
                 if (parseErrors.Any()) { return baseFragment; }
 
                 TypesVisitor visitor = new TypesVisitor(typesToLookFor);
