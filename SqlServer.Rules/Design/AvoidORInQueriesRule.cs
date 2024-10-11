@@ -79,7 +79,7 @@ namespace SqlServer.Rules.Design
             return problems;
         }
 
-        private bool TestClause(BooleanParenthesisExpression be)
+        private static bool TestClause(BooleanParenthesisExpression be)
         {
             if (be.Expression is BooleanBinaryExpression booleanExpression)
             {
