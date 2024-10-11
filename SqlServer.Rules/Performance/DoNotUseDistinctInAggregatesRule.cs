@@ -65,7 +65,7 @@ namespace SqlServer.Rules.Performance
 
             foreach (var statement in selectStatementVisitor.Statements)
             {
-                bool found = false;
+                const bool found = false;
 
                 if (statement.QueryExpression is QuerySpecification selects)
                 {
@@ -82,11 +82,9 @@ namespace SqlServer.Rules.Performance
                                 problems.Add(new SqlRuleProblem(Message, sqlObj, statement));
                             }
                         }
-                        if (found) { break; }
                     }
                 }
             }
-
 
             return problems;
         }
