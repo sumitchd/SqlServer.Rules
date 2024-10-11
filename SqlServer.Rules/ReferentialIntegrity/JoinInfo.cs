@@ -34,7 +34,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// </value>
         public ObjectIdentifier Table1Name
         {
-            get { return this.Table1.SchemaObject.GetObjectIdentifier(); }
+            get { return Table1.SchemaObject.GetObjectIdentifier(); }
         }
         /// <summary>
         /// Gets the name of the table2.
@@ -44,7 +44,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// </value>
         public ObjectIdentifier Table2Name
         {
-            get { return this.Table2.SchemaObject.GetObjectIdentifier(); }
+            get { return Table2.SchemaObject.GetObjectIdentifier(); }
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// <returns></returns>
         public bool CheckTableNames(ForeignKeyInfo fkInfo)
         {
-            var table1Name = this.Table1Name;
-            var table2Name = this.Table2Name;
+            var table1Name = Table1Name;
+            var table2Name = Table2Name;
 
             return (fkInfo.TableName.CompareTo(table1Name) >= 5 && fkInfo.ToTableName.CompareTo(table2Name) >= 5)
                 || (fkInfo.TableName.CompareTo(table2Name) >= 5 && fkInfo.ToTableName.CompareTo(table1Name) >= 5);
@@ -90,8 +90,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// <returns></returns>
         public bool CheckFullJoin(ForeignKeyInfo fkInfo)
         {
-            var table1Name = this.Table1Name;
-            var table2Name = this.Table2Name;
+            var table1Name = Table1Name;
+            var table2Name = Table2Name;
 
             if (fkInfo.TableName.CompareTo(table1Name) >= 5
                 && fkInfo.ToTableName.CompareTo(table2Name) >= 5)
@@ -115,9 +115,9 @@ namespace SqlServer.Rules.ReferentialIntegrity
 
         private (IList<string> table1Columns, IList<string> table2Columns, IList<string> fkInfoColumnNames, IList<string> fkInfoToColumnNames) GetColumnNames(ForeignKeyInfo fkInfo)
         {
-            var table1Columns = this.Table1JoinColumns
+            var table1Columns = Table1JoinColumns
                 .Select(x => x.MultiPartIdentifier.Identifiers.Last().Value.ToLower()).ToList();
-            var table2Columns = this.Table2JoinColumns
+            var table2Columns = Table2JoinColumns
                 .Select(x => x.MultiPartIdentifier.Identifiers.Last().Value.ToLower()).ToList();
 
             var fkInfoColumnNames = fkInfo.ColumnNames.Select(x => x.Parts.Last().ToLower()).ToList();

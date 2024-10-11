@@ -17,7 +17,7 @@ namespace SqlServer.Dac.Visitors
             _procNames = procNames.ToList();
         }
         public IList<ExecuteStatement> Statements { get; } = new List<ExecuteStatement>();
-        public int Count { get { return this.Statements.Count; } }
+        public int Count { get { return Statements.Count; } }
         public override void ExplicitVisit(ExecuteStatement node)
         {
             if (!_procNames.Any())

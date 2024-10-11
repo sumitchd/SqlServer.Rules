@@ -76,7 +76,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName01, // ID used to look up the display name inside the resources file
         null,
@@ -96,7 +96,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA2.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName02, // ID used to look up the display name inside the resources file
         null,
@@ -116,7 +116,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA3.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName03, // ID used to look up the display name inside the resources file
         null,
@@ -136,7 +136,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA4.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName04, // ID used to look up the display name inside the resources file
         null,
@@ -156,7 +156,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA5.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName05, // ID used to look up the display name inside the resources file
         null,
@@ -176,7 +176,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA6.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName06, // ID used to look up the display name inside the resources file
         null,
@@ -196,7 +196,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA07.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName07, // ID used to look up the display name inside the resources file
         null,
@@ -216,7 +216,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA08.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
         RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
         RuleConstants.TSQLSmell_RuleName08, // ID used to look up the display name inside the resources file
         null,
@@ -236,7 +236,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA09.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName09, // ID used to look up the display name inside the resources file
     null,
@@ -258,7 +258,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA10.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName10, // ID used to look up the display name inside the resources file
     null,
@@ -279,7 +279,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA11.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName11, // ID used to look up the display name inside the resources file
     null,
@@ -299,7 +299,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA12.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName12, // ID used to look up the display name inside the resources file
     null,
@@ -319,7 +319,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA13.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName13, // ID used to look up the display name inside the resources file
     null,
@@ -339,7 +339,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA14.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName14, // ID used to look up the display name inside the resources file
     null,
@@ -359,7 +359,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA15.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName15, // ID used to look up the display name inside the resources file
     null,
@@ -380,7 +380,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA16.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName16, // ID used to look up the display name inside the resources file
     null,
@@ -400,7 +400,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA17.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName17, // ID used to look up the display name inside the resources file
     null,
@@ -420,7 +420,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA18.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName18, // ID used to look up the display name inside the resources file
     null,
@@ -441,7 +441,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA19.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName19, // ID used to look up the display name inside the resources file
     null,
@@ -461,7 +461,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA20.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName20, // ID used to look up the display name inside the resources file
     null,
@@ -481,7 +481,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA21.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName21, // ID used to look up the display name inside the resources file
     null,
@@ -501,7 +501,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA22.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName22, // ID used to look up the display name inside the resources file
     null,
@@ -521,7 +521,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA23.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName23, // ID used to look up the display name inside the resources file
     null,
@@ -542,7 +542,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA24.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName24, // ID used to look up the display name inside the resources file
     null,
@@ -562,7 +562,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA25.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName25, // ID used to look up the display name inside the resources file
     null,
@@ -582,7 +582,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA26.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName26, // ID used to look up the display name inside the resources file
     null,
@@ -602,7 +602,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA27.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName27, // ID used to look up the display name inside the resources file
     null,
@@ -622,7 +622,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA28.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName28, // ID used to look up the display name inside the resources file
     null,
@@ -642,7 +642,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA29.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName29, // ID used to look up the display name inside the resources file
     null,
@@ -662,7 +662,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA30.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName30, // ID used to look up the display name inside the resources file
     null,
@@ -682,7 +682,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA31.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName31, // ID used to look up the display name inside the resources file
     null,
@@ -703,7 +703,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA32.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName32, // ID used to look up the display name inside the resources file
     null,
@@ -723,7 +723,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA33.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName33, // ID used to look up the display name inside the resources file
     null,
@@ -743,7 +743,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA34.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName34, // ID used to look up the display name inside the resources file
     null,
@@ -763,7 +763,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA35.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName35, // ID used to look up the display name inside the resources file
     null,
@@ -783,7 +783,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA36.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName36, // ID used to look up the display name inside the resources file
     null,
@@ -804,7 +804,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA37.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName37, // ID used to look up the display name inside the resources file
     null,
@@ -824,7 +824,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA38.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName38, // ID used to look up the display name inside the resources file
     null,
@@ -844,7 +844,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA39.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName39, // ID used to look up the display name inside the resources file
     null,
@@ -864,7 +864,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA40.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName40, // ID used to look up the display name inside the resources file
     null,
@@ -884,7 +884,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA41.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName41, // ID used to look up the display name inside the resources file
     null,
@@ -904,7 +904,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA42.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName42, // ID used to look up the display name inside the resources file
     null,
@@ -925,7 +925,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA43.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName43, // ID used to look up the display name inside the resources file
     null,
@@ -945,7 +945,7 @@ namespace TSQLSmellSCA
 
     }
     
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA44.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
     RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
     RuleConstants.TSQLSmell_RuleName44, // ID used to look up the display name inside the resources file
     null,
@@ -965,7 +965,7 @@ namespace TSQLSmellSCA
 
     }
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA45.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
   RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
   RuleConstants.TSQLSmell_RuleName45, // ID used to look up the display name inside the resources file
   null,
@@ -986,7 +986,7 @@ namespace TSQLSmellSCA
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA46.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
 RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
 RuleConstants.TSQLSmell_RuleName46, // ID used to look up the display name inside the resources file
 null,
@@ -1007,7 +1007,7 @@ RuleScope = SqlRuleScope.Model)] // This rule targets the whole model
     }
 
 
-    [LocalizedExportCodeAnalysisRule(TSQLSmellSCA47.RuleId,
+    [LocalizedExportCodeAnalysisRule(RuleId,
 RuleConstants.ResourceBaseName, // Name of the resource file to look up displayname and description in
 RuleConstants.TSQLSmell_RuleName47, // ID used to look up the display name inside the resources file
 null,

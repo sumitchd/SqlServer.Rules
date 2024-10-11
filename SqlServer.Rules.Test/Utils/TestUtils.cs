@@ -89,7 +89,7 @@ END
 
         public static void DropDbAndDeleteFiles(string dbName, string mdfFilePath = null, string ldfFilePath = null)
         {
-            DropDbAndDeleteFiles(TestUtils.ServerConnectionString, dbName, mdfFilePath, ldfFilePath);
+            DropDbAndDeleteFiles(ServerConnectionString, dbName, mdfFilePath, ldfFilePath);
         }
 
         public static void DropDbAndDeleteFiles(string serverName, string dbName, string mdfFilePath = null, string ldfFilePath = null)
@@ -189,7 +189,7 @@ END
         public static SqlTestDB CreateTestDatabase(InstanceInfo instance, string dbName)
         {
             // Cleanup the database if it already exists
-            TestUtils.DropDatabase(instance, dbName);
+            DropDatabase(instance, dbName);
 
             // Create the test database
             string createDB = string.Format(CultureInfo.InvariantCulture, "create database [{0}]", dbName);

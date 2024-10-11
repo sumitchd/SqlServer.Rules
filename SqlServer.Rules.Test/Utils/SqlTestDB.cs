@@ -88,7 +88,7 @@ namespace SqlServer.Rules.Tests.Utils
             try
             {
                 dbName = Path.GetFileNameWithoutExtension(dacpacPath);
-                db = SqlTestDB.CreateFromDacpac(instance, dacpacPath, deployOptions, dropDatabaseOnCleanup);
+                db = CreateFromDacpac(instance, dacpacPath, deployOptions, dropDatabaseOnCleanup);
                 return true;
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace SqlServer.Rules.Tests.Utils
             {
                 dbName = Path.GetFileNameWithoutExtension(bacpacPath);
                 importOptions = FillDefaultImportOptionsForTest(importOptions);
-                db = SqlTestDB.CreateFromBacpac(instance, bacpacPath, importOptions, dropDatabaseOnCleanup);
+                db = CreateFromBacpac(instance, bacpacPath, importOptions, dropDatabaseOnCleanup);
                 return true;
             }
             catch (Exception ex)
@@ -235,7 +235,7 @@ namespace SqlServer.Rules.Tests.Utils
         {
             Cleanup(ReallyCleanUpDatabase.NotIfItCameFromABackupFile);
 
-            EventHandler<EventArgs> h = this.Disposing;
+            EventHandler<EventArgs> h = Disposing;
             h?.Invoke(this, EventArgs.Empty);
         }
 
@@ -288,7 +288,7 @@ namespace SqlServer.Rules.Tests.Utils
         public void Execute(string script, int? timeout = null)
         {
             IList<string> batches = TestUtils.GetBatches(script);
-            using (SqlConnection connection = this.OpenSqlConnection())
+            using (SqlConnection connection = OpenSqlConnection())
             {
                 foreach (var batch in batches)
                 {
@@ -307,15 +307,15 @@ namespace SqlServer.Rules.Tests.Utils
             catch (Exception ex)
             {
                 string message = string.Format(CultureInfo.CurrentCulture, "Executing script on server '{0}' database '{1}' failed. Error: {2}.\r\n\r\nScript: {3}.)",
-                    this.Instance.DataSource, this.DatabaseName, ex.Message, script);
+                    Instance.DataSource, DatabaseName, ex.Message, script);
                 Debug.WriteLine(message);
             }
         }
 
         public void ExtractDacpac(string filePath, IEnumerable<Tuple<string, string>> tables = null, DacExtractOptions extractOptions = null)
         {
-            DacServices ds = new DacServices(this.BuildConnectionString());
-            ds.Extract(filePath, this.DatabaseName, this.DatabaseName, new Version(1, 0, 0), string.Empty, tables, extractOptions);
+            DacServices ds = new DacServices(BuildConnectionString());
+            ds.Extract(filePath, DatabaseName, DatabaseName, new Version(1, 0, 0), string.Empty, tables, extractOptions);
         }
 
         public bool TryExtractDacpac(string filePath, out string error, IEnumerable<Tuple<string, string>> tables = null, DacExtractOptions extractOptions = null)
@@ -335,8 +335,8 @@ namespace SqlServer.Rules.Tests.Utils
 
         public void ExportBacpac(string filePath, IEnumerable<Tuple<string, string>> tables = null, DacExportOptions extractOptions = null)
         {
-            DacServices ds = new DacServices(this.BuildConnectionString());
-            ds.ExportBacpac(filePath, this.DatabaseName, extractOptions, tables);
+            DacServices ds = new DacServices(BuildConnectionString());
+            ds.ExportBacpac(filePath, DatabaseName, extractOptions, tables);
         }
 
         public bool TryExportBacpac(string filePath, out string error, IEnumerable<Tuple<string, string>> tables = null, DacExportOptions exportOptions = null)

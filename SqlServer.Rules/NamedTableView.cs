@@ -18,7 +18,7 @@ namespace SqlServer.Rules
         /// <param name="namedTable">The named table.</param>
         public NamedTableView(NamedTableReference namedTable)
         {
-            this.Name = namedTable.GetName("dbo");
+            Name = namedTable.GetName("dbo");
             if (namedTable.Alias != null && !HasAlias(namedTable.Alias.Value))
             {
                 Aliases.Add(namedTable.Alias.Value);
@@ -71,7 +71,7 @@ namespace SqlServer.Rules
         {
             var tableNameOrAlias = new ObjectIdentifier(id.Parts.Take(id.Parts.Count - 1));
 
-            return this.NameToId().CompareTo(tableNameOrAlias) >= 5
+            return NameToId().CompareTo(tableNameOrAlias) >= 5
                 || HasAlias(tableNameOrAlias.Parts.First());
         }
 
@@ -107,7 +107,7 @@ namespace SqlServer.Rules
         /// </returns>
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
     }
 }

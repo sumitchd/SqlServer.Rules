@@ -299,7 +299,7 @@ namespace SqlServer.Rules.Tests.Utils
                         new RuleConfiguration(ruleIdToRun)
                     };
             ruleSettings.DisableRulesNotInSettings = true;
-            CodeAnalysisService service = factory.CreateAnalysisService(this.ModelForAnalysis.Version, new CodeAnalysisServiceSettings()
+            CodeAnalysisService service = factory.CreateAnalysisService(ModelForAnalysis.Version, new CodeAnalysisServiceSettings()
             {
                 RuleSettings = ruleSettings
             });
@@ -351,7 +351,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         private string DumpProblemsToString(IEnumerable<SqlRuleProblem> problems)
         {
-            DisplayServices displayServices = this.ModelForAnalysis.DisplayServices;
+            DisplayServices displayServices = ModelForAnalysis.DisplayServices;
             List<SqlRuleProblem> problemList = new List<SqlRuleProblem>(problems);
 
             SortProblemsByFileName(problemList);

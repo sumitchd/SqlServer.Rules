@@ -54,11 +54,11 @@ namespace SqlServer.Rules.Tests.Utils
                 int temp;
                 if (int.TryParse(value, out temp))
                 {
-                    this.ConnectTimeout = temp;
+                    ConnectTimeout = temp;
                 }
                 else
                 {
-                    this.ConnectTimeout = 15;
+                    ConnectTimeout = 15;
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace SqlServer.Rules.Tests.Utils
             scsb.MultipleActiveResultSets = false;
             if (ConnectTimeout != 15)
             {
-                scsb.ConnectTimeout = this.ConnectTimeout;
+                scsb.ConnectTimeout = ConnectTimeout;
             }
 
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(password))
