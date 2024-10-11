@@ -9,8 +9,8 @@ namespace TSQLSmellSCA
     public class TSQLSmellWorker{
 
         
-        private TSqlModel _model;
-        private string _ruleID;
+        private readonly TSqlModel _model;
+        private readonly string _ruleID;
 
        public TSQLSmellWorker(SqlRuleExecutionContext context,string ruleID)
         {

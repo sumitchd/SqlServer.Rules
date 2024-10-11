@@ -4,7 +4,7 @@ namespace TSQLSmellSCA
 {
     public class TopProcessor
     {
-        private Smells _smells;
+        private readonly Smells _smells;
 
         public TopProcessor(Smells smells)
         {

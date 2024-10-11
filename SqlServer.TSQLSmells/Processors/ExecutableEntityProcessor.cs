@@ -5,7 +5,7 @@ namespace TSQLSmellSCA
 {
     public class ExecutableEntityProcessor
     {
-        private Smells _smells;
+        private readonly Smells _smells;
 
         public ExecutableEntityProcessor(Smells smells)
         {

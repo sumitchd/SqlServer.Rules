@@ -5,7 +5,7 @@ namespace TSQLSmellSCA
 {
     public class WhereProcessor
     {
-        private Smells _smells;
+        private readonly Smells _smells;
 
         public WhereProcessor(Smells smells)
         {

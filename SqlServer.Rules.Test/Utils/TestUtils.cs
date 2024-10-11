@@ -63,7 +63,7 @@ END
 
         private const string _dropDatabaseIfExistAzure = @"DROP DATABASE [{0}];";
 
-        private static Regex _batch = new Regex(@"GO\s*$", RegexOptions.Multiline);
+        private static readonly Regex _batch = new Regex(@"GO\s*$", RegexOptions.Multiline);
         private static InstanceInfo _defaultInstanceInfo;
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace TSQLSmellSCA
 {
     public class ProcedureStatementBodyProcessor
     {
-        private Smells _smells;
+        private readonly Smells _smells;
         public bool NoCountSet = false;
         private IList<ProcedureParameter> _parameterList;
 

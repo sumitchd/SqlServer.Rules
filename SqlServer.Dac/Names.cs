@@ -179,9 +179,9 @@ namespace SqlServer.Dac
             {
                 return $"[{column.MultiPartIdentifier.Identifiers.First().Value}]";
             }
-            var tname = "[" + string.Join("].[", column.MultiPartIdentifier.Identifiers.Take(cnt - 1).Select(i => i.Value)) + "]";
+            var tName = "[" + string.Join("].[", column.MultiPartIdentifier.Identifiers.Take(cnt - 1).Select(i => i.Value)) + "]";
 
-            return tname;
+            return tName;
         }
 
         /// <summary>

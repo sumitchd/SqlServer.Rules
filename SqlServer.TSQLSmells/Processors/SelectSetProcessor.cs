@@ -4,7 +4,7 @@ namespace TSQLSmellSCA
 {
     public class SelectSetProcessor
     {
-        private Smells _smells;
+        private readonly Smells _smells;
 
         public SelectSetProcessor(Smells smells)
         {
