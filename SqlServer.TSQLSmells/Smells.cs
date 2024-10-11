@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Resources;
 using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.CodeAnalysis;
 using Microsoft.SqlServer.Dac.Model;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
 
 namespace TSQLSmellSCA
 {
@@ -105,11 +105,9 @@ namespace TSQLSmellSCA
             get { return _procedureStatementBodyProcessor; }
         }
 
-
         public void SendFeedBack(int errorNum, TSqlFragment errorFrg)
         {
             if (errorNum != _iRule) return;
-
 
             ResourceManager rm = Resources.ResourceManager;
 
@@ -146,6 +144,7 @@ namespace TSQLSmellSCA
                             SendFeedBack(28, querySpec.OrderByClause);
                         }
                     }
+
                     if (querySpec.TopRowFilter != null) _topProcessor.ProcessTopFilter(querySpec.TopRowFilter);
 
                     break;
@@ -166,9 +165,7 @@ namespace TSQLSmellSCA
             }
         }
 
-
         //void ProcessSelectElements(
-
 
         public void ProcessTsqlFragment(TSqlFragment fragment)
         {
@@ -242,6 +239,7 @@ namespace TSQLSmellSCA
                     {
                         ProcessTsqlFragment(innerFragment);
                     }
+
                     break;
                 case "TSqlScript":
                     var script = (TSqlScript) fragment;
@@ -249,6 +247,7 @@ namespace TSQLSmellSCA
                     {
                         ProcessTsqlFragment(innerBatch);
                     }
+
                     break;
                 case "TryCatchStatement":
                     var trycatch = (TryCatchStatement)fragment;
@@ -262,6 +261,7 @@ namespace TSQLSmellSCA
                     {
                         ProcessTsqlFragment(innerStmt);
                     }
+
                     break;
                 case "BooleanParenthesisExpression":
                     var expression = (BooleanParenthesisExpression) fragment;
@@ -329,9 +329,10 @@ namespace TSQLSmellSCA
                 {
                     foreach (TSqlParserToken parserToken in frg.ScriptTokenStream)
                     {
- //                       if (parserToken.TokenType == TSqlTokenType.SingleLineComment) SendFeedBack(23, parserToken);
+                        //if (parserToken.TokenType == TSqlTokenType.SingleLineComment) SendFeedBack(23, parserToken);
                     }
                 }
+
                 ProcessTsqlFragment(frg);
             }
 

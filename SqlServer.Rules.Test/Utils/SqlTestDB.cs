@@ -25,11 +25,11 @@
 //</copyright>
 //------------------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Dac;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
