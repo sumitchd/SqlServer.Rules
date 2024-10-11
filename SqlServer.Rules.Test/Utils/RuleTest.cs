@@ -352,7 +352,7 @@ namespace SqlServer.Rules.Tests.Utils
         private string DumpProblemsToString(IEnumerable<SqlRuleProblem> problems)
         {
             DisplayServices displayServices = ModelForAnalysis.DisplayServices;
-            List<SqlRuleProblem> problemList = new List<SqlRuleProblem>(problems);
+            List<SqlRuleProblem> problemList = [..problems];
 
             SortProblemsByFileName(problemList);
 

@@ -171,7 +171,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         private SqlTestDB()
         {
-            _cleanupScripts = new List<string>();
+            _cleanupScripts = [];
         }
 
         /// <summary>
