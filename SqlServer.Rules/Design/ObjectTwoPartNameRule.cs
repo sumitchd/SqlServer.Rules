@@ -69,7 +69,7 @@ namespace SqlServer.Rules.Design
             var execVisitor = new ExecuteVisitor();
             fragment.Accept(fromClauseVisitor, execVisitor);
 
-            var tableVisitor = new NamedTableReferenceVisitor() { TypeFilter = ObjectTypeFilter.PermanentOnly };
+            var tableVisitor = new NamedTableReferenceVisitor { TypeFilter = ObjectTypeFilter.PermanentOnly };
             foreach (var from in fromClauseVisitor.Statements)
             {
                 from.Accept(tableVisitor);

@@ -74,7 +74,7 @@ namespace SqlServer.Rules.Design
                 columnList.AddRange(columnVisitor.NotIgnoredStatements(RuleId)
                     .Where(col => col.DataType != null)
                     .Select(col =>
-                    new TableColumnInfo()
+                    new TableColumnInfo
                     {
                         TableName = table.Name.GetName(),
                         ColumnName = col.ColumnIdentifier.Value,

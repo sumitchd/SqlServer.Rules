@@ -294,12 +294,12 @@ namespace SqlServer.Rules.Tests.Utils
         private CodeAnalysisService CreateCodeAnalysisService(string ruleIdToRun)
         {
             CodeAnalysisServiceFactory factory = new CodeAnalysisServiceFactory();
-            var ruleSettings = new CodeAnalysisRuleSettings()
-                    {
+            var ruleSettings = new CodeAnalysisRuleSettings
+            {
                         new RuleConfiguration(ruleIdToRun)
                     };
             ruleSettings.DisableRulesNotInSettings = true;
-            CodeAnalysisService service = factory.CreateAnalysisService(ModelForAnalysis.Version, new CodeAnalysisServiceSettings()
+            CodeAnalysisService service = factory.CreateAnalysisService(ModelForAnalysis.Version, new CodeAnalysisServiceSettings
             {
                 RuleSettings = ruleSettings
             });

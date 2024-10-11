@@ -120,7 +120,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
             var fkForeignColumns = fk.GetReferencedRelationshipInstances(ForeignKeyConstraint.ForeignColumns, DacQueryScopes.All)
                 .Select(x => x.ObjectName).ToList();
 
-            return new ForeignKeyInfo()
+            return new ForeignKeyInfo
             {
                 Name = fk.Name.GetName(),
                 TableName = new ObjectIdentifier(GetTableOrAliasName(fkColumns.FirstOrDefault())),

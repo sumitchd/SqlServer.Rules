@@ -85,7 +85,7 @@ namespace SqlServer.Rules.Performance
                 //we have an aliased table we need to find out what the real table is so we can look up its columns
                 if (update.UpdateSpecification.FromClause != null)
                 {
-                    var namedTableVisitor = new NamedTableReferenceVisitor() { TypeFilter = ObjectTypeFilter.PermanentOnly };
+                    var namedTableVisitor = new NamedTableReferenceVisitor { TypeFilter = ObjectTypeFilter.PermanentOnly };
                     update.UpdateSpecification.FromClause.Accept(namedTableVisitor);
 
                     target = namedTableVisitor.Statements

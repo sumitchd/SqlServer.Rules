@@ -32,7 +32,7 @@ namespace SqlServer.Rules.Report
             //load the dacpac
             TSqlModel model = TSqlModel.LoadFromDacpac(
                     request.InputPath
-                    , new ModelLoadOptions()
+                    , new ModelLoadOptions
                     {
                         LoadAsScriptBackedModel = true,
                         ModelStorageType = Microsoft.SqlServer.Dac.DacSchemaModelStorageType.Memory
@@ -162,7 +162,7 @@ namespace SqlServer.Rules.Report
         {
             return (from r in rules
                     where suppressIssueTypes == null ? true : !suppressIssueTypes.Invoke(r)
-                    select new IssueType()
+                    select new IssueType
                     {
                         Severity = r.Severity.ToString(),
                         Description = r.DisplayDescription,
