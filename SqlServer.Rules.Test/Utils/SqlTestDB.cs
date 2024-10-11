@@ -185,10 +185,10 @@ namespace SqlServer.Rules.Tests.Utils
         {
             if (string.IsNullOrEmpty(dbName))
             {
-                throw new ArgumentOutOfRangeException("dbName");
+                throw new ArgumentOutOfRangeException(nameof(dbName));
             }
 
-            _instance = instance ?? throw new ArgumentNullException("instance");
+            _instance = instance ?? throw new ArgumentNullException(nameof(instance));
             _dbName = dbName;
 
             _cleanupDatabase = true;

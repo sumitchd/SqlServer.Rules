@@ -264,11 +264,11 @@ namespace SqlServer.Rules.Tests.Utils
         {
             if (fullId == null)
             {
-                throw new ArgumentNullException("fullId");
+                throw new ArgumentNullException(nameof(fullId));
             }
             if (fullId == null)
             {
-                throw new ArgumentNullException("verify");
+                throw new ArgumentNullException(nameof(verify));
             }
 
             CreateModelUsingTestScripts();
