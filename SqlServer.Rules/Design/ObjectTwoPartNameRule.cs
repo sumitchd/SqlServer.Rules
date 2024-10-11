@@ -89,7 +89,7 @@ namespace SqlServer.Rules.Design
             return problems;
         }
 
-        private bool CheckProc(ExecuteStatement proc)
+        private static bool CheckProc(ExecuteStatement proc)
         {
             if (!(proc.ExecuteSpecification.ExecutableEntity is ExecutableProcedureReference execProc))
             {

@@ -30,7 +30,7 @@ namespace SqlServer.Dac.Visitors
             }
         }
 
-        private bool CheckProcName(ExecuteStatement exec, string name)
+        private static bool CheckProcName(ExecuteStatement exec, string name)
         {
             if (!(exec.ExecuteSpecification.ExecutableEntity is ExecutableProcedureReference execProc))
             {

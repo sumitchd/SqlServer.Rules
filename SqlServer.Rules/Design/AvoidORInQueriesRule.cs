@@ -94,7 +94,7 @@ namespace SqlServer.Rules.Design
             return false;
         }
 
-        private string GetVariableName(BooleanExpression bex)
+        private static string GetVariableName(BooleanExpression bex)
         {
             var ret = Guid.NewGuid().ToString();
             if (bex is BooleanIsNullExpression nullExpr && nullExpr.Expression is VariableReference varExpr)

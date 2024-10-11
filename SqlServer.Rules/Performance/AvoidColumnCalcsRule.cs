@@ -77,7 +77,7 @@ namespace SqlServer.Rules.Performance
             return problems;
         }
 
-        private bool? CheckBinaryExpression(BinaryExpression bin)
+        private static bool? CheckBinaryExpression(BinaryExpression bin)
         {
             bool? ret = null;
 

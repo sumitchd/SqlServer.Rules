@@ -67,7 +67,7 @@ namespace SqlServer.Rules.Design
             return problems;
         }
 
-        private bool IsClustered(TSqlObject i)
+        private static bool IsClustered(TSqlObject i)
         {
             if (i.ObjectType == ModelSchema.Index)
             {

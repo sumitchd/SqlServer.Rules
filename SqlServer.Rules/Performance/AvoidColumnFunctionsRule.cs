@@ -80,7 +80,7 @@ namespace SqlServer.Rules.Performance
             return problems;
         }
 
-        private bool CheckFunction(FunctionCall func)
+        private static bool CheckFunction(FunctionCall func)
         {
             if (func == null) { return false; }
 

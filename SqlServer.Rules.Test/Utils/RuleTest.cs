@@ -324,7 +324,7 @@ namespace SqlServer.Rules.Tests.Utils
             verify(analysisResult, problemsString);
         }
 
-        private void DumpErrors(IList<ExtensibilityError> errors)
+        private static void DumpErrors(IList<ExtensibilityError> errors)
         {
             if (errors.Count > 0)
             {
@@ -385,7 +385,7 @@ namespace SqlServer.Rules.Tests.Utils
             return sb.ToString();
         }
 
-        private void AppendOneProblemItem(StringBuilder sb, string name, string content)
+        private static void AppendOneProblemItem(StringBuilder sb, string name, string content)
         {
             sb.AppendLine(string.Format(CultureInfo.CurrentCulture, "{0}: {1}", name, content));
         }
@@ -393,7 +393,6 @@ namespace SqlServer.Rules.Tests.Utils
         public static void SortProblemsByFileName(List<SqlRuleProblem> problemList)
         {
             problemList.Sort(new ProblemComparer());
-
         }
 
         private class ProblemComparer : IComparer<SqlRuleProblem>
