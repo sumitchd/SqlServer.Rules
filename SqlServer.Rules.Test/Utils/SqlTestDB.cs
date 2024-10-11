@@ -2,19 +2,19 @@
 //<copyright company="Microsoft">
 //
 //    The MIT License (MIT)
-//    
+//
 //    Copyright (c) 2015 Microsoft
-//    
+//
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
 //    in the Software without restriction, including without limitation the rights
 //    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //    copies of the Software, and to permit persons to whom the Software is
 //    furnished to do so, subject to the following conditions:
-//    
+//
 //    The above copyright notice and this permission notice shall be included in all
 //    copies or substantial portions of the Software.
-//    
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -176,23 +176,19 @@ namespace SqlServer.Rules.Tests.Utils
 
         /// <summary>
         /// Represents a test Database that was created for tests.  The DB has already been attached/created,
-        /// and will not be removed unless dropDatabaseOnCleanup is true. 
+        /// and will not be removed unless dropDatabaseOnCleanup is true.
         /// </summary>
         /// <param name="instance"></param>
         /// <param name="dropDatabaseOnCleanup">If true the db instance will be dropped when the Cleanup method is called</param>
         /// <param name="dbName"></param>
         public SqlTestDB(InstanceInfo instance, string dbName, bool dropDatabaseOnCleanup = false)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
             if (string.IsNullOrEmpty(dbName))
             {
                 throw new ArgumentOutOfRangeException("dbName");
             }
 
-            _instance = instance;
+            _instance = instance ?? throw new ArgumentNullException("instance");
             _dbName = dbName;
 
             _cleanupDatabase = true;
@@ -362,7 +358,7 @@ namespace SqlServer.Rules.Tests.Utils
         /// <param name="reallyCleanUpDatabase">ReallyCleanUpDatabase.NotIfItCameFromABackupFile: means to
         /// check whether the database came from a backup file or has previously been cleaned. If either
         /// of those two things is true, then the database is not cleaned up.
-        /// 
+        ///
         /// ReallyCleanUpDatabase.YesReally: means to clean up the database regardless of its origin.
         /// </param>
         public void Cleanup(ReallyCleanUpDatabase reallyCleanUpDatabase = ReallyCleanUpDatabase.YesReally)
