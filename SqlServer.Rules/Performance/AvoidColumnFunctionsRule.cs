@@ -87,7 +87,7 @@ namespace SqlServer.Rules.Performance
             return func.Parameters.OfType<ColumnReferenceExpression>().Any(col =>
             {
                 var colId = col.MultiPartIdentifier?.GetObjectIdentifier();
-                if (colId == null || colId.Parts.Count() == 0) { return false; }
+                if (colId == null || colId.Parts.Count == 0) { return false; }
                 return !Constants.DateParts.Contains(colId.Parts.Last().ToLower());
             }) && !Constants.Aggregates.Contains(func.FunctionName.Value.ToUpper());
         }

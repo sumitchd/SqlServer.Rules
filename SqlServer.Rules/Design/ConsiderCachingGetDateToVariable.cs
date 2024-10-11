@@ -72,7 +72,7 @@ namespace SqlServer.Rules.Design
             fragment.Accept(actionStatementVisitor);
             statements.AddRange(actionStatementVisitor.NotIgnoredStatements(RuleId));
 
-            if (statements.Count() > 1)
+            if (statements.Count > 1)
             {
                 statements.ForEach(statement =>
                 {

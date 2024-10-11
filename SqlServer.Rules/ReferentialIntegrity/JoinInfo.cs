@@ -98,8 +98,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
             {
                 var (table1Columns, table2Columns, fkInfoColumnNames, fkInfoToColumnNames) = GetColumnNames(fkInfo);
 
-                return fkInfoColumnNames.Intersect(table1Columns).Count() == fkInfoColumnNames.Count()
-                    && fkInfoToColumnNames.Intersect(table2Columns).Count() == fkInfoToColumnNames.Count();
+                return fkInfoColumnNames.Intersect(table1Columns).Count() == fkInfoColumnNames.Count
+                    && fkInfoToColumnNames.Intersect(table2Columns).Count() == fkInfoToColumnNames.Count;
             }
 
             if (fkInfo.TableName.CompareTo(table2Name) >= 5
@@ -107,8 +107,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
             {
                 var (table1Columns, table2Columns, fkInfoColumnNames, fkInfoToColumnNames) = GetColumnNames(fkInfo);
 
-                return fkInfoColumnNames.Intersect(table2Columns).Count() == fkInfoColumnNames.Count()
-                    && fkInfoToColumnNames.Intersect(table1Columns).Count() == fkInfoToColumnNames.Count();
+                return fkInfoColumnNames.Intersect(table2Columns).Count() == fkInfoColumnNames.Count
+                    && fkInfoToColumnNames.Intersect(table1Columns).Count() == fkInfoToColumnNames.Count;
             }
             return false;
         }

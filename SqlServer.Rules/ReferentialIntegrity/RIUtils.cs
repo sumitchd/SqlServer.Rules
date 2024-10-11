@@ -218,10 +218,10 @@ namespace SqlServer.Rules.ReferentialIntegrity
         private static IList<string> GetTableOrAliasName(ObjectIdentifier identifier)
         {
             var parts = identifier.Parts;
-            if (parts.Count() == 1) { return parts; }
+            if (parts.Count == 1) { return parts; }
 
             //take the first parts minus one from the length. as they could use dbo.Table.Column or Table.Column, or t1.Column
-            return parts.Take(parts.Count() - 1).ToList();
+            return parts.Take(parts.Count - 1).ToList();
         }
 
         private static IList<string> GetTableOrAliasName(IEnumerable<Identifier> identifiers)
