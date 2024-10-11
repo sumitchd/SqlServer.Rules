@@ -6,7 +6,7 @@ For example, a test case for nonSARGablility rules would be placed in the Perfor
 
 An example folder structure would be:
 
-```
+```plaintext
 TestScripts
 └───_Setup
 |   |   table1.sql

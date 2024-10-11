@@ -83,9 +83,9 @@ namespace SqlServer.Dac
         }
 
         /// <summary>
-        /// Converts a tsql object into a fragment, if it is not already one. 
+        /// Converts a T-SQL object into a fragment, if it is not already one.
         /// </summary>
-        /// <param name="forceParse">If true will force the parsing of the sql into a fragment</param>
+        /// <param name="forceParse">If true will force the parsing of the SQL into a fragment</param>
         /// <returns></returns>
         public static TSqlFragment GetFragment(this SqlRuleExecutionContext ruleExecutionContext, bool forceParse = false)
         {
@@ -109,7 +109,7 @@ namespace SqlServer.Dac
         }
 
         /// <summary>
-        /// Converts a tsql object into a fragment
+        /// Converts a T-SQL object into a fragment
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="parseErrors"></param>
@@ -135,7 +135,7 @@ namespace SqlServer.Dac
             {
                 fragment = tsqlParser.Parse(stringReader, out parseErrors);
 
-                //so even after parsing, some scripts are coming back as tsql script, lets try to get the root object
+                //so even after parsing, some scripts are coming back as T-SQL script, lets try to get the root object
                 if (fragment != null && fragment.GetType() == typeof(TSqlScript))
                 {
                     fragment = ((TSqlScript)fragment).Batches.FirstOrDefault()?.Statements.FirstOrDefault();
@@ -152,8 +152,8 @@ namespace SqlServer.Dac
         /// <returns></returns>
         public static TSqlFragment GetFragment(this TSqlFragment baseFragment, params Type[] typesToLookFor)
         {
-            //for some odd reason, sometimes the fragments do not pass in properly to the rules.... 
-            //this function can re-parse that fragment into its true fragment, and not a sql script...
+            //for some odd reason, sometimes the fragments do not pass in properly to the rules....
+            //this function can re-parse that fragment into its true fragment, and not a SQL script...
             if (!(baseFragment is TSqlScript)) { return baseFragment; }
 
             var stmt = ((TSqlScript)baseFragment)?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();

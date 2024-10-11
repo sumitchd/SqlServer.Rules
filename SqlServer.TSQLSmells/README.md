@@ -5,4 +5,3 @@ This project implements a number of SQL Server static code analysis rules, and p
 ## Getting Started
 
 See my blog post [here](https://erikej.github.io/dacfx/codeanalysis/sqlserver/2024/04/02/dacfx-codeanalysis.html) for a step-by-step guide on how to use these rules in your SQL projects.
-

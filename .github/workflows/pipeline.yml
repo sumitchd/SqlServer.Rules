@@ -3,7 +3,7 @@ name: .NET Pipeline
 # Steps Information:
 
 # SplitRepoName - splits the repo name into two parts : name, owner
-# Setup .Net
+# Setup .NET
 # Checkout
 # Install dotnet format - installs the dotnet format tool which will be used for the linting
 # Linter - validates the code against the editorconfig and throws an error if any of the rules fail
