@@ -1,20 +1,20 @@
 ﻿Param (
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory= $true)]
     [string]
     $ParentDirectory,
-    
-    [Parameter(Mandatory=$true)]
-    [string] 
+
+    [Parameter(Mandatory = $true)]
+    [string]
     $BuildDirectory,
-    
-    [Parameter(Mandatory=$true)]
+
+    [Parameter(Mandatory = $true)]
     [string]
     $releasePath
 )
 
 Clear-Host
 
-# ensure we dont have trailing back slashes, so we dont double up
+# Ensure we dont have trailing back slashes, so we dont double up
 $ParentDirectory = $ParentDirectory.TrimEnd("\\")
 $BuildDirectory = $BuildDirectory.TrimEnd("\\")
 
@@ -28,7 +28,6 @@ if (!(Test-Path $rulesDir)) {
     New-Item $rulesDir -ItemType Directory | Out-Null
 }
 
-
 Copy-Item -path "$BuildDirectory\*.*" -Destination $rulesDir
 
 $compress = @{
@@ -37,6 +36,5 @@ $compress = @{
   DestinationPath = $releasePath
 }
 
-Write-Output "Release written to: $releasePath" 
-Compress-Archive @compress -Force -Verbose 
-
+Write-Output "Release written to: $releasePath"
+Compress-Archive @compress -Force -Verbose

@@ -1,13 +1,14 @@
 ﻿Param(
-    [Parameter(Mandatory=$true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
-    [string] $ProjectPath, 
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+    [string] $ProjectPath,
     [string] $Configuration = "Release",
     [string] $Platform = "AnyCPU",
     [string] $TargetFramework = "^net.*"
 )
+
 Clear-Host
 
-[xml]$csproj = (Get-Content -Path $ProjectPath -Raw) 
+[xml]$csproj = (Get-Content -Path $ProjectPath -Raw)
 
 $framework = $csproj.Project.PropertyGroup.TargetFramework -split ";|," | Where-Object { $_ -match $TargetFramework } | Select-Object -First 1
 
@@ -34,7 +35,7 @@ $assemblyName = $csproj.Project.PropertyGroup.AssemblyName | Select-Object -Firs
 
 if ([string]::IsNullOrWhiteSpace($assemblyName)) {
     # if not set, assume the project name
-    $assemblyName = [System.IO.Path]::GetFileNameWithoutExtension($ProjectPath) 
+    $assemblyName = [System.IO.Path]::GetFileNameWithoutExtension($ProjectPath)
 }
 
 $outputPath = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($ProjectPath), $outputPath, $framework)
@@ -42,4 +43,3 @@ $outputDll = [System.IO.Path]::Combine($outputPath, "$assemblyName.dll")
 
 echo "BUILD_OUTPUT_PATH=$outputPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 echo "BUILD_OUTPUT_DLL=$outputDll" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
