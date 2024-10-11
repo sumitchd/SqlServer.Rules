@@ -65,7 +65,7 @@ namespace SqlServer.Rules.Performance
             var visitor = new DataModificationStatementVisitor();
             fragment.Accept(visitor);
 
-            var modelFunctions = model.GetObjects(DacQueryScopes.UserDefined, new[] { ModelSchema.ScalarFunction, ModelSchema.TableValuedFunction });
+            var modelFunctions = model.GetObjects(DacQueryScopes.UserDefined, ModelSchema.ScalarFunction, ModelSchema.TableValuedFunction);
 
             foreach (var stmt in visitor.Statements)
             {

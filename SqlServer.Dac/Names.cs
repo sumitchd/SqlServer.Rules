@@ -86,7 +86,7 @@ namespace SqlServer.Dac
             var identifiers = table.SchemaObject.Identifiers;
             if (identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
             {
-                return new ObjectIdentifier(new[] { assumedSchema, identifiers.First().Value });
+                return new ObjectIdentifier(assumedSchema, identifiers.First().Value);
             }
             return new ObjectIdentifier(identifiers.Skip(Math.Max(0, identifiers.Count - 2)).Select(x => x.Value));
         }
@@ -95,7 +95,7 @@ namespace SqlServer.Dac
             var identifiers = proc.Name.Identifiers;
             if (identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
             {
-                return new ObjectIdentifier(new[] { assumedSchema, identifiers.First().Value });
+                return new ObjectIdentifier(assumedSchema, identifiers.First().Value);
             }
             return new ObjectIdentifier(identifiers.Skip(Math.Max(0, identifiers.Count - 2)).Select(x => x.Value));
         }
@@ -103,7 +103,7 @@ namespace SqlServer.Dac
         {
             if (name.Identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
             {
-                return new ObjectIdentifier(new[] { assumedSchema, name.Identifiers.First().Value });
+                return new ObjectIdentifier(assumedSchema, name.Identifiers.First().Value);
             }
             return new ObjectIdentifier(name.Identifiers.Select(x => x.Value));
         }
@@ -111,7 +111,7 @@ namespace SqlServer.Dac
         {
             if (name.Identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
             {
-                return new ObjectIdentifier(new[] { assumedSchema, name.Identifiers.First().Value });
+                return new ObjectIdentifier(assumedSchema, name.Identifiers.First().Value);
             }
             return new ObjectIdentifier(name.Identifiers.Select(x => x.Value));
         }
