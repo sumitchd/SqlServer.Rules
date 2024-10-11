@@ -152,10 +152,10 @@ namespace SqlServer.Dac
         {
             //for some odd reason, sometimes the fragments do not pass in properly to the rules....
             //this function can re-parse that fragment into its true fragment, and not a sql script...
-            if (!(baseFragment is TSqlScript)) { return baseFragment; }
+            if (!(baseFragment is TSqlScript script)) { return baseFragment; }
 
-            var stmt = ((TSqlScript)baseFragment)?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
-            if (stmt == null) { return baseFragment; }
+            var stmt = script?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
+            if (stmt == null) { return script; }
             //we don't need to parse the fragment unless it is of type TSqlStatement or TSqlStatementSnippet.... just return the type it found
             if (!(stmt.GetType() == typeof(TSqlStatement) || stmt.GetType() == typeof(TSqlStatementSnippet))) { return stmt; }
 
@@ -164,7 +164,7 @@ namespace SqlServer.Dac
             {
                 IList<ParseError> parseErrors = new List<ParseError>();
                 var fragment = tsqlParser.Parse(stringReader, out parseErrors);
-                if (parseErrors.Any()) { return baseFragment; }
+                if (parseErrors.Any()) { return script; }
 
                 TypesVisitor visitor = new TypesVisitor(typesToLookFor);
                 fragment.Accept(visitor);
@@ -175,7 +175,7 @@ namespace SqlServer.Dac
                 }
             }
             //if we got here, the object was tsqlscript, but was not parseable.... so we bail out
-            return baseFragment;
+            return script;
         }
 
         public static TSqlFragment GetFragment(this FileInfo file)
