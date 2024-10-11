@@ -71,9 +71,8 @@ namespace SqlServer.Dac
                         ret = execProc.ProcedureReference.ProcedureReference.Name.GetObjectIdentifier(assumedSchema);
                     }
                     break;
-                case TSqlScript script:
-                case TSqlStatementSnippet frag:
-                    ret = null;
+                case TSqlScript _:
+                case TSqlStatementSnippet _:
                     break;
                 default:
                     throw new ApplicationException("Unable to determine fragment type");
@@ -198,7 +197,7 @@ namespace SqlServer.Dac
 
         public static string GetConstraintName(this ConstraintDefinition constraint)
         {
-            string ret = null;
+            string ret;
             if (constraint == null) { return null; }
 
             switch (constraint)
@@ -227,7 +226,7 @@ namespace SqlServer.Dac
 
         public static ObjectIdentifier GetObjectName(this TSqlFragment fragment, string assumedSchema = "dbo")
         {
-            ObjectIdentifier ret = null;
+            ObjectIdentifier ret;
             if (fragment == null) { return null; }
 
             switch (fragment)
