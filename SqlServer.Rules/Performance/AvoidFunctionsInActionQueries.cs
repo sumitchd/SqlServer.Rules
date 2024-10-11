@@ -4,10 +4,7 @@ using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace SqlServer.Rules.Performance

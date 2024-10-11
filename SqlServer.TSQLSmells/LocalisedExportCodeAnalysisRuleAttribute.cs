@@ -17,7 +17,6 @@
 //------------------------------------------------------------------------------
 
 using Microsoft.SqlServer.Dac.CodeAnalysis;
-using System.ComponentModel;
 using System;
 using System.Globalization;
 using System.Reflection;

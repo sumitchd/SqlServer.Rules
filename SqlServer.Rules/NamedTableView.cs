@@ -1,12 +1,9 @@
 ﻿using Microsoft.SqlServer.Dac.Model;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac;
-using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SqlServer.Rules
 {

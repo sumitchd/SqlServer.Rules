@@ -1,13 +1,7 @@
 ﻿using Microsoft.SqlServer.Dac.CodeAnalysis;
-using Microsoft.SqlServer.Dac.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlServer.Rules.Design;
-using SqlServer.Rules.Performance;
-using SqlServer.Rules.Test;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SqlServer.Rules.Tests.Performance
 {

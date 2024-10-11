@@ -2,12 +2,9 @@
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
-using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Index = Microsoft.SqlServer.Dac.Model.Index;
 
 namespace SqlServer.Rules.ReferentialIntegrity

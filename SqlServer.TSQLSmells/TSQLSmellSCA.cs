@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Microsoft.SqlServer.Dac.CodeAnalysis;
 using Microsoft.SqlServer.Dac.Model;
-using Microsoft.SqlServer.TransactSql;
-
-using System.Diagnostics;
 
 namespace TSQLSmellSCA
 {

@@ -3,7 +3,6 @@ using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

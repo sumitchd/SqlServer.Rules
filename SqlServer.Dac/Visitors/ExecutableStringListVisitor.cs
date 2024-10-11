@@ -1,9 +1,5 @@
-﻿using Microsoft.SqlServer.Dac.CodeAnalysis;
-using Microsoft.SqlServer.TransactSql.ScriptDom;
-using System;
+﻿using Microsoft.SqlServer.TransactSql.ScriptDom;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SqlServer.Dac.Visitors
 {
