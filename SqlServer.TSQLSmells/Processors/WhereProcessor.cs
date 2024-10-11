@@ -71,8 +71,7 @@ namespace TSQLSmellSCA
 
         public void Process(WhereClause WhereClause)
         {
-            if (WhereClause == null) return;
-            if (WhereClause.SearchCondition != null) ProcessWhereBooleanExpression(WhereClause.SearchCondition);
+            if (WhereClause?.SearchCondition != null) ProcessWhereBooleanExpression(WhereClause.SearchCondition);
         }
     }
 }

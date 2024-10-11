@@ -170,10 +170,7 @@ END
                 }
                 finally
                 {
-                    if (conn != null)
-                    {
-                        conn.Close();
-                    }
+                    conn?.Close();
                 }
             }
 

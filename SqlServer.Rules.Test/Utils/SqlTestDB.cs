@@ -236,10 +236,7 @@ namespace SqlServer.Rules.Tests.Utils
             Cleanup(ReallyCleanUpDatabase.NotIfItCameFromABackupFile);
 
             EventHandler<EventArgs> h = this.Disposing;
-            if (h != null)
-            {
-                h(this, EventArgs.Empty);
-            }
+            h?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

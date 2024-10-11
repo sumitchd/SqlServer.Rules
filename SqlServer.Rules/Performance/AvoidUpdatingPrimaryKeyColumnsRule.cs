@@ -94,9 +94,8 @@ namespace SqlServer.Rules.Performance
                 }
 
                 var targetSqlObj = model.GetObject(Table.TypeClass, target.GetObjectIdentifier(), DacQueryScopes.All);
-                if (targetSqlObj == null) { continue; }
 
-                var pk = targetSqlObj.GetReferencing(PrimaryKeyConstraint.Host, DacQueryScopes.UserDefined).FirstOrDefault();
+                var pk = targetSqlObj?.GetReferencing(PrimaryKeyConstraint.Host, DacQueryScopes.UserDefined).FirstOrDefault();
                 if (pk == null) { continue; }
                 var primaryKeyColumns = pk.GetReferenced(PrimaryKeyConstraint.Columns, DacQueryScopes.All);
 
