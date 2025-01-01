@@ -16,7 +16,7 @@ namespace SqlServer.Rules.Design
     /// <IsIgnorable>false</IsIgnorable>
     /// <ExampleMd></ExampleMd>
     /// <remarks>
-    /// There is a minor performance cost with not using two part names. Each time sql server runs
+    /// There is a minor performance cost with not using two part names. Each time SQL Server runs
     /// across a one part name it has to look up the associated schema to the object.
     /// </remarks>
     /// <seealso cref="SqlServer.Rules.BaseSqlCodeAnalysisRule" />
