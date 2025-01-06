@@ -8,7 +8,7 @@ using System.Linq;
 namespace SqlServer.Rules.Design
 {
     /// <summary>
-    /// Avoid the use of cursors. Try to use set based sql instead of cursors.
+    /// Avoid the use of cursors. Try to use set based SQL instead of cursors.
     /// </summary>
     /// <FriendlyName>Avoid Cursors</FriendlyName>
     /// <IsIgnorable>true</IsIgnorable>

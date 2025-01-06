@@ -10,7 +10,7 @@ using System.Linq;
 namespace SqlServer.Rules.Design
 {
     /// <summary>
-    /// Avoid wrapping sql statements in stored procedures with IF statements. Consider extracting the nested sql statements to their own stored procedure.
+    /// Avoid wrapping SQL statements in stored procedures with IF statements. Consider extracting the nested SQL statements to their own stored procedure.
     /// </summary>
     /// <FriendlyName>Avoid wrapping SQL in IF statement</FriendlyName>
     /// <IsIgnorable>true</IsIgnorable>

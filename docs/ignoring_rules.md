@@ -10,24 +10,24 @@ In those cases you can use:
 Ignores must be done in comment syntax using either of these formats:
 
 - -- IGNORE {RuleId}
-- /* IGNORE {RuleId} */ - This is the preferred syntax as it will not cause sql to be malformed if the line breaks are removed.
+- /* IGNORE {RuleId} */ - This is the preferred syntax as it will not cause SQL to be malformed if the line breaks are removed.
 
 ## Examples
 
-For example, we can ignore the rule [SRD0032](Design/SRD0032.md) (Avoid use of OR in where clause) in a couple of different ways. 
+For example, we can ignore the rule [SRD0032](Design/SRD0032.md) (Avoid use of OR in where clause) in a couple of different ways.
 
 To ignore just one of the rules if there are multiple violations in the same file:
 
 ```sql
-CREATE PROCEDURE dbo.Example AS 
+CREATE PROCEDURE dbo.Example AS
 BEGIN
-    SELECT * 
-    FROM dbo.table1 
-    WHERE id1 = 1 OR id2 = 2 /* IGNORE SRD0032 */ 
+    SELECT *
+    FROM dbo.table1
+    WHERE id1 = 1 OR id2 = 2 /* IGNORE SRD0032 */
 
 
-    SELECT * 
-    FROM dbo.table2 
+    SELECT *
+    FROM dbo.table2
     WHERE id1 = 1 OR id2 = 2 -- this will still flag as a violation of SRD0032
 END
 ```
@@ -35,17 +35,17 @@ END
 Now you could just add ignores for each occasion of this rule violation, but instead you could use a global ignore to ignore all violations of that rule within the stored procedure.
 
 ```sql
-CREATE PROCEDURE dbo.Example AS 
+CREATE PROCEDURE dbo.Example AS
 BEGIN
     /* GLOBAL IGNORE SRD0032 */
-    SELECT * 
-    FROM dbo.table1 
-    WHERE id1 = 1 OR id2 = 2 
+    SELECT *
+    FROM dbo.table1
+    WHERE id1 = 1 OR id2 = 2
 
 
-    SELECT * 
-    FROM dbo.table2 
-    WHERE id1 = 1 OR id2 = 2 
+    SELECT *
+    FROM dbo.table2
+    WHERE id1 = 1 OR id2 = 2
 END
 ```
 

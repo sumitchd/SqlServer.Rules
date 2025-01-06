@@ -81,7 +81,7 @@ namespace SqlServer.Rules.Performance
                     var modelFunction = modelFunctions.FirstOrDefault(mf => _comparer.Equals(mf.Name.GetName(), fnName));
                     if (modelFunction == null) { continue; }
 
-                    //we need to parse the sql into a fragment, so we can use the visitors on it
+                    //we need to parse the SQL into a fragment, so we can use the visitors on it
                     fnFragment = modelFunction.GetFragment(out IList<ParseError> parseErrors);
                     fnFragment.Accept(createFunctionVisitor);
 

@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<PackageId>ErikEJ.DacFX.TSQLSmellSCA</PackageId>
-	<PackageVersion>1.1.1</PackageVersion>
+	<PackageVersion>1.1.2</PackageVersion>
 	<Authors>ErikEJ</Authors>
 	<Description>A package with some DacFX T-SQL analyzers - see https://github.com/davebally/TSQL-Smells</Description>
 	<PackageProjectUrl>https://github.com/ErikEJ/SqlServer.Rules</PackageProjectUrl>
@@ -15,6 +15,7 @@
 	<DebugType>embedded</DebugType>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
 
   <ItemGroup>

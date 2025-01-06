@@ -47,7 +47,7 @@ namespace SqlServer.Rules
         protected List<SqlRuleProblem> Problems { get; } = new List<SqlRuleProblem>();
 
         #region built in function data types
-        //really not proud of this... could not figure out another way. has to be maintained with each new sql server version.
+        //really not proud of this... could not figure out another way. has to be maintained with each new SQL Server version.
         private static readonly IDictionary<string, string> _functions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
 			/*Date and Time Data Types and Functions (Transact-SQL)*/
@@ -468,7 +468,7 @@ namespace SqlServer.Rules
 
                 //try to find a select column where the alias matches the column name we are searching for
                 var selectColumns = visitor.Statements.Where(x => _comparer.Equals(x.ColumnName?.Value, columnName)).ToList();
-                //if we find more than one match, we have no way to determine which is the correct one. 
+                //if we find more than one match, we have no way to determine which is the correct one.
                 if (selectColumns.Count == 1)
                 {
                     return GetDataType(sqlObj, query, selectColumns.First().Expression, variables);
@@ -653,7 +653,7 @@ namespace SqlServer.Rules
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public struct NumericProperties
     {

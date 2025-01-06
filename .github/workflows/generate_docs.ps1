@@ -1,17 +1,19 @@
 Param(
-    [Parameter(Mandatory=$true)]
-    [string] $ParentDirectory,
+    [Parameter(Mandatory = $true)]
+    [string]$ParentDirectory,
 
-    [Parameter(Mandatory=$true)]
-    [string] $RulesDllPath
+    [Parameter(Mandatory = $true)]
+    [string]$RulesDllPath
 )
+
 Clear-Host
 Set-StrictMode -Version 3.0
 
 function Remove-LeadingWhitespace {
     Param(
-        [string] $Text
+        [string]$Text
     )
+
     # speed this up. no need to split if essentially completely empty, just return empty
     if ([string]::IsNullOrWhiteSpace($Text)) {
         return [string]::Empty;
@@ -46,6 +48,7 @@ function Get-SplitPascalCase {
     Param(
         $PascalText
     )
+
     $PascalCaseRegEx = "(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
 
     return [Regex]::Replace($PascalText, $PascalCaseRegEx, " ")
@@ -53,14 +56,14 @@ function Get-SplitPascalCase {
 
 function Get-SqlRulesAssembly {
     Param(
-        [System.IO.FileInfo] $AssemblyFileInfo
+        [System.IO.FileInfo]$AssemblyFileInfo
     )
 
     $Assembly = [System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.Modules.Name -imatch $AssemblyFileInfo.Name }
 
     if ($null -eq $Assembly) {
         Add-Type -Path $AssemblyFileInfo.FullName
-    
+
         $Assembly = [System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.Modules.Name -imatch $AssemblyFileInfo.Name }
     }
 
@@ -71,12 +74,12 @@ function Get-SqlRulesTypes {
     Param(
         [System.Reflection.Assembly]$Assembly
     )
-    
+
     $Types = $Assembly.GetTypes() | Where-Object {
         $_.GetCustomAttributes([Microsoft.SqlServer.Dac.CodeAnalysis.ExportCodeAnalysisRuleAttribute], $false) -ne $null `
             -and $_.IsPublic
     }
-    
+
     if ($null -eq $Types -or $Types.Count -eq 0) {
         throw "No types found that match the criteria"
         exit 1
@@ -91,12 +94,12 @@ function Get-XmlDocumentForRules {
     )
 
     $XmlPath = [System.IO.Path]::Combine($AssemblyFileInfo.DirectoryName, "$($AssemblyFileInfo.BaseName).xml")
-    
+
     if (-not (Test-Path -LiteralPath $XmlPath)) {
         throw "Unable to find XML file at '$XmlPath'"
         exit 1
     }
-    
+
     Write-Information "Loading rule xml: $XmlPath"
     [xml]$Xml = Get-Content -Path $XmlPath -Raw
 
@@ -126,11 +129,11 @@ function Get-SqlRules {
             IsIgnorable           = $false
             SupportedElementTypes = @()
         }
-    
+
         $RuleAttr = $Type.GetCustomAttributes([Microsoft.SqlServer.Dac.CodeAnalysis.ExportCodeAnalysisRuleAttribute], $false)
-    
+
         $TypeXml = ($Xml.doc.members.member | Where-Object { $_.name -ieq "T:$($Type.FullName)" })
-    
+
         if ($TypeXml) {
             $RuleObject.FriendlyName = ($TypeXml.FriendlyName).Trim()
             $RuleObject.Summary = (Remove-LeadingWhitespace -Text $TypeXml.summary).Trim()
@@ -140,25 +143,25 @@ function Get-SqlRules {
         else {
             # TODO: Handle the case where the XML doesn't exist for a rule.
         }
-    
+
         if ([String]::IsNullOrWhiteSpace($RuleObject.FriendlyName)) {
             $RuleObject.FriendlyName = Get-SplitPascalCase -PascalText $Type.Name
         }
-        
+
         $RuleObject.NameSpace = $Type.Namespace
         $RuleObject.ClassName = $Type.Name
         $RuleObject.RuleId = ($RuleAttr.Id).Split('.')[1]
         $RuleObject.Description = $RuleAttr.Description
         $RuleObject.RuleScope = $RuleAttr.RuleScope
         $RuleObject.Category = $RuleAttr.Category
-    
+
         if ($RuleObject.RuleScope -ieq "Element") {
             $Constructor = $Type.GetConstructor([System.Reflection.BindingFlags]::Public -bor [System.Reflection.BindingFlags]::Instance, `
                     $null, `
                     [System.Type]::EmptyTypes, `
                     $null)
             $RuleInstance = $Constructor.Invoke($null)
-            
+
             $elementTypes = New-Object System.Collections.ArrayList
             foreach ($ApplicableType in $RuleInstance.SupportedElementTypes) {
                 $elementTypes.Add((Get-SplitPascalCase -PascalText $ApplicableType.Name)) | Out-Null
@@ -168,7 +171,7 @@ function Get-SqlRules {
         else {
             $RuleObject.SupportedElementTypes += "Model"
         }
-    
+
         $Rules.Add($RuleObject) | Out-Null
     }
 
@@ -213,9 +216,9 @@ function New-TableOfContents {
 
 function New-MdFromRuleObject {
     Param(
-        [string] $ParentDirectory,
-        [object] $RuleObject,
-        [string] $AssemblyName
+        [string]$ParentDirectory,
+        [object]$RuleObject,
+        [string]$AssemblyName
     )
 
     $StringBuilder = [System.Text.StringBuilder]::new()
@@ -246,7 +249,7 @@ function New-MdFromRuleObject {
     [void]$StringBuilder.AppendLine("| Applicable Types | $($RuleObject.SupportedElementTypes | Select-Object -First 1)  |")
     $ruleElementTypes = $RuleObject.SupportedElementTypes | Select-Object -Skip 1
     if ($ruleElementTypes) {
-        [void]$StringBuilder.AppendLine("|   | $($ruleElementTypes -join " |`r`n|   | ") |") 
+        [void]$StringBuilder.AppendLine("|   | $($ruleElementTypes -join " |`r`n|   | ") |")
     }
 
     [void]$StringBuilder.AppendLine("$spaces")
@@ -276,8 +279,8 @@ function New-MdFromRuleObject {
 
 function Publish-Markdown {
     Param(
-        [string] $ParentDirectory,
-        [string] $AssemblyPath
+        [string]$ParentDirectory,
+        [string]$AssemblyPath
     )
 
     $assemblyFI = New-Object System.IO.FileInfo ($AssemblyPath)
@@ -294,7 +297,7 @@ function Publish-Markdown {
     foreach ($SqlRule in $SqlRules) {
         New-MdFromRuleObject -ParentDirectory $ParentDirectory -RuleObject $SqlRule -AssemblyName $assemblyFI.Name
     }
-    
+
     New-TableOfContents -ParentDirectory $ParentDirectory -RuleObjects $SqlRules
 }
 
