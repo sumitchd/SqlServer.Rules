@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Resources\RulesTransform.xslt" />
-  </ItemGroup>	
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ErikEJ.DacFX.TSQLSmellSCA" Version="1.0.0" />
     <PackageReference Include="ErikEJ.DacFX.SqlServer.Rules" Version="1.0.0" />
