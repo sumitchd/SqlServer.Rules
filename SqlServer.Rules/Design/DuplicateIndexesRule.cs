@@ -65,7 +65,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var objName = sqlObj.Name.GetName();
 

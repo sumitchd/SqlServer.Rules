@@ -43,7 +43,10 @@ namespace TSQLSmellSCA
                     _smells.ProcessTsqlFragment(Fragment);
                 }
 
-                if (!NoCountSet) _smells.SendFeedBack(30, StatementBody.ProcedureReference);
+                if (!NoCountSet)
+                {
+                    _smells.SendFeedBack(30, StatementBody.ProcedureReference);
+                }
             }
 
             ParameterList = null;

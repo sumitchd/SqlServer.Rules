@@ -33,7 +33,10 @@ namespace TSQLSmellSCA
                     var Cte = Fragment.WithCtesAndXmlNamespaces;
                     _smells.ProcessQueryExpression(InsSource.Select, "RG", false, Cte);
                     if (Cte != null)
+                    {
                         ProcessWithCtesAndXmlNamespaces(Cte);
+                    }
+
                     break;
                 case "ExecuteInsertSource":
                     var ExecSource = (ExecuteInsertSource) Fragment.InsertSpecification.InsertSource;

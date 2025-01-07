@@ -13,7 +13,10 @@ namespace TSQLSmellSCA
 
         public void ProcessFunctionStatementBody(FunctionStatementBody Function)
         {
-            if (Function.Name.SchemaIdentifier == null) _smells.SendFeedBack(24, Function.Name);
+            if (Function.Name.SchemaIdentifier == null)
+            {
+                _smells.SendFeedBack(24, Function.Name);
+            }
 
             _smells.ProcessTsqlFragment(Function.ReturnType);
 

@@ -14,7 +14,11 @@ namespace TSQLSmellSCA
 
         private bool isCteName(SchemaObjectName ObjectName, WithCtesAndXmlNamespaces cte)
         {
-            if (cte == null) return false;
+            if (cte == null)
+            {
+                return false;
+            }
+
             foreach (var Expression in cte.CommonTableExpressions)
             {
                 if (Expression.ExpressionName.Value == ObjectName.BaseIdentifier.Value)

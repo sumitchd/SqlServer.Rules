@@ -62,7 +62,9 @@ namespace SqlServer.Rules.Naming
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var name = ruleExecutionContext.GetObjectName(sqlObj, ElementNameStyle.SimpleName).ToLower();
             var fragment = ruleExecutionContext.GetFragment();

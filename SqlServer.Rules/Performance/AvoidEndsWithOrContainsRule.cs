@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace SqlServer.Rules.Performance
 {
-
-
     /// <summary>
     /// Avoid using patterns that start with '%' with the LIKE keyword  (Sargeable)
     /// </summary>
@@ -77,7 +75,7 @@ namespace SqlServer.Rules.Performance
                     like.Accept(stringLiteralVisitor);
 
                     var literal = stringLiteralVisitor.NotIgnoredStatements(RuleId)
-                        .FirstOrDefault(l => l.Value.StartsWith("%") && l.Value.Length > 1);
+                        .FirstOrDefault(l => l.Value.StartsWith('%') && l.Value.Length > 1);
 
                     if (literal != null)
                     {
@@ -86,7 +84,6 @@ namespace SqlServer.Rules.Performance
                     }
                 }
             }
-
 
             return problems;
         }

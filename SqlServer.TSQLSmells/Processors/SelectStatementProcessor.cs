@@ -27,7 +27,10 @@ namespace TSQLSmellSCA
             if (Cte == null && SelStatement.WithCtesAndXmlNamespaces != null)
             {
                 Cte = SelStatement.WithCtesAndXmlNamespaces;
-                if (Cte != null) _smells.InsertProcessor.ProcessWithCtesAndXmlNamespaces(Cte);
+                if (Cte != null)
+                {
+                    _smells.InsertProcessor.ProcessWithCtesAndXmlNamespaces(Cte);
+                }
             }
             _smells.ProcessQueryExpression(SelStatement.QueryExpression, ParentType, false, Cte);
             ProcessOptimizerHints(SelStatement.OptimizerHints, SelStatement);

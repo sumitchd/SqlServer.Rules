@@ -50,7 +50,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             //ModelSchema.Procedure, ModelSchema.ScalarFunction, ModelSchema.TableValuedFunction, ModelSchema.Table
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(

@@ -68,7 +68,9 @@ namespace SqlServer.Rules.Design
             var sqlModel = ruleExecutionContext.SchemaModel;
 
             if (sqlModel == null)
+            {
                 return problems;
+            }
 
             var dbOptions = sqlModel.CopyModelOptions();
             var invalidOptions = new List<string>();

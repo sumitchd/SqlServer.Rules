@@ -15,7 +15,10 @@ namespace TSQLSmellSCA
         {
             _smells.ProcessTsqlFragment(IfStatement.Predicate);
             _smells.ProcessTsqlFragment(IfStatement.ThenStatement);
-            if (IfStatement.ElseStatement != null) _smells.ProcessTsqlFragment(IfStatement.ElseStatement);
+            if (IfStatement.ElseStatement != null)
+            {
+                _smells.ProcessTsqlFragment(IfStatement.ElseStatement);
+            }
         }
     }
 }

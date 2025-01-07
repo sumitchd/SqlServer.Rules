@@ -55,7 +55,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingSchemaTypes);
             var visitor = new DeleteVisitor();
@@ -81,7 +83,7 @@ namespace SqlServer.Rules.Design
                         tableName = table.SchemaObject.Identifiers.Last().Value;
                     }
                 }
-                if (!(tableName.StartsWith("#") || tableName.StartsWith("@")))
+                if (!(tableName.StartsWith('#') || tableName.StartsWith('@')))
                 {
                     problems.Add(new SqlRuleProblem(Message, sqlObj, stmt));
                 }
