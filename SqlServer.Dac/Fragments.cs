@@ -1,4 +1,4 @@
-﻿using Microsoft.SqlServer.Dac.CodeAnalysis;
+using Microsoft.SqlServer.Dac.CodeAnalysis;
 using Microsoft.SqlServer.Dac.Model;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac.Visitors;
@@ -74,10 +74,8 @@ namespace SqlServer.Dac
                 {
                     return statements.Remove(stmt);
                 }
-                else
-                {
-                    if (stmt.RemoveRecursive(remove)) { return true; }
-                }
+
+                if (stmt.RemoveRecursive(remove)) { return true; }
             }
             return false;
         }
@@ -154,20 +152,19 @@ namespace SqlServer.Dac
         {
             //for some odd reason, sometimes the fragments do not pass in properly to the rules....
             //this function can re-parse that fragment into its true fragment, and not a SQL script...
-            if (!(baseFragment is TSqlScript)) { return baseFragment; }
+            if (!(baseFragment is TSqlScript script)) { return baseFragment; }
 
-            var stmt = ((TSqlScript)baseFragment)?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
-            if (stmt == null) { return baseFragment; }
+            var stmt = script?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
+            if (stmt == null) { return script; }
             //we don't need to parse the fragment unless it is of type TSqlStatement or TSqlStatementSnippet.... just return the type it found
             if (!(stmt.GetType() == typeof(TSqlStatement) || stmt.GetType() == typeof(TSqlStatementSnippet))) { return stmt; }
 
             var tsqlParser = new TSql140Parser(true);
-            TSqlFragment fragment = null;
             using (StringReader stringReader = new StringReader(((TSqlStatementSnippet)stmt).Script))
             {
                 IList<ParseError> parseErrors = new List<ParseError>();
-                fragment = tsqlParser.Parse(stringReader, out parseErrors);
-                if (parseErrors.Any()) { return baseFragment; }
+                var fragment = tsqlParser.Parse(stringReader, out parseErrors);
+                if (parseErrors.Any()) { return script; }
 
                 TypesVisitor visitor = new TypesVisitor(typesToLookFor);
                 fragment.Accept(visitor);
@@ -178,23 +175,24 @@ namespace SqlServer.Dac
                 }
             }
             //if we got here, the object was tsqlscript, but was not parseable.... so we bail out
-            return baseFragment;
+            return script;
         }
 
         public static TSqlFragment GetFragment(this FileInfo file)
         {
-            TSqlFragment fragment = null;
+            TSqlFragment fragment;
             var tsqlParser = new TSql140Parser(true);
             using (TextReader textReader = file.OpenText())
             {
                 fragment = tsqlParser.Parse(textReader, out IList<ParseError> parseErrors) as TSqlScript;
                 if (fragment == null)
                 {
-                    throw new ApplicationException($"Unable to parse file {file.ToString()}");
+                    throw new ApplicationException($"Unable to parse file {file}");
                 }
-                else if (parseErrors.Any())
+
+                if (parseErrors.Any())
                 {
-                    throw new ApplicationException($"Unable to parse file {file.ToString()}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
+                    throw new ApplicationException($"Unable to parse file {file}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
                 }
             }
             return fragment;
