@@ -136,7 +136,7 @@ namespace SqlServer.Rules.Tests.Utils
                     ModelForAnalysis = CreateDatabaseModel();
                     break;
                 case AnalysisTarget.DacpacModel:
-                    TSqlModel scriptedModel = CreateScriptedModel();
+                    var scriptedModel = CreateScriptedModel();
                     ModelForAnalysis = CreateDacpacModel(scriptedModel);
                     scriptedModel.Dispose();
                     break;
@@ -150,7 +150,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         private TSqlModel CreateScriptedModel()
         {
-            TSqlModel model = new TSqlModel(SqlVersion, DatabaseOptions);
+            var model = new TSqlModel(SqlVersion, DatabaseOptions);
             AddScriptsToModel(model);
             AssertModelValid(model);
 
@@ -171,7 +171,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         private static void AssertModelValid(TSqlModel model)
         {
-            bool breakingIssuesFound = false;
+            var breakingIssuesFound = false;
             var validationMessages = model.Validate();
             if (validationMessages.Count > 0)
             {
@@ -195,12 +195,12 @@ namespace SqlServer.Rules.Tests.Utils
         private TSqlModel CreateDatabaseModel()
         {
             ArgumentValidation.CheckForEmptyString(DatabaseName, "DatabaseName");
-            SqlTestDB db = TestUtils.CreateTestDatabase(TestUtils.DefaultInstanceInfo, DatabaseName);
+            var db = TestUtils.CreateTestDatabase(TestUtils.DefaultInstanceInfo, DatabaseName);
             _trash.Add(db);
 
             TestUtils.ExecuteNonQuery(db, TestScripts.Select(t => t.Item1).SelectMany(s => TestUtils.GetBatches(s)).ToList());
 
-            TSqlModel model = TSqlModel.LoadFromDatabase(db.BuildConnectionString(), new ModelExtractOptions { LoadAsScriptBackedModel = true });
+            var model = TSqlModel.LoadFromDatabase(db.BuildConnectionString(), new ModelExtractOptions { LoadAsScriptBackedModel = true });
             AssertModelValid(model);
             return model;
         }
@@ -211,7 +211,7 @@ namespace SqlServer.Rules.Tests.Utils
         /// </summary>
         private string BuildDacpacFromModel(TSqlModel model)
         {
-            string path = DacpacPath;
+            var path = DacpacPath;
             Assert.IsFalse(string.IsNullOrWhiteSpace(DacpacPath), "DacpacPath must be set if target for analysis is a Dacpac");
 
             if (File.Exists(path))
@@ -219,7 +219,7 @@ namespace SqlServer.Rules.Tests.Utils
                 File.Delete(path);
             }
 
-            string dacpacDir = Path.GetDirectoryName(path);
+            var dacpacDir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dacpacDir))
             {
                 Directory.CreateDirectory(dacpacDir);
@@ -236,7 +236,7 @@ namespace SqlServer.Rules.Tests.Utils
         /// </summary>
         private TSqlModel CreateDacpacModel(TSqlModel model)
         {
-            string dacpacPath = BuildDacpacFromModel(model);
+            var dacpacPath = BuildDacpacFromModel(model);
 
             // Note: when running Code Analysis most rules expect a scripted model. Use the
             // static factory method on TSqlModel class to ensure you have scripts. If you
@@ -248,7 +248,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         protected void AddScriptsToModel(TSqlModel model)
         {
-            foreach (Tuple<string, string> tuple in TestScripts)
+            foreach (var tuple in TestScripts)
             {
                 // Item1 = script, Item2 = (logical) source file name
                 model.AddOrUpdateObjects(tuple.Item1, tuple.Item2, new TSqlObjectOptions());
@@ -273,7 +273,7 @@ namespace SqlServer.Rules.Tests.Utils
 
             CreateModelUsingTestScripts();
 
-            CodeAnalysisService service = CreateCodeAnalysisService(fullId);
+            var service = CreateCodeAnalysisService(fullId);
 
             RunRulesAndVerifyResult(service, verify);
         }
@@ -293,13 +293,13 @@ namespace SqlServer.Rules.Tests.Utils
         /// </summary>
         private CodeAnalysisService CreateCodeAnalysisService(string ruleIdToRun)
         {
-            CodeAnalysisServiceFactory factory = new CodeAnalysisServiceFactory();
+            var factory = new CodeAnalysisServiceFactory();
             var ruleSettings = new CodeAnalysisRuleSettings
             {
                         new RuleConfiguration(ruleIdToRun)
                     };
             ruleSettings.DisableRulesNotInSettings = true;
-            CodeAnalysisService service = factory.CreateAnalysisService(ModelForAnalysis.Version, new CodeAnalysisServiceSettings
+            var service = factory.CreateAnalysisService(ModelForAnalysis.Version, new CodeAnalysisServiceSettings
             {
                 RuleSettings = ruleSettings
             });
@@ -313,12 +313,12 @@ namespace SqlServer.Rules.Tests.Utils
 
         private void RunRulesAndVerifyResult(CodeAnalysisService service, Action<CodeAnalysisResult, string> verify)
         {
-            CodeAnalysisResult analysisResult = service.Analyze(ModelForAnalysis);
+            var analysisResult = service.Analyze(ModelForAnalysis);
 
             // Only considering analysis errors for now - might want to expand to initialization and suppression errors in the future
             DumpErrors(analysisResult.AnalysisErrors);
 
-            string problemsString = DumpProblemsToString(analysisResult.Problems);
+            var problemsString = DumpProblemsToString(analysisResult.Problems);
 
 
             verify(analysisResult, problemsString);
@@ -328,8 +328,8 @@ namespace SqlServer.Rules.Tests.Utils
         {
             if (errors.Count > 0)
             {
-                bool hasError = false;
-                StringBuilder errorMessage = new StringBuilder();
+                var hasError = false;
+                var errorMessage = new StringBuilder();
                 errorMessage.AppendLine("Errors found:");
 
                 foreach (var error in errors)
@@ -351,13 +351,13 @@ namespace SqlServer.Rules.Tests.Utils
 
         private string DumpProblemsToString(IEnumerable<SqlRuleProblem> problems)
         {
-            DisplayServices displayServices = ModelForAnalysis.DisplayServices;
+            var displayServices = ModelForAnalysis.DisplayServices;
             List<SqlRuleProblem> problemList = [..problems];
 
             SortProblemsByFileName(problemList);
 
-            StringBuilder sb = new StringBuilder();
-            foreach (SqlRuleProblem problem in problemList)
+            var sb = new StringBuilder();
+            foreach (var problem in problemList)
             {
                 AppendOneProblemItem(sb, "Problem description", problem.Description);
                 AppendOneProblemItem(sb, "FullID", problem.RuleId);
@@ -367,7 +367,7 @@ namespace SqlServer.Rules.Tests.Utils
                 string fileName;
                 if (problem.SourceName != null)
                 {
-                    FileInfo fileInfo = new FileInfo(problem.SourceName);
+                    var fileInfo = new FileInfo(problem.SourceName);
                     fileName = fileInfo.Name;
                 }
                 else
@@ -399,7 +399,7 @@ namespace SqlServer.Rules.Tests.Utils
         {
             public int Compare(SqlRuleProblem x, SqlRuleProblem y)
             {
-                Int32 compare = string.Compare(x.SourceName, y.SourceName, StringComparison.CurrentCulture);
+                var compare = string.Compare(x.SourceName, y.SourceName, StringComparison.CurrentCulture);
                 if (compare == 0)
                 {
                     compare = x.StartLine - y.StartLine;

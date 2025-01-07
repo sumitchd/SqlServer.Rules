@@ -101,7 +101,7 @@ namespace SqlServer.Dac
 
         public static TSqlFragment GetFragment(this TSqlObject obj)
         {
-            return GetFragment(obj, out IList<ParseError> parseErrors);
+            return GetFragment(obj, out var parseErrors);
         }
 
         /// <summary>
@@ -115,19 +115,19 @@ namespace SqlServer.Dac
             var tsqlParser = new TSql140Parser(true);
             TSqlFragment fragment = null;
 
-            if (!obj.TryGetAst(out TSqlScript ast))
+            if (!obj.TryGetAst(out var ast))
             {
                 parseErrors = new List<ParseError>();
                 return fragment;
             }
 
-            if (!obj.TryGetScript(out string script))
+            if (!obj.TryGetScript(out var script))
             {
                 parseErrors = new List<ParseError>();
                 return fragment;
             }
 
-            using (StringReader stringReader = new StringReader(script))
+            using (var stringReader = new StringReader(script))
             {
                 fragment = tsqlParser.Parse(stringReader, out parseErrors);
 
@@ -158,13 +158,13 @@ namespace SqlServer.Dac
             if (!(stmt.GetType() == typeof(TSqlStatement) || stmt.GetType() == typeof(TSqlStatementSnippet))) { return stmt; }
 
             var tsqlParser = new TSql140Parser(true);
-            using (StringReader stringReader = new StringReader(((TSqlStatementSnippet)stmt).Script))
+            using (var stringReader = new StringReader(((TSqlStatementSnippet)stmt).Script))
             {
                 IList<ParseError> parseErrors = new List<ParseError>();
                 var fragment = tsqlParser.Parse(stringReader, out parseErrors);
                 if (parseErrors.Any()) { return script; }
 
-                TypesVisitor visitor = new TypesVisitor(typesToLookFor);
+                var visitor = new TypesVisitor(typesToLookFor);
                 fragment.Accept(visitor);
 
                 if (visitor.Statements.Any())

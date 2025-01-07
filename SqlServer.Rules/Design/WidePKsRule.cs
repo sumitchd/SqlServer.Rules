@@ -55,8 +55,8 @@ namespace SqlServer.Rules.Design
         /// </returns>
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext ruleExecutionContext)
         {
-            List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
-            TSqlObject sqlObj = ruleExecutionContext.ModelElement;
+            var problems = new List<SqlRuleProblem>();
+            var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed()) { return problems; }
 

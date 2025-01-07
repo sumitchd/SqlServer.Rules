@@ -222,7 +222,7 @@ namespace SqlServer.Rules.Globals
 
             if (dataType is ParameterizedDataTypeReference parameterizedDataType)
             {
-                Type type = typeof(decimal);
+                var type = typeof(decimal);
                 return parameterizedDataType.Parameters.Select(l =>
                     (decimal)Convert.ChangeType((l.Value.StringEquals("MAX") ? "-1" : l.Value), type)
                 );

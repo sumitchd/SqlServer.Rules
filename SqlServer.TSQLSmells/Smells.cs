@@ -109,10 +109,10 @@ namespace TSQLSmellSCA
         {
             if (errorNum != _iRule) return;
 
-            ResourceManager rm = Resources.ResourceManager;
+            var rm = Resources.ResourceManager;
 
-            string lookup = "TSQLSmell_RuleName" + errorNum.ToString("D2");
-            string Out = rm.GetString(lookup);
+            var lookup = "TSQLSmell_RuleName" + errorNum.ToString("D2");
+            var Out = rm.GetString(lookup);
 
             _problems.Add(new SqlRuleProblem(Out, _modelElement, errorFrg));
         }
@@ -127,7 +127,7 @@ namespace TSQLSmellSCA
         public void ProcessQueryExpression(QueryExpression queryExpression, string parentType, bool testTop = false,
             WithCtesAndXmlNamespaces cte = null)
         {
-            string expressionType = FragmentTypeParser.GetFragmentType(queryExpression);
+            var expressionType = FragmentTypeParser.GetFragmentType(queryExpression);
             switch (expressionType)
             {
                 case "QuerySpecification":
@@ -168,7 +168,7 @@ namespace TSQLSmellSCA
         //void ProcessSelectElements(
         public void ProcessTsqlFragment(TSqlFragment fragment)
         {
-            String stmtType = FragmentTypeParser.GetFragmentType(fragment);
+            var stmtType = FragmentTypeParser.GetFragmentType(fragment);
             //Console.WriteLine(StmtType);
             switch (stmtType)
             {
@@ -234,7 +234,7 @@ namespace TSQLSmellSCA
                     break;
                 case "TSqlBatch":
                     var batch = (TSqlBatch)fragment;
-                    foreach (TSqlStatement innerFragment in batch.Statements)
+                    foreach (var innerFragment in batch.Statements)
                     {
                         ProcessTsqlFragment(innerFragment);
                     }
@@ -242,7 +242,7 @@ namespace TSQLSmellSCA
                     break;
                 case "TSqlScript":
                     var script = (TSqlScript)fragment;
-                    foreach (TSqlBatch innerBatch in script.Batches)
+                    foreach (var innerBatch in script.Batches)
                     {
                         ProcessTsqlFragment(innerBatch);
                     }
@@ -251,12 +251,12 @@ namespace TSQLSmellSCA
                 case "TryCatchStatement":
                     var trycatch = (TryCatchStatement)fragment;
 
-                    foreach (TSqlStatement innerStmt in trycatch.TryStatements.Statements)
+                    foreach (var innerStmt in trycatch.TryStatements.Statements)
                     {
                         ProcessTsqlFragment(innerStmt);
                     }
 
-                    foreach (TSqlStatement innerStmt in trycatch.CatchStatements.Statements)
+                    foreach (var innerStmt in trycatch.CatchStatements.Statements)
                     {
                         ProcessTsqlFragment(innerStmt);
                     }
@@ -325,7 +325,7 @@ namespace TSQLSmellSCA
             {
                 if (iRule == 23)
                 {
-                    foreach (TSqlParserToken parserToken in frg.ScriptTokenStream)
+                    foreach (var parserToken in frg.ScriptTokenStream)
                     {
                         //if (parserToken.TokenType == TSqlTokenType.SingleLineComment) SendFeedBack(23, parserToken);
                     }

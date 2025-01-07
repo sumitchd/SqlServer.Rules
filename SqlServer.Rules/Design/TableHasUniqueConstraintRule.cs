@@ -63,9 +63,9 @@ namespace SqlServer.Rules.Design
             if (keyColumns.Count() == 1)
             {
                 var keyColumn = keyColumns.First();
-                bool? isIdentity = keyColumn.GetProperty<bool?>(Column.IsIdentity);
+                var isIdentity = keyColumn.GetProperty<bool?>(Column.IsIdentity);
                 var keyColumnDefault = keyColumn.GetReferencing().FirstOrDefault(x => x.ObjectType == DefaultConstraint.TypeClass);
-                bool? isSequence = keyColumnDefault?.GetReferenced().Any(x => x.ObjectType == Sequence.TypeClass);
+                var isSequence = keyColumnDefault?.GetReferenced().Any(x => x.ObjectType == Sequence.TypeClass);
 
                 //if our primary key consists of a identity or sequence, check to see if we have a unique constraint. assume the unique constraint is a natural key if we find one. else, problem.
                 if (isIdentity.GetValueOrDefault(false) || isSequence.GetValueOrDefault(false))

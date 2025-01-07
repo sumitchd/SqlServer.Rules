@@ -119,15 +119,15 @@ END
             bool displayException = true,
             bool isAzureDb = false)
         {
-            bool rc = false;
-            int retryCount = 1;
+            var rc = false;
+            var retryCount = 1;
 
-            for (int i = 0; i < retryCount && rc == false; i++)
+            for (var i = 0; i < retryCount && rc == false; i++)
             {
                 SqlConnection conn = null;
                 try
                 {
-                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(connString) {
+                    var scsb = new SqlConnectionStringBuilder(connString) {
                         InitialCatalog = "master",
                         Pooling = false,
                     };
@@ -180,9 +180,9 @@ END
 
         public static bool DoesDatabaseExist(SqlConnection connection, string databaseName)
         {
-            string query = string.Format(CultureInfo.InvariantCulture, _queryDatabaseIfExist, databaseName);
+            var query = string.Format(CultureInfo.InvariantCulture, _queryDatabaseIfExist, databaseName);
 
-            int result = (int)ExecuteScalar(connection, query);
+            var result = (int)ExecuteScalar(connection, query);
 
             return (result == 1);
         }
@@ -193,9 +193,9 @@ END
             DropDatabase(instance, dbName);
 
             // Create the test database
-            string createDB = string.Format(CultureInfo.InvariantCulture, "create database [{0}]", dbName);
+            var createDB = string.Format(CultureInfo.InvariantCulture, "create database [{0}]", dbName);
             ExecuteNonQuery(instance, "master", CommonConstants.DefaultCommandTimeout, createDB);
-            SqlTestDB db = new SqlTestDB(instance, dbName, true);
+            var db = new SqlTestDB(instance, dbName, true);
             return db;
         }
 
@@ -207,7 +207,7 @@ END
         {
             ArgumentValidation.CheckForEmptyString(sqlCommandText, "sqlCommandText");
 
-            using (SqlCommand cmd = GetCommandObject(connection, sqlCommandText, commandTimeOut))
+            using (var cmd = GetCommandObject(connection, sqlCommandText, commandTimeOut))
             {
                 return cmd.ExecuteScalar();
             }
@@ -226,7 +226,7 @@ END
                 commandTimeOut = 0;
             }
 
-            using (SqlCommand cmd = GetCommandObject(connection, sqlCommandText, commandTimeOut.Value))
+            using (var cmd = GetCommandObject(connection, sqlCommandText, commandTimeOut.Value))
             {
                 cmd.ExecuteNonQuery();
             }
@@ -234,7 +234,7 @@ END
 
         private static SqlCommand GetCommandObject(SqlConnection conn, string sqlCommandText, int commandTimeOut)
         {
-            SqlCommand cmd = conn.CreateCommand();
+            var cmd = conn.CreateCommand();
             // reasonable hard code to prevent hang client.
             cmd.CommandTimeout = commandTimeOut;
             cmd.CommandText = String.Format(CultureInfo.InvariantCulture, _setLockTimeoutDefault, GetLockTimeoutMS());
@@ -270,14 +270,14 @@ END
 
         public static void ExecuteNonQuery(InstanceInfo instance, string dbName, IList<string> scripts, int commandTimeout = CommonConstants.DefaultCommandTimeout)
         {
-            using (SqlConnection conn = new SqlConnection(instance.BuildConnectionString(dbName)))
+            using (var conn = new SqlConnection(instance.BuildConnectionString(dbName)))
             {
                 conn.Open();
 
-                foreach (string script in scripts)
+                foreach (var script in scripts)
                 {
                     // Replace SqlCmd variables with actual values
-                    string exeScript = script.Replace("$(DatabaseName)", dbName);
+                    var exeScript = script.Replace("$(DatabaseName)", dbName);
                     ExecuteNonQuery(conn, exeScript, commandTimeout);
                 }
             }
@@ -286,7 +286,7 @@ END
         public static void ExecuteNonQuery(SqlConnection conn, string sql, int commandTimeout = CommonConstants.DefaultCommandTimeout)
         {
 
-            SqlCommand cmd = conn.CreateCommand();
+            var cmd = conn.CreateCommand();
             try
             {
                 cmd.CommandType = CommandType.Text;
@@ -322,7 +322,7 @@ END
         {
             // For now defaulting timeout to 90 sec. This could be replaced with a better method for calculating a smart timeout
             // To have no timeout, use 0
-            int timeoutMS = 90 * 1000;
+            var timeoutMS = 90 * 1000;
 
             return timeoutMS;
         }

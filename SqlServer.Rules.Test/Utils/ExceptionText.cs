@@ -34,8 +34,8 @@ namespace SqlServer.Rules.Tests.Utils
     {
         public static string GetText(Exception ex, bool stackTrace = false)
         {
-            StringBuilder sb = new StringBuilder();
-            int depth = 0;
+            var sb = new StringBuilder();
+            var depth = 0;
             while (ex != null)
             {
                 if (depth > 0)

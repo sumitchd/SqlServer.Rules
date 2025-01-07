@@ -30,15 +30,15 @@ namespace SqlServer.Rules.Report
             var sw = Stopwatch.StartNew();
 
             //load the dacpac
-            TSqlModel model = TSqlModel.LoadFromDacpac(
+            var model = TSqlModel.LoadFromDacpac(
                     request.InputPath
                     , new ModelLoadOptions
                     {
                         LoadAsScriptBackedModel = true,
                         ModelStorageType = Microsoft.SqlServer.Dac.DacSchemaModelStorageType.Memory
                     });
-            CodeAnalysisServiceFactory factory = new CodeAnalysisServiceFactory();
-            CodeAnalysisService service = factory.CreateAnalysisService(model);
+            var factory = new CodeAnalysisServiceFactory();
+            var service = factory.CreateAnalysisService(model);
 
             //surpress rules
             service.SetProblemSuppressor(request.Suppress);
@@ -147,7 +147,7 @@ namespace SqlServer.Rules.Report
 
         private static string GetOutputFileName(ReportRequest request, ReportOutputType outputType)
         {
-            string ext = outputType == ReportOutputType.XML ? ".xml" : ".csv";
+            var ext = outputType == ReportOutputType.XML ? ".xml" : ".csv";
             var outDir = GetOutputDirectory(request);
             if (!Directory.Exists(outDir)) { Directory.CreateDirectory(outDir); }
             return Path.Combine(outDir, Path.GetFileNameWithoutExtension(request.OutputFileName) + ext);

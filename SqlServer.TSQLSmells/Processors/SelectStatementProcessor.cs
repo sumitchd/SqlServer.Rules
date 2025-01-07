@@ -15,7 +15,7 @@ namespace TSQLSmellSCA
         private void ProcessOptimizerHints(IList<OptimizerHint> OptimizerHints, SelectStatement SelStatement)
         {
             /* OptimizerHints is not a decendant of TSQLFragment */
-            foreach (OptimizerHint Hint in OptimizerHints)
+            foreach (var Hint in OptimizerHints)
             {
                 ProcessHint(Hint, SelStatement);
             }
@@ -35,7 +35,7 @@ namespace TSQLSmellSCA
 
         private void ProcessSelectElement(SelectElement SelectElement, string ParentType, WithCtesAndXmlNamespaces Cte)
         {
-            string ElemType = FragmentTypeParser.GetFragmentType(SelectElement);
+            var ElemType = FragmentTypeParser.GetFragmentType(SelectElement);
             switch (ElemType)
             {
                 case "SelectStarExpression":
@@ -44,7 +44,7 @@ namespace TSQLSmellSCA
                 case "SelectScalarExpression":
 
                     var ScalarExpression = (SelectScalarExpression)SelectElement;
-                    string ExpressionType = FragmentTypeParser.GetFragmentType(ScalarExpression.Expression);
+                    var ExpressionType = FragmentTypeParser.GetFragmentType(ScalarExpression.Expression);
                     switch (ExpressionType)
                     {
                         case "ScalarSubquery":
@@ -72,7 +72,7 @@ namespace TSQLSmellSCA
         public void ProcessSelectElements(IList<SelectElement> SelectElements, string ParentType,
             WithCtesAndXmlNamespaces Cte)
         {
-            foreach (SelectElement SelectElement in SelectElements)
+            foreach (var SelectElement in SelectElements)
             {
                 ProcessSelectElement(SelectElement, ParentType, Cte);
             }

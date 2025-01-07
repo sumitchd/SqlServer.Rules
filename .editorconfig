@@ -138,3 +138,5 @@ dotnet_style_qualification_for_property = false:suggestion
 # Analyzer suppressions       #
 ###############################
 dotnet_diagnostic.CS1591.severity = none
+dotnet_diagnostic.CA1062.severity = none
+

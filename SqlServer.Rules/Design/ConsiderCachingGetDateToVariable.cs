@@ -62,7 +62,7 @@ namespace SqlServer.Rules.Design
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingSchemaTypes);
 
-            List<StatementWithCtesAndXmlNamespaces> statements = new List<StatementWithCtesAndXmlNamespaces>();
+            var statements = new List<StatementWithCtesAndXmlNamespaces>();
 
             var selectVisitor = new SelectStatementVisitor();
             fragment.Accept(selectVisitor);
@@ -107,7 +107,7 @@ namespace SqlServer.Rules.Design
 
         private bool CheckFunctionCallsForDateFunction(IList<FunctionCall> functionCalls)
         {
-            bool hasDateFunctions = false;
+            var hasDateFunctions = false;
 
             foreach (var functionCall in functionCalls)
             {

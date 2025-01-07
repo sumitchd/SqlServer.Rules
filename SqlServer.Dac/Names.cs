@@ -90,7 +90,7 @@ namespace SqlServer.Dac
         }
         public static string GetName(this ColumnReferenceExpression column)
         {
-            int cnt = column.MultiPartIdentifier.Identifiers.Count;
+            var cnt = column.MultiPartIdentifier.Identifiers.Count;
             if (cnt == 1)
             {
                 return $"[{column.MultiPartIdentifier.Identifiers.First().Value}]";
@@ -108,7 +108,7 @@ namespace SqlServer.Dac
             // Get the element name using the built in DisplayServices. This provides a number of useful formatting options to
             // make a name user-readable
             var displayServices = ruleExecutionContext.SchemaModel.DisplayServices;
-            string elementName = displayServices.GetElementName(modelElement, style);
+            var elementName = displayServices.GetElementName(modelElement, style);
             return elementName;
         }
 

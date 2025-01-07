@@ -14,7 +14,7 @@ namespace TSQLSmellSCA
 
         private void ProcessWhereBooleanExpression(BooleanExpression BooleanExpression)
         {
-            string ExpressionType = FragmentTypeParser.GetFragmentType(BooleanExpression);
+            var ExpressionType = FragmentTypeParser.GetFragmentType(BooleanExpression);
             switch (ExpressionType)
             {
                 case "BooleanComparisonExpression":
@@ -42,7 +42,7 @@ namespace TSQLSmellSCA
 
         private void ProcessWhereScalarExpression(ScalarExpression WhereExpression)
         {
-            string ExpressionType = FragmentTypeParser.GetFragmentType(WhereExpression);
+            var ExpressionType = FragmentTypeParser.GetFragmentType(WhereExpression);
             String ParameterType;
             switch (ExpressionType)
             {

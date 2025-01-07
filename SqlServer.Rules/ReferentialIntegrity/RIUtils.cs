@@ -62,7 +62,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
                 //intersect works, but the index must match the column names in 
                 //the correct order, and the proper ordinal in the index hence the for...
                 //i.Value.Intersect(fkColumnNames).Count() == fkColumnNames.Count()) 
-                for (int i = 0; i < fkColumnNames.Count; i++)
+                for (var i = 0; i < fkColumnNames.Count; i++)
                 {
                     if (!fkColumnNames[i].StringEquals(ii.Value?.ElementAtOrDefault(i)))
                     {
@@ -179,7 +179,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
                     .Where(x => x.FirstExpression is ColumnReferenceExpression && x.SecondExpression is ColumnReferenceExpression))
                 {
                     //we use a loop as we need to check both the first expression and the second expression to see which table the columns belong to
-                    for (int i = 0; i < 2; i++)
+                    for (var i = 0; i < 2; i++)
                     {
                         var col = (i == 0 ? compare.FirstExpression : compare.SecondExpression) as ColumnReferenceExpression;
                         var colTblName = GetTableOrAliasName(col.MultiPartIdentifier.Identifiers);

@@ -65,8 +65,8 @@ namespace SqlServer.Rules.Tests.Utils
         {
             get
             {
-                string serverName = DataSource;
-                int index = DataSource.IndexOf('\\');
+                var serverName = DataSource;
+                var index = DataSource.IndexOf('\\');
                 if (index > 0)
                 {
                     serverName = DataSource.Substring(0, index);
@@ -87,7 +87,7 @@ namespace SqlServer.Rules.Tests.Utils
             get
             {
                 string name = null;
-                int index = DataSource.IndexOf('\\');
+                var index = DataSource.IndexOf('\\');
                 if (index > 0)
                 {
                     name = DataSource.Substring(index + 1);
@@ -132,13 +132,13 @@ namespace SqlServer.Rules.Tests.Utils
         /// </summary>
         public string BuildConnectionString(string userId, string password, string dbName)
         {
-            SqlConnectionStringBuilder scsb = CreateBuilder(userId, password, dbName);
+            var scsb = CreateBuilder(userId, password, dbName);
             return scsb.ConnectionString;
         }
 
         public SqlConnectionStringBuilder CreateBuilder(string userId, string password, string dbName)
         {
-            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder {
+            var scsb = new SqlConnectionStringBuilder {
                 DataSource = DataSource,
                 InitialCatalog = dbName,
                 Pooling = false,

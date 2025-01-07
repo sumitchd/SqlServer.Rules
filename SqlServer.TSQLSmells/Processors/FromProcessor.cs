@@ -15,7 +15,7 @@ namespace TSQLSmellSCA
         private bool isCteName(SchemaObjectName ObjectName, WithCtesAndXmlNamespaces cte)
         {
             if (cte == null) return false;
-            foreach (CommonTableExpression Expression in cte.CommonTableExpressions)
+            foreach (var Expression in cte.CommonTableExpressions)
             {
                 if (Expression.ExpressionName.Value == ObjectName.BaseIdentifier.Value)
                 {
@@ -27,7 +27,7 @@ namespace TSQLSmellSCA
 
         private void ProcessTableReference(TableReference TableRef, WithCtesAndXmlNamespaces cte)
         {
-            string Type = FragmentTypeParser.GetFragmentType(TableRef);
+            var Type = FragmentTypeParser.GetFragmentType(TableRef);
             switch (Type)
             {
                 case "NamedTableReference":
@@ -47,7 +47,7 @@ namespace TSQLSmellSCA
                     }
                     if (NamedTableRef.TableHints != null)
                     {
-                        foreach (TableHint TableHint in NamedTableRef.TableHints)
+                        foreach (var TableHint in NamedTableRef.TableHints)
                         {
                             switch (TableHint.HintKind)
                             {
@@ -72,7 +72,7 @@ namespace TSQLSmellSCA
                 case "QueryDerivedTable":
 
                     var QueryDerivedRef = (QueryDerivedTable) TableRef;
-                    String Alias = QueryDerivedRef.Alias.Value;
+                    var Alias = QueryDerivedRef.Alias.Value;
                     if (Alias.Length == 1)
                     {
                         _smells.SendFeedBack(11, QueryDerivedRef);
@@ -94,7 +94,7 @@ namespace TSQLSmellSCA
 
         public void Process(FromClause FromClause, WithCtesAndXmlNamespaces cte)
         {
-            foreach (TableReference TableRef in FromClause.TableReferences)
+            foreach (var TableRef in FromClause.TableReferences)
             {
                 ProcessTableReference(TableRef, cte);
             }

@@ -134,8 +134,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// </returns>
         public override string ToString()
         {
-            List<string> cols = new List<string>();
-            for (int i = 0; i < Table1JoinColumns.Count; i++)
+            var cols = new List<string>();
+            for (var i = 0; i < Table1JoinColumns.Count; i++)
             {
                 var compare = Compares.ElementAt(i);
                 var col1 = Table1JoinColumns.ElementAt(i);
