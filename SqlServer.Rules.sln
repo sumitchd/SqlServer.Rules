@@ -33,12 +33,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin Scripts", "Admin Scripts", "{9B7DA20C-6191-4102-B2A9-F8100AD66FD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{42637764-8B6D-4211-81AE-617833721BF8}"
-	ProjectSection(SolutionItems) = preProject
-		Admin Scripts\Windows\BuildSolution.bat = Admin Scripts\Windows\BuildSolution.bat
-		Admin Scripts\Windows\BuildSolution.ps1 = Admin Scripts\Windows\BuildSolution.ps1
-		Admin Scripts\Windows\Install.bat = Admin Scripts\Windows\Install.bat
-		Admin Scripts\Windows\Install.ps1 = Admin Scripts\Windows\Install.ps1
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A3CFDF6A-9D73-4814-BE43-DD223FE1C275}"
 	ProjectSection(SolutionItems) = preProject
@@ -153,6 +147,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Performance", "Performance"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSQLSmellSCA", "SqlServer.TSQLSmells\TSQLSmellSCA.csproj", "{0E07F4CD-6CDB-4B3A-B8D5-F88B3B26E58C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabase", "TestDatabase\TestDatabase.csproj", "{F07AAB67-97A5-4D2D-B808-145886DD960D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +179,10 @@ Global
 		{0E07F4CD-6CDB-4B3A-B8D5-F88B3B26E58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E07F4CD-6CDB-4B3A-B8D5-F88B3B26E58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E07F4CD-6CDB-4B3A-B8D5-F88B3B26E58C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F07AAB67-97A5-4D2D-B808-145886DD960D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F07AAB67-97A5-4D2D-B808-145886DD960D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F07AAB67-97A5-4D2D-B808-145886DD960D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F07AAB67-97A5-4D2D-B808-145886DD960D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
