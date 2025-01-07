@@ -30,14 +30,12 @@ namespace SqlServer.Rules.Tests.Performance
         {
             var problems = GetTestCaseProblems(nameof(MissingJoinPredicateRule), MissingJoinPredicateRule.RuleId);
 
-            const int expected = 4;
+            const int expected = 1;
             Assert.AreEqual(expected, problems.Count, $"Expected {expected} problem(s) to be found");
 
-            Assert.IsTrue(problems.Any(problem => Comparer.Equals(problem.SourceName, "dbo_table2_trigger_1_not_for_replication.sql")));
-            Assert.IsTrue(problems.Any(problem => Comparer.Equals(problem.SourceName, "fk_table2_table1_1_not_for_replication.sql")));
-            Assert.IsTrue(problems.Count(problem => Comparer.Equals(problem.SourceName, "table3.sql")) == 2);
+            Assert.IsTrue(problems.Any(problem => Comparer.Equals(problem.SourceName, "mtgfunc.sql")));
 
-            Assert.IsTrue(problems.All(problem => Comparer.Equals(problem.Description, MissingJoinPredicateRule.Message)));
+            Assert.IsTrue(problems.All(problem => Comparer.Equals(problem.Description, MissingJoinPredicateRule.MessageNoJoin)));
             Assert.IsTrue(problems.All(problem => problem.Severity == SqlRuleProblemSeverity.Warning));
         }
 
