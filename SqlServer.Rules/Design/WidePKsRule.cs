@@ -63,7 +63,7 @@ namespace SqlServer.Rules.Design
             var objName = sqlObj.Name.GetName();
 
             var columns = sqlObj.GetReferenced(DacQueryScopes.All).Where(x => x.ObjectType == Column.TypeClass).ToList();
-            if (!columns.Any())
+            if (columns.Count == 0)
             {
                 return problems;
             }

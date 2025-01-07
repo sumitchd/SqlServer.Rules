@@ -127,9 +127,10 @@ END
                 SqlConnection conn = null;
                 try
                 {
-                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(connString);
-                    scsb.InitialCatalog = "master";
-                    scsb.Pooling = false;
+                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(connString) {
+                        InitialCatalog = "master",
+                        Pooling = false,
+                    };
                     conn = new SqlConnection(scsb.ConnectionString);
                     conn.Open();
 

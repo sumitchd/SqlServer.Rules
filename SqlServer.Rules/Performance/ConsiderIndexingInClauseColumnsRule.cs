@@ -74,7 +74,7 @@ namespace SqlServer.Rules.Performance
                     var inClauses = inPredicateVisitor.NotIgnoredStatements(RuleId)
                         .Where(i => !i.NotDefined && i.Expression is ColumnReferenceExpression);
 
-                    if (inClauses.Count() == 0) { continue; }
+                    if (!inClauses.Any()) { continue; }
 
                     foreach (var inClause in inClauses)
                     {

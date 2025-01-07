@@ -7,7 +7,7 @@ namespace SqlServer.Dac.Visitors
 {
     public class ExecuteVisitor : BaseVisitor, IVisitor<ExecuteStatement>
     {
-        private readonly IList<string> _procNames = null;
+        private readonly IList<string> _procNames;
         public ExecuteVisitor()
         {
             _procNames = new List<string>();

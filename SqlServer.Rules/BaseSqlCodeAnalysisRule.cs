@@ -567,7 +567,7 @@ namespace SqlServer.Rules
             if (table is NamedTableReference reference)
             {
                 Func<string, string, string, bool> compareNames = (string t1, string t2, string c) =>
-                    (t1.Contains($"{t2}.[{c}]") || t1.Contains($"[{c}]") && !t1.Contains("#"));
+                    (t1.Contains($"{t2}.[{c}]") || t1.Contains($"[{c}]") && !t1.Contains('#'));
                 var tableName = reference.GetName().ToLower();
                 referencedColumn = columns.FirstOrDefault(c => compareNames(c.Name.GetName().ToLower(), tableName, columnName));
             }

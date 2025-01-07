@@ -59,7 +59,7 @@ namespace SqlServer.Rules.Globals
             }
 
             var columnList = list.Where(t => t.Key.IsMatch(colIdentifier)).ToList();
-            if (columnList.Any())
+            if (columnList.Count != 0)
             {
                 //ok, if there are multiples.... really don't know how to handle that.
                 return columnList.First().Value.FirstOrDefault(x => x.Value.Name.StringEquals(colIdentifier.Parts.Last())).Value;
