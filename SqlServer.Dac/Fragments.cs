@@ -7,13 +7,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace SqlServer.Dac
 {
     public static class Fragments
     {
-        #region Fragments
         public static void Accept(this TSqlFragment fragment, params TSqlFragmentVisitor[] visitors)
         {
             foreach (var visitor in visitors)
@@ -154,7 +152,7 @@ namespace SqlServer.Dac
             //this function can re-parse that fragment into its true fragment, and not a SQL script...
             if (!(baseFragment is TSqlScript script)) { return baseFragment; }
 
-            var stmt = script?.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
+            var stmt = script.Batches.FirstOrDefault()?.Statements.FirstOrDefault();
             if (stmt == null) { return script; }
             //we don't need to parse the fragment unless it is of type TSqlStatement or TSqlStatementSnippet.... just return the type it found
             if (!(stmt.GetType() == typeof(TSqlStatement) || stmt.GetType() == typeof(TSqlStatementSnippet))) { return stmt; }
@@ -177,60 +175,5 @@ namespace SqlServer.Dac
             //if we got here, the object was tsqlscript, but was not parseable.... so we bail out
             return script;
         }
-
-        public static TSqlFragment GetFragment(this FileInfo file)
-        {
-            TSqlFragment fragment;
-            var tsqlParser = new TSql140Parser(true);
-            using (TextReader textReader = file.OpenText())
-            {
-                fragment = tsqlParser.Parse(textReader, out IList<ParseError> parseErrors) as TSqlScript;
-                if (fragment == null)
-                {
-                    throw new ApplicationException($"Unable to parse file {file}");
-                }
-
-                if (parseErrors.Any())
-                {
-                    throw new ApplicationException($"Unable to parse file {file}, errors: {string.Join("\r\n", parseErrors.Select(e => $"Line: {e.Line}, Error: {e.Message}"))}");
-                }
-            }
-            return fragment;
-        }
-
-        /// <summary>
-        /// Scripts the fragment to a string
-        /// </summary>
-        /// <param name="fragment"></param>
-        /// <returns></returns>
-        public static string GetScript(this TSqlFragment fragment)
-        {
-            var generator = new Sql140ScriptGenerator();
-            generator.GenerateScript(fragment, out string sql);
-            return sql;
-        }
-
-        /// <summary>
-        /// Scripts the fragment to a text writer
-        /// </summary>
-        /// <param name="fragment"></param>
-        /// <param name="writer"></param>
-        public static void GetScript(this TSqlFragment fragment, TextWriter writer)
-        {
-            var generator = new Sql140ScriptGenerator();
-            generator.GenerateScript(fragment, writer);
-        }
-
-        public static string GetScript(this IList<TSqlParserToken> scriptTokenStream)
-        {
-            var sb = new StringBuilder();
-            foreach (var t in scriptTokenStream)
-            {
-                sb.Append(t.Text);
-            }
-            return sb.ToString();
-        }
-        #endregion Fragments
-
     }
 }

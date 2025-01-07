@@ -9,77 +9,6 @@ namespace SqlServer.Dac
 {
     public static class Names
     {
-        //public static ObjectIdentifier GetObjectIdentifier(this SchemaObjectName name, string assumedSchema = "dbo")
-        //{
-        //	if (name.Identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
-        //	{
-        //		return new ObjectIdentifier(new[] { assumedSchema, name.Identifiers.First().Value });
-        //	}
-        //	return new ObjectIdentifier(name.Identifiers.Select(x => x.Value));
-        //}
-        //public static ObjectIdentifier GetObjectIdentifier(this MultiPartIdentifier name, string assumedSchema = "dbo")
-        //{
-        //	if (name.Identifiers.Count == 1 && !string.IsNullOrWhiteSpace(assumedSchema))
-        //	{
-        //		return new ObjectIdentifier(new[] { assumedSchema, name.Identifiers.First().Value });
-        //	}
-        //	return new ObjectIdentifier(name.Identifiers.Select(x => x.Value));
-        //}
-
-        public static ObjectIdentifier GetFragmentObjectId(this TSqlFragment fragment, string assumedSchema = "dbo")
-        {
-            ObjectIdentifier ret = null;
-
-            switch (fragment)
-            {
-                case CreateTableStatement createTable:
-                    ret = createTable.SchemaObjectName.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateProcedureStatement createproc:
-                    ret = createproc.ProcedureReference.Name.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateViewStatement createView:
-                    ret = createView.SchemaObjectName.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateFunctionStatement createFunction:
-                    ret = createFunction.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateTriggerStatement createTrigger:
-                    ret = createTrigger.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateSequenceStatement createSequence:
-                    ret = createSequence.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateDefaultStatement createDefault:
-                    ret = createDefault.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateTypeUddtStatement createUddtType:
-                    ret = createUddtType.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateTypeUdtStatement createUdtType:
-                    ret = createUdtType.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateTypeTableStatement createTypeTable:
-                    ret = createTypeTable.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case CreateSynonymStatement createSynonymStatement:
-                    ret = createSynonymStatement.Name?.GetObjectIdentifier(assumedSchema);
-                    break;
-                case ExecuteStatement executeStatement:
-                    if (executeStatement.ExecuteSpecification.ExecutableEntity is ExecutableProcedureReference execProc)
-                    {
-                        ret = execProc.ProcedureReference.ProcedureReference.Name.GetObjectIdentifier(assumedSchema);
-                    }
-                    break;
-                case TSqlScript _:
-                case TSqlStatementSnippet _:
-                    break;
-                default:
-                    throw new ApplicationException("Unable to determine fragment type");
-            }
-
-            return ret;
-        }
         public static ObjectIdentifier GetObjectIdentifier(this NamedTableReference table, string assumedSchema = "dbo")
         {
             var identifiers = table.SchemaObject.Identifiers;
@@ -113,18 +42,6 @@ namespace SqlServer.Dac
                 return new ObjectIdentifier(assumedSchema, name.Identifiers.First().Value);
             }
             return new ObjectIdentifier(name.Identifiers.Select(x => x.Value));
-        }
-        public static IList<string> GetNameParts(this MultiPartIdentifier multiPartId)
-        {
-            return multiPartId.Identifiers.Select(i => i.Value).ToList();
-        }
-        public static IList<string> GetNameParts(this SchemaObjectName name)
-        {
-            return name.Identifiers.Select(i => i.Value).ToList();
-        }
-        public static IList<string> GetNameParts(this IList<Identifier> identifiers)
-        {
-            return identifiers.Select(i => i.Value).ToList();
         }
         public static string GetName(this ObjectIdentifier identifier)
         {
@@ -193,35 +110,6 @@ namespace SqlServer.Dac
             var displayServices = ruleExecutionContext.SchemaModel.DisplayServices;
             string elementName = displayServices.GetElementName(modelElement, style);
             return elementName;
-        }
-
-        public static string GetConstraintName(this ConstraintDefinition constraint)
-        {
-            string ret;
-            if (constraint == null) { return null; }
-
-            switch (constraint)
-            {
-                case DefaultConstraintDefinition defaultConstraint:
-                    ret = defaultConstraint.ConstraintIdentifier?.Value;
-                    break;
-                case UniqueConstraintDefinition uniqueConstraint:
-                    ret = uniqueConstraint.ConstraintIdentifier?.Value;
-                    break;
-                case ForeignKeyConstraintDefinition foreignKeyConstraint:
-                    ret = foreignKeyConstraint.ConstraintIdentifier?.Value;
-                    break;
-                case CheckConstraintDefinition checkConstraint:
-                    ret = checkConstraint.ConstraintIdentifier?.Value;
-                    break;
-                case NullableConstraintDefinition nullableConstraint:
-                    ret = null;
-                    break;
-                default:
-                    throw new ApplicationException("Unable to determine constraint name");
-            }
-
-            return ret;
         }
 
         public static ObjectIdentifier GetObjectName(this TSqlFragment fragment, string assumedSchema = "dbo")
