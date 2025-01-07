@@ -77,7 +77,11 @@ namespace SqlServer.Rules.Performance
             var problems = new List<SqlRuleProblem>();
             var sqlObj = ruleExecutionContext.ModelElement;
 
-            if (sqlObj == null || sqlObj.IsWhiteListed()) return problems;
+            if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
+                return problems;
+            }
+
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingSchemaTypes);
             var joinVisitor = new JoinVisitor();
             fragment.Accept(joinVisitor);

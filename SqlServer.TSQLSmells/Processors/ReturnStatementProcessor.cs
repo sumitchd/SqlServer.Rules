@@ -13,7 +13,10 @@ namespace TSQLSmellSCA
 
         public void ProcessReturnStatement(ReturnStatement ReturnStatement)
         {
-            if (ReturnStatement.Expression != null) _smells.ProcessTsqlFragment(ReturnStatement.Expression);
+            if (ReturnStatement.Expression != null)
+            {
+                _smells.ProcessTsqlFragment(ReturnStatement.Expression);
+            }
         }
     }
 }

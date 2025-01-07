@@ -72,7 +72,9 @@ namespace SqlServer.Rules.Design
             var db = ruleExecutionContext.SchemaModel;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingAndViewSchemaTypes);
 

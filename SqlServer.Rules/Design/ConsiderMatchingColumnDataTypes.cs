@@ -61,7 +61,9 @@ namespace SqlServer.Rules.Design
             var sqlModel = ruleExecutionContext.SchemaModel;
 
             if (sqlModel == null)
+            {
                 return problems;
+            }
 
             var tables = sqlModel.GetObjects(DacQueryScopes.UserDefined, Table.TypeClass).Where(t => !t.IsWhiteListed());
             var columnList = new List<TableColumnInfo>();

@@ -22,7 +22,9 @@ namespace SqlServer.Rules.Report
             get
             {
                 if (string.IsNullOrEmpty(_outputFileName))
+                {
                     OutputFileName = $"{FileName}.xml";
+                }
 
                 return _outputFileName;
             }

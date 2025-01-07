@@ -31,7 +31,11 @@ namespace TSQLSmellSCA
 
         public void Process(OrderByClause OrderClause)
         {
-            if (OrderClause == null) return;
+            if (OrderClause == null)
+            {
+                return;
+            }
+
             foreach (var Expression in OrderClause.OrderByElements)
             {
                 ProcessOrderExpression(Expression);

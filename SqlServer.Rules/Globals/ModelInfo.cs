@@ -97,7 +97,9 @@ namespace SqlServer.Rules.Globals
             var result = 0;
 
             if (literal == null || string.IsNullOrEmpty(literal.Value))
+            {
                 return result;
+            }
 
             int.TryParse(literal.Value, out result);
 

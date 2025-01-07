@@ -58,7 +58,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingAndViewSchemaTypes);
             var topVisitor = new TopRowFilterVisitor();
@@ -70,7 +72,9 @@ namespace SqlServer.Rules.Design
                 var orderByvisitor = new OrderByVisitor();
                 fragment.Accept(orderByvisitor);
                 if (orderByvisitor.Count < 1)
+                {
                     problems.Add(new SqlRuleProblem(Message, sqlObj, topVisitor.Statements[0]));
+                }
             }
 
             return problems;

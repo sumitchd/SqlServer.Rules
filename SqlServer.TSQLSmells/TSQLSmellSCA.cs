@@ -48,7 +48,10 @@ namespace TSQLSmellSCA
 
                 }
 
-                if (isWhite) continue;
+                if (isWhite)
+                {
+                    continue;
+                }
 
                 problems.AddRange(DoSmells(tSqlObject));
 

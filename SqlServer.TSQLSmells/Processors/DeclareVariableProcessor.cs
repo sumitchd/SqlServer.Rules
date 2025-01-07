@@ -18,7 +18,10 @@ namespace TSQLSmellSCA
                 _smells.SendFeedBack(33, Element);
             }
             _smells.ProcessTsqlFragment(Element.DataType);
-            if (Element.Value != null) _smells.ProcessTsqlFragment(Element.Value);
+            if (Element.Value != null)
+            {
+                _smells.ProcessTsqlFragment(Element.Value);
+            }
         }
 
         public void ProcessDeclareVariableStatement(DeclareVariableStatement Statement)

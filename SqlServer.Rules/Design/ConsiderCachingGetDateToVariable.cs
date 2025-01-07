@@ -58,7 +58,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null)
+            {
                 return problems;
+            }
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingSchemaTypes);
 

@@ -55,7 +55,9 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed())
+            {
                 return problems;
+            }
 
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingSchemaTypes);
             var visitor = new OrderByVisitor();
@@ -68,7 +70,9 @@ namespace SqlServer.Rules.Design
                              select e).Distinct();
 
             foreach (var offender in offenders)
+            {
                 problems.Add(new SqlRuleProblem(Message, sqlObj, offender));
+            }
 
             return problems;
         }

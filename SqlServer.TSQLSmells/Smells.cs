@@ -107,7 +107,10 @@ namespace TSQLSmellSCA
 
         public void SendFeedBack(int errorNum, TSqlFragment errorFrg)
         {
-            if (errorNum != _iRule) return;
+            if (errorNum != _iRule)
+            {
+                return;
+            }
 
             var rm = Resources.ResourceManager;
 
@@ -134,8 +137,16 @@ namespace TSQLSmellSCA
                     //{$Query = $Stmt.QueryExpression;
                     var querySpec = (QuerySpecification)queryExpression;
                     _selectStatementProcessor.ProcessSelectElements(querySpec.SelectElements, parentType, cte);
-                    if (querySpec.FromClause != null) _fromProcessor.Process(querySpec.FromClause, cte);
-                    if (querySpec.WhereClause != null) _whereProcessor.Process(querySpec.WhereClause);
+                    if (querySpec.FromClause != null)
+                    {
+                        _fromProcessor.Process(querySpec.FromClause, cte);
+                    }
+
+                    if (querySpec.WhereClause != null)
+                    {
+                        _whereProcessor.Process(querySpec.WhereClause);
+                    }
+
                     if (querySpec.OrderByClause != null)
                     {
                         _orderByProcessor.Process(querySpec.OrderByClause);
@@ -145,7 +156,10 @@ namespace TSQLSmellSCA
                         }
                     }
 
-                    if (querySpec.TopRowFilter != null) _topProcessor.ProcessTopFilter(querySpec.TopRowFilter);
+                    if (querySpec.TopRowFilter != null)
+                    {
+                        _topProcessor.ProcessTopFilter(querySpec.TopRowFilter);
+                    }
 
                     break;
                 case "QueryParenthesisExpression":
