@@ -13,6 +13,6 @@
     <None Include="key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.4.92" />
+    <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.5.57" />
   </ItemGroup>
 </Project>
