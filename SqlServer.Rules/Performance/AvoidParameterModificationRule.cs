@@ -81,7 +81,7 @@ namespace SqlServer.Rules.Design
             foreach (var param in parameterVisitor.Statements.Select(p => p.VariableName.Value))
             {
                 var selectsUsingParam = selectVisitor.Statements.GetSelectsUsingParameterInWhere(param).ToList();
-                if (!selectsUsingParam.Any()) { continue; }
+                if (selectsUsingParam.Count == 0) { continue; }
 
                 var selectStartLine = selectsUsingParam.FirstOrDefault()?.StartLine;
                 var getAssignmentSelects = selectVisitor.NotIgnoredStatements(RuleId)

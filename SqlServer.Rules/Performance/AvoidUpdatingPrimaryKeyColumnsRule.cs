@@ -80,7 +80,7 @@ namespace SqlServer.Rules.Performance
             fragment.Accept(updateVisitor);
             foreach (var update in updateVisitor.NotIgnoredStatements(RuleId))
             {
-                if (!(update.UpdateSpecification.Target is NamedTableReference target) || target.GetName().Contains("#")) { continue; }
+                if (!(update.UpdateSpecification.Target is NamedTableReference target) || target.GetName().Contains('#')) { continue; }
 
                 //we have an aliased table we need to find out what the real table is so we can look up its columns
                 if (update.UpdateSpecification.FromClause != null)

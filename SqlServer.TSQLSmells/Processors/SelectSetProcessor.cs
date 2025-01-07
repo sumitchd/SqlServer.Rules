@@ -13,9 +13,10 @@ namespace TSQLSmellSCA
 
         private void ProcessVariableReference(VariableReference VarRef, string VarName)
         {
-            var VarAssignment = new VarAssignment();
-            VarAssignment.SrcName = VarRef.Name;
-            VarAssignment.VarName = VarName;
+            var VarAssignment = new VarAssignment {
+                SrcName = VarRef.Name,
+                VarName = VarName,
+            };
             _smells.AssignmentList.Add(VarAssignment);
         }
 

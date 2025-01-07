@@ -1,7 +1,6 @@
 ﻿using Microsoft.SqlServer.TransactSql.ScriptDom;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SqlServer.Dac.Visitors
 {
@@ -12,7 +11,7 @@ namespace SqlServer.Dac.Visitors
         public int Count { get { return Statements.Count; } }
         public TypesVisitor(params Type[] typesToLookFor)
         {
-            if (!typesToLookFor.Any()) { throw new ArgumentNullException(nameof(typesToLookFor)); }
+            if (typesToLookFor.Length == 0) { throw new ArgumentNullException(nameof(typesToLookFor)); }
             _types = new List<Type>(typesToLookFor);
         }
 

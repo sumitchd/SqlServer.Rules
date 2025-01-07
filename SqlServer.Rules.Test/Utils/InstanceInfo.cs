@@ -30,10 +30,8 @@ using System;
 
 namespace SqlServer.Rules.Tests.Utils
 {
-
     public class InstanceInfo
     {
-
         public InstanceInfo(string dataSource)
         {
             DataSource = dataSource;
@@ -140,11 +138,12 @@ namespace SqlServer.Rules.Tests.Utils
 
         public SqlConnectionStringBuilder CreateBuilder(string userId, string password, string dbName)
         {
-            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder();
-            scsb.DataSource = DataSource;
-            scsb.InitialCatalog = dbName;
-            scsb.Pooling = false;
-            scsb.MultipleActiveResultSets = false;
+            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder {
+                DataSource = DataSource,
+                InitialCatalog = dbName,
+                Pooling = false,
+                MultipleActiveResultSets = false,
+            };
             if (ConnectTimeout != 15)
             {
                 scsb.ConnectTimeout = ConnectTimeout;

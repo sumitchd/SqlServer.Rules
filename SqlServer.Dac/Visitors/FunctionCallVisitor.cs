@@ -6,7 +6,7 @@ namespace SqlServer.Dac.Visitors
 {
     public class FunctionCallVisitor : BaseVisitor, IVisitor<FunctionCall>
     {
-        private readonly IList<string> _functionNames = null;
+        private readonly IList<string> _functionNames;
         public FunctionCallVisitor()
         {
             _functionNames = new List<string>();

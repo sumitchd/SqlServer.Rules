@@ -89,7 +89,7 @@ namespace SqlServer.Rules.Design
                 var joinInfos = from.GetFromClauseJoinTables()
                     .Where(x => x.Table1JoinColumns.Count > 0 && (x.Table1JoinColumns.Count == x.Table2JoinColumns.Count)
                 ).ToList();
-                if (!joinInfos.Any()) { continue; }
+                if (joinInfos.Count == 0) { continue; }
 
                 foreach (var join in joinInfos)
                 {
@@ -111,7 +111,7 @@ namespace SqlServer.Rules.Design
                     var possibleFks = fkList.Where(f => join.CheckTableNames(f.Value)).ToList();
 
                     //we did not find any fks where the tables in the join matched the tables in the fk
-                    if (!possibleFks.Any())
+                    if (possibleFks.Count == 0)
                     {
                         problems.Add(new SqlRuleProblem(MessageNoJoin, sqlObj, join.Table2));
                         continue;

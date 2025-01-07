@@ -71,7 +71,7 @@ namespace SqlServer.Rules.Design
 
             var indexes = sqlObj.GetReferencing(DacQueryScopes.All)
                 .Where(x => x.ObjectType == Index.TypeClass).Select(x => x.GetFragment());
-            if (indexes.Count() == 0) { return problems; }
+            if (!indexes.Any()) { return problems; }
 
             var indexVisitor = new CreateIndexStatementVisitor();
             foreach (var index in indexes)
