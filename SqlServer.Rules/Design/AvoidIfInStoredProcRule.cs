@@ -58,7 +58,7 @@ namespace SqlServer.Rules.Design
             if (sqlObj == null) { return problems; }
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(typeof(CreateProcedureStatement));
 
-            IfStatementVisitor ifVisitor = new IfStatementVisitor();
+            var ifVisitor = new IfStatementVisitor();
 
             fragment.Accept(ifVisitor);
 

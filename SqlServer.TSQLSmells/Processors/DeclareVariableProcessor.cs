@@ -23,7 +23,7 @@ namespace TSQLSmellSCA
 
         public void ProcessDeclareVariableStatement(DeclareVariableStatement Statement)
         {
-            foreach (DeclareVariableElement variable in Statement.Declarations)
+            foreach (var variable in Statement.Declarations)
             {
                 _smells.ProcessTsqlFragment(variable);
             }

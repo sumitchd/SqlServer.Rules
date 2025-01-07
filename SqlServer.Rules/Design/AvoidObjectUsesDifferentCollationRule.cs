@@ -56,8 +56,8 @@ namespace SqlServer.Rules.Design
         /// </returns>
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext ruleExecutionContext)
         {
-            List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
-            TSqlObject sqlObj = ruleExecutionContext.ModelElement;
+            var problems = new List<SqlRuleProblem>();
+            var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed()) { return problems; }
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(typeof(CreateTableStatement));
@@ -65,7 +65,7 @@ namespace SqlServer.Rules.Design
 
             var dbCollation = ruleExecutionContext.SchemaModel.CopyModelOptions().Collation;
 
-            ColumnDefinitionVisitor columnVisitor = new ColumnDefinitionVisitor();
+            var columnVisitor = new ColumnDefinitionVisitor();
             fragment.Accept(columnVisitor);
 
             var statements = columnVisitor.NotIgnoredStatements(RuleId).ToList();

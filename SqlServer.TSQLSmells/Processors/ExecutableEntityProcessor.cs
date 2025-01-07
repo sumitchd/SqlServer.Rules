@@ -47,7 +47,7 @@ namespace TSQLSmellSCA
                         ProcReference.ProcedureReference.ProcedureReference.Name.BaseIdentifier.Value.Equals(
                             "sp_executesql", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (ExecuteParameter Param in ExecutableEntity.Parameters)
+                        foreach (var Param in ExecutableEntity.Parameters)
                         {
                             if (Param.Variable.Name.Equals("@stmt", StringComparison.OrdinalIgnoreCase))
                             {
@@ -75,20 +75,20 @@ namespace TSQLSmellSCA
 
         public void ProcessExecuteStatement(ExecuteStatement Fragment)
         {
-            ExecutableEntity ExecutableEntity = Fragment.ExecuteSpecification.ExecutableEntity;
+            var ExecutableEntity = Fragment.ExecuteSpecification.ExecutableEntity;
             ProcessExecutableEntity(ExecutableEntity);
         }
 
         public bool TestVariableAssigmentChain(string VarName)
         {
-            foreach (ProcedureParameter Param in _smells.ProcedureStatementBodyProcessor.ParameterList)
+            foreach (var Param in _smells.ProcedureStatementBodyProcessor.ParameterList)
             {
                 if (Param.VariableName.Value.Equals(VarName, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
             }
-            foreach (VarAssignment VarOn in _smells.AssignmentList)
+            foreach (var VarOn in _smells.AssignmentList)
             {
                 if (VarOn.VarName.Equals(VarName, StringComparison.OrdinalIgnoreCase))
                 {

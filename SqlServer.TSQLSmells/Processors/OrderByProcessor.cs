@@ -13,7 +13,7 @@ namespace TSQLSmellSCA
 
         private void ProcessOrderExpression(ExpressionWithSortOrder Expression)
         {
-            string SubExpressionType = FragmentTypeParser.GetFragmentType(Expression.Expression);
+            var SubExpressionType = FragmentTypeParser.GetFragmentType(Expression.Expression);
             switch (SubExpressionType)
             {
                 case "IntegerLiteral":
@@ -32,7 +32,7 @@ namespace TSQLSmellSCA
         public void Process(OrderByClause OrderClause)
         {
             if (OrderClause == null) return;
-            foreach (ExpressionWithSortOrder Expression in OrderClause.OrderByElements)
+            foreach (var Expression in OrderClause.OrderByElements)
             {
                 ProcessOrderExpression(Expression);
             }

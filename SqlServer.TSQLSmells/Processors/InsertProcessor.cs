@@ -13,7 +13,7 @@ namespace TSQLSmellSCA
 
         public void ProcessWithCtesAndXmlNamespaces(WithCtesAndXmlNamespaces Cte)
         {
-            foreach (CommonTableExpression Expression in Cte.CommonTableExpressions)
+            foreach (var Expression in Cte.CommonTableExpressions)
             {
                 _smells.ProcessQueryExpression(Expression.QueryExpression, "RG", false, Cte);
             }
@@ -30,7 +30,7 @@ namespace TSQLSmellSCA
             {
                 case "SelectInsertSource":
                     var InsSource = (SelectInsertSource) Fragment.InsertSpecification.InsertSource;
-                    WithCtesAndXmlNamespaces Cte = Fragment.WithCtesAndXmlNamespaces;
+                    var Cte = Fragment.WithCtesAndXmlNamespaces;
                     _smells.ProcessQueryExpression(InsSource.Select, "RG", false, Cte);
                     if (Cte != null)
                         ProcessWithCtesAndXmlNamespaces(Cte);
@@ -38,7 +38,7 @@ namespace TSQLSmellSCA
                 case "ExecuteInsertSource":
                     var ExecSource = (ExecuteInsertSource) Fragment.InsertSpecification.InsertSource;
                     //ProcessExecuteSpecification(ExecSource.Execute);
-                    ExecutableEntity ExecutableEntity = ExecSource.Execute.ExecutableEntity;
+                    var ExecutableEntity = ExecSource.Execute.ExecutableEntity;
                     _smells.ExecutableEntityProcessor.ProcessExecutableEntity(ExecutableEntity);
                     break;
             }

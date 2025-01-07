@@ -49,7 +49,7 @@ namespace SqlServer.Rules.Tests.Utils
         /// </summary>
         private void Dispose(bool isDisposing)
         {
-            foreach (IDisposable disposable in this)
+            foreach (var disposable in this)
             {
                 disposable.Dispose();
             }

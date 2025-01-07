@@ -13,7 +13,7 @@ namespace TSQLSmellSCA
 
         public void ProcessBeginEndBlockStatement(BeginEndBlockStatement BEStatement)
         {
-            foreach (TSqlStatement Statement in BEStatement.StatementList.Statements)
+            foreach (var Statement in BEStatement.StatementList.Statements)
             {
                 _smells.ProcessTsqlFragment(Statement);
             }

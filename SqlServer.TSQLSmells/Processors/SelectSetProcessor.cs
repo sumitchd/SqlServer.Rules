@@ -22,7 +22,7 @@ namespace TSQLSmellSCA
 
         private void ProcessSelectSetFragment(TSqlFragment Expression, string VarName)
         {
-            string ElemType = FragmentTypeParser.GetFragmentType(Expression);
+            var ElemType = FragmentTypeParser.GetFragmentType(Expression);
             switch (ElemType)
             {
                 case "BinaryExpression":
@@ -56,8 +56,8 @@ namespace TSQLSmellSCA
 
         public void ProcessSelectSetVariable(SelectSetVariable SelectElement)
         {
-            string VarName = SelectElement.Variable.Name;
-            ScalarExpression Expression = SelectElement.Expression;
+            var VarName = SelectElement.Variable.Name;
+            var Expression = SelectElement.Expression;
             ProcessSelectSetFragment(Expression, VarName);
         }
     }

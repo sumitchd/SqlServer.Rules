@@ -18,7 +18,7 @@ namespace SqlServer.Rules.Tests
 
         protected ReadOnlyCollection<SqlRuleProblem> GetTestCaseProblems(string testCases, string ruleId)
         {
-            ReadOnlyCollection<SqlRuleProblem> problems = new ReadOnlyCollection<SqlRuleProblem>(new List<SqlRuleProblem>());
+            var problems = new ReadOnlyCollection<SqlRuleProblem>(new List<SqlRuleProblem>());
 
             using (var test = new BaselineSetup(TestContext, testCases, new TSqlModelOptions(), SqlVersion))
             {

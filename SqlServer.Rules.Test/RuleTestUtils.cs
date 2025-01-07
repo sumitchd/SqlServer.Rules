@@ -38,7 +38,7 @@ namespace SqlServer.Rules.Test
             StreamWriter streamWriter = null;
             try
             {
-                string directory = Path.GetDirectoryName(filename);
+                var directory = Path.GetDirectoryName(filename);
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
@@ -57,7 +57,7 @@ namespace SqlServer.Rules.Test
 
         public static string ReadFileToString(string filePath)
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            using (var reader = new StreamReader(filePath))
             {
                 return reader.ReadToEnd();
             }

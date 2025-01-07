@@ -56,8 +56,8 @@ namespace SqlServer.Rules.Design
         /// </returns>
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext ruleExecutionContext)
         {
-            List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
-            TSqlObject sqlObj = ruleExecutionContext.ModelElement;
+            var problems = new List<SqlRuleProblem>();
+            var sqlObj = ruleExecutionContext.ModelElement;
 
             if (sqlObj == null || sqlObj.IsWhiteListed()) { return problems; }
             var fragment = ruleExecutionContext.ScriptFragment.GetFragment(typeof(CreateProcedureStatement));
@@ -80,7 +80,7 @@ namespace SqlServer.Rules.Design
                     || st.GetType() == typeof(CommitTransactionStatement));
             var possibleOffenders = new List<DataModificationStatement>(actionStatementVisitor.Statements);
 
-            for (int i = 0; i < transactionStatements.Count(); i += 2)
+            for (var i = 0; i < transactionStatements.Count(); i += 2)
             {
                 var beginTranLine = transactionStatements.ElementAt(i).StartLine;
                 var commitTranLine = transactionStatements.ElementAt(i + 1).StartLine;

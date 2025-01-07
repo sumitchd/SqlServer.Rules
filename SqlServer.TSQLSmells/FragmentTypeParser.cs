@@ -7,9 +7,9 @@ namespace TSQLSmellSCA
     {
         public static string GetFragmentType(TSqlFragment Statement)
         {
-            String Type = Statement.ToString();
-            String[] TypeSplit = Type.Split('.');
-            String StmtType = TypeSplit[TypeSplit.Length - 1];
+            var Type = Statement.ToString();
+            var TypeSplit = Type.Split('.');
+            var StmtType = TypeSplit[TypeSplit.Length - 1];
             return (StmtType);
         }
     }

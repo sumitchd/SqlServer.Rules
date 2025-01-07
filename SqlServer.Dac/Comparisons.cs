@@ -42,12 +42,12 @@ namespace SqlServer.Dac
         /// <returns></returns>
         private static int CompareIdentifiers(this ObjectIdentifier identifier, IEnumerable<string> identifiers)
         {
-            int ret = 0;
+            var ret = 0;
 
             var left = PadNames(identifier.Parts);
             var right = PadNames(identifiers);
 
-            for (int i = 1; i < 4; i++)
+            for (var i = 1; i < 4; i++)
             {
                 if (!string.IsNullOrWhiteSpace(left[i])
                     && !string.IsNullOrWhiteSpace(right[i])
@@ -72,7 +72,7 @@ namespace SqlServer.Dac
         public static List<string> PadNames(IEnumerable<string> nameParts)
         {
             var ret = new List<string>(nameParts);
-            for (int i = ret.Count; i < 4; i++)
+            for (var i = ret.Count; i < 4; i++)
             {
                 ret.Insert(0, "");
             }

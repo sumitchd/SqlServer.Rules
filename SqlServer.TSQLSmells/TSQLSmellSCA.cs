@@ -18,28 +18,28 @@ namespace TSQLSmellSCA
 
         public IList<SqlRuleProblem> Analyze()
         {
-            List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
+            var problems = new List<SqlRuleProblem>();
 
-            ModelTypeClass[] ExFilter = new[] { ModelSchema.ExtendedProperty };
+            var ExFilter = new[] { ModelSchema.ExtendedProperty };
 
-            List<TSqlObject> WhiteList = new List<TSqlObject>();
+            var WhiteList = new List<TSqlObject>();
 
             //[SqlTableBase].[dbo].[test].[WhiteList]
-            foreach (TSqlObject tSqlObject in _model.GetObjects(DacQueryScopes.UserDefined, ExFilter))
+            foreach (var tSqlObject in _model.GetObjects(DacQueryScopes.UserDefined, ExFilter))
             {
                 if (tSqlObject.Name.ToString().EndsWith("[WhiteList]", StringComparison.OrdinalIgnoreCase))
                 {
-                    foreach (ModelRelationshipInstance refer in tSqlObject.GetReferencedRelationshipInstances())
+                    foreach (var refer in tSqlObject.GetReferencedRelationshipInstances())
                     {
                         WhiteList.Add(refer.Object);
                     }
                 }
             }
 
-            foreach (TSqlObject tSqlObject in _model.GetObjects(DacQueryScopes.UserDefined))
+            foreach (var tSqlObject in _model.GetObjects(DacQueryScopes.UserDefined))
             {
-                bool isWhite = false;
-                foreach (TSqlObject WhiteCheck in WhiteList)
+                var isWhite = false;
+                foreach (var WhiteCheck in WhiteList)
                 {
                     if (WhiteCheck.Equals(tSqlObject))
                     {
@@ -60,12 +60,12 @@ namespace TSQLSmellSCA
         private IList<SqlRuleProblem> DoSmells(TSqlObject SqlObject)
         {
 
-            List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
+            var problems = new List<SqlRuleProblem>();
 
 
-            Smells smellprocess = new Smells();
+            var smellprocess = new Smells();
 
-            int iRule = int.Parse(_ruleID.Substring(_ruleID.Length - 3));
+            var iRule = int.Parse(_ruleID.Substring(_ruleID.Length - 3));
             return (smellprocess.ProcessObject(SqlObject, iRule));
         }
     }
@@ -84,7 +84,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }
@@ -103,7 +103,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }
@@ -122,7 +122,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }
@@ -140,7 +140,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }
@@ -158,7 +158,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }
@@ -176,7 +176,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -196,7 +196,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -216,7 +216,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -237,7 +237,7 @@ namespace TSQLSmellSCA
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
 
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -258,7 +258,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -279,7 +279,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -299,7 +299,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -319,7 +319,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -339,7 +339,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -359,7 +359,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -380,7 +380,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -400,7 +400,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -420,7 +420,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -441,7 +441,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -461,7 +461,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -481,7 +481,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -501,7 +501,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -521,7 +521,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -542,7 +542,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -562,7 +562,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -582,7 +582,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -602,7 +602,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -622,7 +622,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -642,7 +642,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -662,7 +662,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -682,7 +682,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -703,7 +703,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -723,7 +723,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -743,7 +743,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -763,7 +763,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -783,7 +783,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -804,7 +804,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -824,7 +824,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -844,7 +844,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -864,7 +864,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -884,7 +884,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -904,7 +904,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -925,7 +925,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -945,7 +945,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -965,7 +965,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -986,7 +986,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
 
@@ -1006,7 +1006,7 @@ namespace TSQLSmellSCA
 
         public override IList<SqlRuleProblem> Analyze(SqlRuleExecutionContext context)
         {
-            TSQLSmellWorker Worker = new TSQLSmellWorker(context, RuleId);
+            var Worker = new TSQLSmellWorker(context, RuleId);
             return (Worker.Analyze());
         }
     }

@@ -58,9 +58,9 @@ namespace SqlServer.Rules.Tests.Utils
 
         public static SqlTestDB CreateFromDacpac(InstanceInfo instance, string dacpacPath, DacDeployOptions deployOptions = null, bool dropDatabaseOnCleanup = false)
         {
-            string dbName = Path.GetFileNameWithoutExtension(dacpacPath);
-            DacServices ds = new DacServices(instance.BuildConnectionString(dbName));
-            using (DacPackage dp = DacPackage.Load(dacpacPath, DacSchemaModelStorageType.Memory))
+            var dbName = Path.GetFileNameWithoutExtension(dacpacPath);
+            var ds = new DacServices(instance.BuildConnectionString(dbName));
+            using (var dp = DacPackage.Load(dacpacPath, DacSchemaModelStorageType.Memory))
             {
                 ds.Deploy(dp, dbName, true, deployOptions);
             }
@@ -70,9 +70,9 @@ namespace SqlServer.Rules.Tests.Utils
 
         public static SqlTestDB CreateFromBacpac(InstanceInfo instance, string bacpacPath, DacImportOptions importOptions = null, bool dropDatabaseOnCleanup = false)
         {
-            string dbName = Path.GetFileNameWithoutExtension(bacpacPath);
-            DacServices ds = new DacServices(instance.BuildConnectionString(dbName));
-            using (BacPackage bp = BacPackage.Load(bacpacPath, DacSchemaModelStorageType.Memory))
+            var dbName = Path.GetFileNameWithoutExtension(bacpacPath);
+            var ds = new DacServices(instance.BuildConnectionString(dbName));
+            using (var bp = BacPackage.Load(bacpacPath, DacSchemaModelStorageType.Memory))
             {
                 importOptions = FillDefaultImportOptionsForTest(importOptions);
                 ds.ImportBacpac(bp, dbName, importOptions);
@@ -84,7 +84,7 @@ namespace SqlServer.Rules.Tests.Utils
         public static bool TryCreateFromDacpac(InstanceInfo instance, string dacpacPath, out SqlTestDB db, out string error, DacDeployOptions deployOptions = null, bool dropDatabaseOnCleanup = false)
         {
             error = null;
-            string dbName = string.Empty;
+            var dbName = string.Empty;
             try
             {
                 dbName = Path.GetFileNameWithoutExtension(dacpacPath);
@@ -96,7 +96,7 @@ namespace SqlServer.Rules.Tests.Utils
                 error = ExceptionText.GetText(ex);
                 db = null;
 
-                bool dbCreated = SafeDatabaseExists(instance, dbName);
+                var dbCreated = SafeDatabaseExists(instance, dbName);
                 if (dbCreated)
                 {
                     db = new SqlTestDB(instance, dbName, dropDatabaseOnCleanup);
@@ -109,7 +109,7 @@ namespace SqlServer.Rules.Tests.Utils
         public static bool TryCreateFromBacpac(InstanceInfo instance, string bacpacPath, out SqlTestDB db, out string error, DacImportOptions importOptions = null, bool dropDatabaseOnCleanup = false)
         {
             error = null;
-            string dbName = string.Empty;
+            var dbName = string.Empty;
             try
             {
                 dbName = Path.GetFileNameWithoutExtension(bacpacPath);
@@ -122,7 +122,7 @@ namespace SqlServer.Rules.Tests.Utils
                 error = ExceptionText.GetText(ex);
                 db = null;
 
-                bool dbCreated = SafeDatabaseExists(instance, dbName);
+                var dbCreated = SafeDatabaseExists(instance, dbName);
                 if (dbCreated)
                 {
                     db = new SqlTestDB(instance, dbName, dropDatabaseOnCleanup);
@@ -134,7 +134,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         private static DacImportOptions FillDefaultImportOptionsForTest(DacImportOptions importOptions)
         {
-            DacImportOptions result = new DacImportOptions();
+            var result = new DacImportOptions();
 
             if (importOptions != null)
             {
@@ -150,13 +150,13 @@ namespace SqlServer.Rules.Tests.Utils
         {
             try
             {
-                SqlTestDB masterDb = new SqlTestDB(instance, "master");
-                using (SqlConnection connection = masterDb.OpenSqlConnection())
+                var masterDb = new SqlTestDB(instance, "master");
+                using (var connection = masterDb.OpenSqlConnection())
                 {
-                    using (SqlCommand command = connection.CreateCommand())
+                    using (var command = connection.CreateCommand())
                     {
                         command.CommandText = string.Format(CultureInfo.CurrentCulture, "select count(*) from sys.databases where [name]='{0}'", dbName);
-                        object result = command.ExecuteScalar();
+                        var result = command.ExecuteScalar();
                         int count;
                         return result != null && int.TryParse(result.ToString(), out count) && count > 0;
                     }
@@ -231,7 +231,7 @@ namespace SqlServer.Rules.Tests.Utils
         {
             Cleanup(ReallyCleanUpDatabase.NotIfItCameFromABackupFile);
 
-            EventHandler<EventArgs> h = Disposing;
+            var h = Disposing;
             h?.Invoke(this, EventArgs.Empty);
         }
 
@@ -270,21 +270,21 @@ namespace SqlServer.Rules.Tests.Utils
 
         public SqlConnection OpenSqlConnection()
         {
-            SqlConnection conn = new SqlConnection(_instance.BuildConnectionString(_dbName));
+            var conn = new SqlConnection(_instance.BuildConnectionString(_dbName));
             conn.Open();
             return conn;
         }
         public DbConnection OpenConnection(string userName, string password)
         {
-            SqlConnection conn = new SqlConnection(_instance.BuildConnectionString(userName, password, _dbName));
+            var conn = new SqlConnection(_instance.BuildConnectionString(userName, password, _dbName));
             conn.Open();
             return conn;
         }
 
         public void Execute(string script, int? timeout = null)
         {
-            IList<string> batches = TestUtils.GetBatches(script);
-            using (SqlConnection connection = OpenSqlConnection())
+            var batches = TestUtils.GetBatches(script);
+            using (var connection = OpenSqlConnection())
             {
                 foreach (var batch in batches)
                 {
@@ -302,7 +302,7 @@ namespace SqlServer.Rules.Tests.Utils
             }
             catch (Exception ex)
             {
-                string message = string.Format(CultureInfo.CurrentCulture, "Executing script on server '{0}' database '{1}' failed. Error: {2}.\r\n\r\nScript: {3}.)",
+                var message = string.Format(CultureInfo.CurrentCulture, "Executing script on server '{0}' database '{1}' failed. Error: {2}.\r\n\r\nScript: {3}.)",
                     Instance.DataSource, DatabaseName, ex.Message, script);
                 Debug.WriteLine(message);
             }
@@ -310,7 +310,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         public void ExtractDacpac(string filePath, IEnumerable<Tuple<string, string>> tables = null, DacExtractOptions extractOptions = null)
         {
-            DacServices ds = new DacServices(BuildConnectionString());
+            var ds = new DacServices(BuildConnectionString());
             ds.Extract(filePath, DatabaseName, DatabaseName, new Version(1, 0, 0), string.Empty, tables, extractOptions);
         }
 
@@ -331,7 +331,7 @@ namespace SqlServer.Rules.Tests.Utils
 
         public void ExportBacpac(string filePath, IEnumerable<Tuple<string, string>> tables = null, DacExportOptions extractOptions = null)
         {
-            DacServices ds = new DacServices(BuildConnectionString());
+            var ds = new DacServices(BuildConnectionString());
             ds.ExportBacpac(filePath, DatabaseName, extractOptions, tables);
         }
 
@@ -374,10 +374,10 @@ namespace SqlServer.Rules.Tests.Utils
             if (_cleanupScripts != null && _cleanupScripts.Count > 0)
             {
                 Log("Running cleanup scripts for DB {0}", _dbName);
-                using (SqlConnection conn = new SqlConnection(_instance.BuildConnectionString(_dbName)))
+                using (var conn = new SqlConnection(_instance.BuildConnectionString(_dbName)))
                 {
                     conn.Open();
-                    foreach (string script in _cleanupScripts)
+                    foreach (var script in _cleanupScripts)
                     {
                         TestUtils.Execute(conn, script);
                     }

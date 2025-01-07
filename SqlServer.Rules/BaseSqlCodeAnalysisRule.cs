@@ -352,7 +352,7 @@ namespace SqlServer.Rules
             }
             if (expression is IntegerLiteral exprInt)
             {
-                long val = long.Parse(exprInt.Value);
+                var val = long.Parse(exprInt.Value);
 
                 if (val >= 0 && val <= 255) // to bit or not to bit? NFC.
                 {
@@ -613,7 +613,7 @@ namespace SqlServer.Rules
 
             foreach (var referencedTable in referencedTables)
             {
-                string fullColumnName = referencedTable.Name + ".[" + column.MultiPartIdentifier.Identifiers.Last().Value + "]";
+                var fullColumnName = referencedTable.Name + ".[" + column.MultiPartIdentifier.Identifiers.Last().Value + "]";
                 var retColumn = referencedTable.GetReferencedRelationshipInstances(Table.Columns).FirstOrDefault(p => _comparer.Equals(p.ObjectName.ToString(), fullColumnName));
 
                 if (retColumn != null) { return referencedTable; }

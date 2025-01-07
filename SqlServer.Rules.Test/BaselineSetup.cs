@@ -33,11 +33,11 @@ namespace SqlServer.Rules.Test
 
             SetupFolder = Path.Combine(GetBaseFolder(), TestScriptsFolder, SetupScriptsFolder);
 
-            string outputDir = testContext.TestResultsDirectory;
-            string outputFilename = $"{testName}-{Output}.txt";
+            var outputDir = testContext.TestResultsDirectory;
+            var outputFilename = $"{testName}-{Output}.txt";
             OutputFilePath = Path.Combine(outputDir, testName, outputFilename);
 
-            string baselineFilename = $"{testName}-{Baseline}.txt";
+            var baselineFilename = $"{testName}-{Baseline}.txt";
             BaselineFilePath = Path.Combine(ScriptsFolder, baselineFilename);
         }
 
@@ -69,17 +69,17 @@ namespace SqlServer.Rules.Test
                 return;
             }
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(folder);
+            var directoryInfo = new DirectoryInfo(folder);
 
             var scriptFilePaths = from file in directoryInfo.GetFiles("*" + SqlExtension)
                                   where SqlExtension.Equals(file.Extension, StringComparison.OrdinalIgnoreCase)
                                   select file.FullName;
 
-            foreach (string scriptFile in scriptFilePaths)
+            foreach (var scriptFile in scriptFilePaths)
             {
                 try
                 {
-                    string contents = RuleTestUtils.ReadFileToString(scriptFile);
+                    var contents = RuleTestUtils.ReadFileToString(scriptFile);
                     TestScripts.Add(Tuple.Create(contents, Path.GetFileName(scriptFile)));
                     Console.WriteLine($"Test file '{scriptFile}' loaded successfully");
                 }
@@ -93,14 +93,14 @@ namespace SqlServer.Rules.Test
 
         private void RunVerification(CodeAnalysisResult result, string resultsString)
         {
-            string baseline = RuleTestUtils.ReadFileToString(BaselineFilePath);
+            var baseline = RuleTestUtils.ReadFileToString(BaselineFilePath);
             RuleTestUtils.SaveStringToFile(resultsString, OutputFilePath);
 
-            string loadedTestScriptFiles = ListScriptFilenames();
+            var loadedTestScriptFiles = ListScriptFilenames();
 
             if (string.Compare(resultsString, baseline, false, System.Globalization.CultureInfo.CurrentCulture) != 0)
             {
-                StringBuilder failureMessage = new StringBuilder();
+                var failureMessage = new StringBuilder();
 
                 failureMessage.AppendLine($"The result is not the same as expected. Please compare actual output to baseline.");
                 failureMessage.AppendLine("");
@@ -122,11 +122,11 @@ namespace SqlServer.Rules.Test
 
         private string ListScriptFilenames()
         {
-            StringBuilder loadedTestScriptFiles = new StringBuilder();
+            var loadedTestScriptFiles = new StringBuilder();
 
             foreach (var scriptInfo in TestScripts)
             {
-                string scriptPath = scriptInfo.Item2;
+                var scriptPath = scriptInfo.Item2;
                 loadedTestScriptFiles.AppendLine(scriptPath);
             }
 
