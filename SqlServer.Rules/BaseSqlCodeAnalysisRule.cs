@@ -283,9 +283,9 @@ namespace SqlServer.Rules
             }
             if (value is FunctionCall exprFunc)
             {
-                if (_functions.ContainsKey(exprFunc.FunctionName.Value))
+                if (_functions.TryGetValue(exprFunc.FunctionName.Value, out var type))
                 {
-                    return _functions[exprFunc.FunctionName.Value];
+                    return type;
                 }
             }
             else if (value is BinaryExpression exprBin)
@@ -396,9 +396,9 @@ namespace SqlServer.Rules
             {
                 //TIM C: sigh, this does not work for all functions. the api does not allow for me to look up built in functions. nor does it allow me to get the
                 //data types of parameters, so I am not able to type ALL functions like DATEADD, the parameter could be a column, string literal, variable, function etc...
-                if (_functions.ContainsKey(exprFunc.FunctionName.Value))
+                if (_functions.TryGetValue(exprFunc.FunctionName.Value, out var type))
                 {
-                    return _functions[exprFunc.FunctionName.Value];
+                    return type;
                 }
             }
             else if (expression is BinaryExpression exprBin)

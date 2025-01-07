@@ -66,7 +66,7 @@ namespace SqlServer.Rules.Design
             var offenders =
                 from s in visitor.NotIgnoredStatements(RuleId)
                 let tn = s.Into == null ? "" : s.Into.Identifiers?.LastOrDefault()?.Value
-                where s.Into != null && !(tn.StartsWith("#") || !tn.StartsWith("@"))
+                where s.Into != null && !(tn.StartsWith('#') || !tn.StartsWith('@'))
                 select s.Into;
 
             problems.AddRange(offenders.Select(s => new SqlRuleProblem(Message, sqlObj, s)));

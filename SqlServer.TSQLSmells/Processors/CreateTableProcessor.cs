@@ -13,8 +13,8 @@ namespace TSQLSmellSCA
 
         public void ProcessCreateTable(CreateTableStatement TblStmt)
         {
-            var isTemp = TblStmt.SchemaObjectName.BaseIdentifier.Value.StartsWith("#") ||
-                          TblStmt.SchemaObjectName.BaseIdentifier.Value.StartsWith("@");
+            var isTemp = TblStmt.SchemaObjectName.BaseIdentifier.Value.StartsWith('#') ||
+                          TblStmt.SchemaObjectName.BaseIdentifier.Value.StartsWith('@');
 
             if (TblStmt.SchemaObjectName.SchemaIdentifier == null &&
                 !isTemp)
@@ -53,7 +53,6 @@ namespace TSQLSmellSCA
                     if (colDef.DefaultConstraint != null && colDef.DefaultConstraint.ConstraintIdentifier != null)
                     {
                         _smells.SendFeedBack(39, colDef);
-
                     }
 
                     foreach (var constDef in colDef.Constraints)
