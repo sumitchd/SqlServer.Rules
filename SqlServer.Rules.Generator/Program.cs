@@ -10,7 +10,9 @@ namespace SqlServer.Rules.Generator
         {
             if (args.Length < 1)
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 Console.WriteLine("Usage: SSRG.exe <input file path> [<output file path>]");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 return;
             }
 

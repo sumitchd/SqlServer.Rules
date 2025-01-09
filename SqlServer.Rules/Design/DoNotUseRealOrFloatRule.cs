@@ -70,8 +70,8 @@ namespace SqlServer.Rules.Design
                 {
                     var datatypes = parameter.GetReferenced(Parameter.DataType).Where(t =>
                     {
-                        var name = t.Name?.Parts.LastOrDefault()?.ToLower();
-                        return name == "real" || name == "float";
+                        var name = t.Name?.Parts.LastOrDefault()?.ToUpperInvariant();
+                        return name == "REAL" || name == "FLOAT";
                     });
                     if (datatypes.Any())
                     {
@@ -87,8 +87,8 @@ namespace SqlServer.Rules.Design
                 {
                     var datatypes = column.GetReferenced(Column.DataType).Where(t =>
                     {
-                        var name = t.Name?.Parts.LastOrDefault()?.ToLower();
-                        return name == "real" || name == "float";
+                        var name = t.Name?.Parts.LastOrDefault()?.ToUpperInvariant();
+                        return name == "REAL" || name == "FLOAT";
                     });
                     if (datatypes.Any())
                     {

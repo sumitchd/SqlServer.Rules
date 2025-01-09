@@ -3,6 +3,7 @@ using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -98,7 +99,7 @@ namespace SqlServer.Rules.Design
         {
             var names = col.MultiPartIdentifier?.Identifiers;
             if (names == null) { return false; }
-            return names.Count == 1 && !Constants.DateParts.Contains(names.First().Value.ToLower());
+            return names.Count == 1 && !Constants.DateParts.Contains(names.First().Value, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

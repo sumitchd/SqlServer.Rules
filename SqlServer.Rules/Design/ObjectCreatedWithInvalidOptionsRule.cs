@@ -2,6 +2,7 @@
 using Microsoft.SqlServer.Dac.Model;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SqlServer.Rules.Design
 {
@@ -115,7 +116,7 @@ namespace SqlServer.Rules.Design
                 if (!ansiNullsOn) { options.Add("ANSI_NULLS OFF"); }
                 if (!quotedIdentifierOn) { options.Add("QUOTED_IDENTIFIER OFF"); }
 
-                var errorMessage = string.Format(impactsFunctionality ? Message : MessageNoEffect, string.Join(", ", options));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, impactsFunctionality ? Message : MessageNoEffect, string.Join(", ", options));
                 problems.Add(new SqlRuleProblem(errorMessage, sqlObj));
             }
 

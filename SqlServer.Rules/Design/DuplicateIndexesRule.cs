@@ -5,6 +5,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -72,8 +73,10 @@ namespace SqlServer.Rules.Design
             var objName = sqlObj.Name.GetName();
 
             var indexes = sqlObj.GetReferencing(DacQueryScopes.All)
-                .Where(x => x.ObjectType == Index.TypeClass).Select(x => x.GetFragment());
-            if (!indexes.Any()) { return problems; }
+                .Where(x => x.ObjectType == Index.TypeClass).Select(x => x.GetFragment())
+                .ToList();
+
+            if (indexes.Count == 0) { return problems; }
 
             var indexVisitor = new CreateIndexStatementVisitor();
             foreach (var index in indexes)
@@ -84,7 +87,9 @@ namespace SqlServer.Rules.Design
             var indexInfo = new Dictionary<CreateIndexStatement, List<string>>();
             foreach (var index in indexVisitor.Statements)
             {
-                indexInfo.Add(index, new List<string>(index.Columns.Select(col => col.Column.GetName().ToLower())));
+#pragma warning disable CA1308 // Normalize strings to uppercase
+                indexInfo.Add(index, new List<string>(index.Columns.Select(col => col.Column.GetName().ToLower(CultureInfo.InvariantCulture))));
+#pragma warning restore CA1308 // Normalize strings to uppercase
             }
 
             if (indexInfo.Count == 0) { return problems; }
@@ -93,7 +98,7 @@ namespace SqlServer.Rules.Design
             var dupes = indexInfo.GroupBy(x => string.Join(",", x.Value))
                 .Where(x => x.Count() > 1).SelectMany(x => x).ToList();
             problems.AddRange(dupes
-                .Select(ix => new SqlRuleProblem(string.Format(MessageDuplicate, ix.Key.Name.Value), sqlObj, ix.Key)));
+                .Select(ix => new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, MessageDuplicate, ix.Key.Name.Value), sqlObj, ix.Key)));
 
             //remove the exact duplicates to try to search for border line duplicates
             indexInfo.RemoveAll((key, value) => dupes.Any(x => x.Key == key));
@@ -103,7 +108,7 @@ namespace SqlServer.Rules.Design
             //find all the borderline duplicates where the first column matches
             var borderLineDupes = indexInfo.GroupBy(x => x.Value.First()).Where(x => x.Count() > 1).SelectMany(x => x).ToList();
             problems.AddRange(borderLineDupes
-                .Select(ix => new SqlRuleProblem(string.Format(MessageBorderLine, ix.Key.Name.Value), sqlObj, ix.Key)));
+                .Select(ix => new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, MessageBorderLine, ix.Key.Name.Value), sqlObj, ix.Key)));
 
             return problems;
         }

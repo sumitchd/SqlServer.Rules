@@ -65,8 +65,6 @@ namespace SqlServer.Rules.Performance
 
             foreach (var statement in selectStatementVisitor.Statements)
             {
-                const bool found = false;
-
                 if (statement.QueryExpression is QuerySpecification selects)
                 {
                     foreach (var selectElement in selects.SelectElements)
@@ -77,7 +75,7 @@ namespace SqlServer.Rules.Performance
                         foreach (var function in functionCallVisitor.NotIgnoredStatements(RuleId))
                         {
                             if (function.UniqueRowFilter == UniqueRowFilter.Distinct
-                                && Constants.Aggregates.Contains(function.FunctionName.Value.ToUpper()))
+                                && Constants.Aggregates.Contains(function.FunctionName.Value.ToUpperInvariant()))
                             {
                                 problems.Add(new SqlRuleProblem(Message, sqlObj, statement));
                             }

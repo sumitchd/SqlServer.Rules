@@ -88,8 +88,8 @@ namespace SqlServer.Rules.Performance
             {
                 var colId = col.MultiPartIdentifier?.GetObjectIdentifier();
                 if (colId == null || colId.Parts.Count == 0) { return false; }
-                return !Constants.DateParts.Contains(colId.Parts.Last().ToLower());
-            }) && !Constants.Aggregates.Contains(func.FunctionName.Value.ToUpper());
+                return !Constants.DateParts.Contains(colId.Parts.Last(), _comparer);
+            }) && !Constants.Aggregates.Contains(func.FunctionName.Value, _comparer);
         }
     }
 }

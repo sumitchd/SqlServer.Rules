@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Dac.Model;
 using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Index = Microsoft.SqlServer.Dac.Model.Index;
 
@@ -58,9 +59,9 @@ namespace SqlServer.Rules.Design
             var key = sqlObj.GetChildren(DacQueryScopes.All).FirstOrDefault(x => x.ObjectType == ModelSchema.PrimaryKeyConstraint);
             if (key == null) { return problems; }
 
-            var keyColumns = key.GetReferenced().Where(x => x.ObjectType == Column.TypeClass);
+            var keyColumns = key.GetReferenced().Where(x => x.ObjectType == Column.TypeClass).ToList();
 
-            if (keyColumns.Count() == 1)
+            if (keyColumns.Count == 1)
             {
                 var keyColumn = keyColumns.First();
                 var isIdentity = keyColumn.GetProperty<bool?>(Column.IsIdentity);
@@ -75,7 +76,7 @@ namespace SqlServer.Rules.Design
                     {
                         //no unique constraint. search for a unique index
                         var indexes = sqlObj.GetChildren(DacQueryScopes.All).Where(x => x.ObjectType == ModelSchema.Index);
-                        if (!indexes.Any(ix => Convert.ToBoolean(ix.GetProperty(Index.Unique))))
+                        if (!indexes.Any(ix => Convert.ToBoolean(ix.GetProperty(Index.Unique), CultureInfo.InvariantCulture)))
                         {
                             problems.Add(new SqlRuleProblem(Message, sqlObj));
                         }

@@ -4,6 +4,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -63,13 +64,13 @@ namespace SqlServer.Rules.Design
 
             var vars = from pp in visitor.Statements
                        join t in fragment.ScriptTokenStream
-                           on new { Name = pp.VariableName.Value?.ToLower(), Type = TSqlTokenType.Variable }
-                           equals new { Name = t.Text?.ToLower(), Type = t.TokenType }
+                           on new { Name = pp.VariableName.Value, Type = TSqlTokenType.Variable }
+                           equals new { Name = t.Text, Type = t.TokenType }
                        select pp;
 
-            var unusedVars = vars.GroupBy(p => p.VariableName.Value?.ToLower()).Where(g => g.Count() == 1).Select(g => g.First());
+            var unusedVars = vars.GroupBy(p => p.VariableName.Value).Where(g => g.Count() == 1).Select(g => g.First());
 
-            problems.AddRange(unusedVars.Select(v => new SqlRuleProblem(string.Format(Message, v.VariableName.Value), sqlObj, v)));
+            problems.AddRange(unusedVars.Select(v => new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, Message, v.VariableName.Value), sqlObj, v)));
 
             return problems;
         }

@@ -33,11 +33,11 @@ namespace TSQLSmellSCA
     /// <see cref="ExportCodeAnalysisRuleAttribute"/> directly.
     ///
     /// </summary>
-    internal class LocalizedExportCodeAnalysisRuleAttribute : ExportCodeAnalysisRuleAttribute
+    internal sealed class LocalizedExportCodeAnalysisRuleAttribute : ExportCodeAnalysisRuleAttribute
     {
-        private readonly string _resourceBaseName;
-        private readonly string _displayNameResourceId;
-        private readonly string _descriptionResourceId;
+        public string ResourceBaseName { get; }
+        public string DisplayNameResourceId { get; }
+        public string DescriptionResourceId { get; }
 
         private ResourceManager _resourceManager;
         private string _displayName;
@@ -55,16 +55,16 @@ namespace TSQLSmellSCA
             string descriptionResourceId)
             : base(id, null)
         {
-            _resourceBaseName = resourceBaseName;
-            _displayNameResourceId = displayNameResourceId;
-            _descriptionResourceId = displayNameResourceId; //descriptionResourceId;
+            ResourceBaseName = resourceBaseName;
+            DisplayNameResourceId = displayNameResourceId;
+            DescriptionResourceId = displayNameResourceId; //descriptionResourceId;
         }
 
         /// <summary>
         /// Rules in a different assembly would need to overwrite this
         /// </summary>
         /// <returns></returns>
-        protected virtual Assembly GetAssembly()
+        public Assembly GetAssembly()
         {
             return GetType().Assembly;
         }
@@ -75,11 +75,11 @@ namespace TSQLSmellSCA
 
             try
             {
-                _resourceManager = new ResourceManager(_resourceBaseName, resourceAssembly);
+                _resourceManager = new ResourceManager(ResourceBaseName, resourceAssembly);
             }
             catch (Exception ex)
             {
-                var msg = String.Format(CultureInfo.CurrentCulture, Resources.CannotCreateResourceManager, _resourceBaseName, resourceAssembly);
+                var msg = String.Format(CultureInfo.CurrentCulture, Resources.CannotCreateResourceManager, ResourceBaseName, resourceAssembly);
                 throw new RuleException(msg, ex);
             }
         }
@@ -104,7 +104,7 @@ namespace TSQLSmellSCA
             {
                 if (_displayName == null)
                 {
-                    _displayName = GetResourceString(_displayNameResourceId);
+                    _displayName = GetResourceString(DisplayNameResourceId);
                 }
 
                 return _displayName;
@@ -121,7 +121,7 @@ namespace TSQLSmellSCA
                 if (_descriptionValue == null)
                 {
                     // Using the descriptionResourceId as the key for looking up the description in the resources file.
-                    _descriptionValue = GetResourceString(_descriptionResourceId);
+                    _descriptionValue = GetResourceString(DescriptionResourceId);
                 }
 
                 return _descriptionValue;

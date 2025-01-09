@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Dac.Model;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Dac
@@ -34,7 +35,7 @@ namespace SqlServer.Dac
             Name = name;
             DataType = dataType.Name.Identifiers.Last().Value;
             var length = (dataType as ParameterizedDataTypeReference)?.Parameters.FirstOrDefault()?.Value;
-            Length = length?.ToLower() == "max" ? -1 : Convert.ToInt32(length);
+            Length = length?.ToUpperInvariant() == "max" ? -1 : Convert.ToInt32(length, CultureInfo.InvariantCulture);
             Type = type;
         }
 

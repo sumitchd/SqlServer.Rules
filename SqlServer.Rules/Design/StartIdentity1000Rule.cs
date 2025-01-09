@@ -74,10 +74,10 @@ namespace SqlServer.Rules.Design
 
             //reduce our pks, just down to a list of their names
             var pkColNames = ((UniqueConstraintDefinition)pk).Columns
-                .Select(c => c.Column.MultiPartIdentifier.Identifiers.GetName().ToUpper()).ToList();
+                .Select(c => c.Column.MultiPartIdentifier.Identifiers.GetName().ToUpperInvariant()).ToList();
             //try to find the identity column that is a member of the pk
             var identityColumn = createTable.Definition.ColumnDefinitions
-                .FirstOrDefault(cd => pkColNames.Contains($"[{cd.ColumnIdentifier.Value.ToUpper()}]") && cd.IdentityOptions != null);
+                .FirstOrDefault(cd => pkColNames.Contains($"[{cd.ColumnIdentifier.Value.ToUpperInvariant()}]") && cd.IdentityOptions != null);
 
             if (identityColumn == null) { return problems; }
             //if the seed starts less than 1000, flag it

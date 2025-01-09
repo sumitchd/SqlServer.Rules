@@ -172,7 +172,7 @@ namespace SqlServer.Dac
                 //    ret = null;
                 //    break;
                 default:
-                    throw new ApplicationException("Unable to determine fragment type");
+                    throw new InvalidOperationException("Unable to determine fragment type");
             }
 
             return ret;

@@ -1,9 +1,8 @@
 ﻿using Microsoft.SqlServer.TransactSql.ScriptDom;
-using System;
 
 namespace TSQLSmellSCA
 {
-    public class FragmentTypeParser
+    public static class FragmentTypeParser
     {
         public static string GetFragmentType(TSqlFragment Statement)
         {

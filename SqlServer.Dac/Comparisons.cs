@@ -69,7 +69,8 @@ namespace SqlServer.Dac
             }
             return ret;
         }
-        public static List<string> PadNames(IEnumerable<string> nameParts)
+
+        private static List<string> PadNames(IEnumerable<string> nameParts)
         {
             var ret = new List<string>(nameParts);
             for (var i = ret.Count; i < 4; i++)

@@ -77,10 +77,11 @@ namespace SqlServer.Rules.Design
             //eliminate rollbacks, and ensure all the action statements are wrapped inside the begin tran...commit tran
             var transactionStatements = transactionVisitor.Statements
                 .Where(st => st.GetType() == typeof(BeginTransactionStatement)
-                    || st.GetType() == typeof(CommitTransactionStatement));
+                    || st.GetType() == typeof(CommitTransactionStatement))
+                .ToList();
             var possibleOffenders = new List<DataModificationStatement>(actionStatementVisitor.Statements);
 
-            for (var i = 0; i < transactionStatements.Count(); i += 2)
+            for (var i = 0; i < transactionStatements.Count; i += 2)
             {
                 var beginTranLine = transactionStatements.ElementAt(i).StartLine;
                 var commitTranLine = transactionStatements.ElementAt(i + 1).StartLine;

@@ -35,7 +35,7 @@ namespace SqlServer.Rules.Design
         /// </summary>
         public const string Message = RuleDisplayName;
 
-        private readonly List<string> FunctionNames = new List<string> { "getdate", "sysdatetime" };
+        private readonly List<string> FunctionNames = new List<string> { "GETDATE", "GETUTCDATE", "SYSDATETIME", "SYSUTCDATETIME", "SYSDATETIMEOFFSET" };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsiderCachingGetDateToVariable"/> class.
@@ -95,7 +95,7 @@ namespace SqlServer.Rules.Design
 
             statement.Accept(allFunctions);
 
-            if (allFunctions.Statements.Any(p => FunctionNames.Contains(p.FunctionName.Value.ToLower())))
+            if (allFunctions.Statements.Any(p => FunctionNames.Contains(p.FunctionName.Value.ToUpperInvariant())))
             {
                 hasDateFunction = true;
             }
@@ -113,7 +113,7 @@ namespace SqlServer.Rules.Design
 
             foreach (var functionCall in functionCalls)
             {
-                if (FunctionNames.Contains(functionCall.FunctionName.Value.ToLower()))
+                if (FunctionNames.Contains(functionCall.FunctionName.Value.ToUpperInvariant()))
                 {
                     hasDateFunctions = true;
                 }

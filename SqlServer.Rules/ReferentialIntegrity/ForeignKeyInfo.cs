@@ -37,7 +37,9 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// <value>
         /// The column names.
         /// </value>
+#pragma warning disable CA2227 // Collection properties should be read only
         public IList<ObjectIdentifier> ColumnNames { get; set; }
+
         /// <summary>
         /// Converts to columnnames.
         /// </summary>
@@ -45,7 +47,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// To column names.
         /// </value>
         public IList<ObjectIdentifier> ToColumnNames { get; set; }
-
+#pragma warning restore CA2227 // Collection properties should be read only
         /// <summary>
         /// Converts to string.
         /// </summary>

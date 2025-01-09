@@ -2,13 +2,9 @@
 
 namespace TSQLSmellSCA
 {
-    public class ScalarFunctionReturnTypeProcessor
+    public static class ScalarFunctionReturnTypeProcessor
     {
-        public ScalarFunctionReturnTypeProcessor()
-        {
-        }
-
-        public void ProcessScalarFunctionReturnType(ScalarFunctionReturnType ReturnType)
+        public static void ProcessScalarFunctionReturnType(ScalarFunctionReturnType ReturnType)
         {
         }
     }

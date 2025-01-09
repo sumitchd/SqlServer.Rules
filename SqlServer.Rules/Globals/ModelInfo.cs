@@ -4,6 +4,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Globals
@@ -101,7 +102,10 @@ namespace SqlServer.Rules.Globals
                 return result;
             }
 
-            int.TryParse(literal.Value, out result);
+           if (int.TryParse(literal.Value, out result))
+           {
+                return result;
+           }
 
             return result;
         }
@@ -171,10 +175,12 @@ namespace SqlServer.Rules.Globals
         /// <returns></returns>
         public static IEnumerable<SelectStatement> GetSelectsSettingParameterValue(this IEnumerable<SelectStatement> selects, string parameter)
         {
+#pragma warning disable CA1851 // Possible multiple enumerations of 'IEnumerable' collection
             if (!selects.Any() || string.IsNullOrWhiteSpace(parameter)) { yield break; }
 
             foreach (var select in selects)
             {
+#pragma warning restore CA1851 // Possible multiple enumerations of 'IEnumerable' collection
                 if (parameter.StringEquals(select.GetSetVariable(parameter)))
                 {
                     yield return select;
@@ -192,10 +198,12 @@ namespace SqlServer.Rules.Globals
         /// <returns></returns>
         public static IEnumerable<SelectStatement> GetSelectsUsingParameterInWhere(this IEnumerable<SelectStatement> selects, string parameter)
         {
+#pragma warning disable CA1851 // Possible multiple enumerations of 'IEnumerable' collection
             if (!selects.Any() || string.IsNullOrWhiteSpace(parameter)) { yield break; }
 
             foreach (var select in selects)
             {
+#pragma warning restore CA1851 // Possible multiple enumerations of 'IEnumerable' collection
                 if (select.QueryExpression is QuerySpecification query)
                 {
                     if (query.FromClause == null || query.WhereClause == null) { continue; }
@@ -226,7 +234,7 @@ namespace SqlServer.Rules.Globals
             {
                 var type = typeof(decimal);
                 return parameterizedDataType.Parameters.Select(l =>
-                    (decimal)Convert.ChangeType((l.Value.StringEquals("MAX") ? "-1" : l.Value), type)
+                    (decimal)Convert.ChangeType((l.Value.StringEquals("MAX") ? "-1" : l.Value), type, CultureInfo.InvariantCulture)
                 );
             }
 

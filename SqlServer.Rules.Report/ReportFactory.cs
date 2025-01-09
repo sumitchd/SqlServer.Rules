@@ -5,6 +5,7 @@ using SqlServer.Rules.Report.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,9 @@ namespace SqlServer.Rules.Report
     {
         public delegate void NotifyHandler(string notificationMessage, NotificationType type);
 
+#pragma warning disable CA1003 // Use generic event handler instances
         public event NotifyHandler Notify;
+#pragma warning restore CA1003 // Use generic event handler instances
 
         public void Create(ReportRequest request)
         {
@@ -43,10 +46,9 @@ namespace SqlServer.Rules.Report
             //surpress rules
             service.SetProblemSuppressor(request.Suppress);
             sw.Stop();
-            SendNotification($"Loading {request.FileName}.dacpac complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
+            SendNotification($"Loading {request.FileName}.dacpac complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture)}");
             #endregion
 
-            #region Running rules
             SendNotification("Running rules");
             sw = Stopwatch.StartNew();
             //process non-suppressed rules
@@ -78,10 +80,8 @@ namespace SqlServer.Rules.Report
             }
             result.SerializeResultsToXml(GetOutputFileName(request, ReportOutputType.XML));
             sw.Stop();
-            SendNotification($"Running rules complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
-            #endregion
+            SendNotification($"Running rules complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture)}");
 
-            #region Writing report
             //create report object
             var report = new Report(
                 request.Solution,
@@ -104,7 +104,9 @@ namespace SqlServer.Rules.Report
                         File.WriteAllText(xlstPath, Resources.RulesTransform);
                     }
 
+#pragma warning disable CA5372 // Use XmlReader for XPathDocument constructor
                     var xPathDoc = new XPathDocument(outFileName);
+#pragma warning restore CA5372 // Use XmlReader for XPathDocument constructor
                     var xslTransform = new XslCompiledTransform();
                     using (var xmlWriter = new XmlTextWriter(Path.Combine(outDir, $"{request.FileName}.html"), null))
                     {
@@ -121,8 +123,7 @@ namespace SqlServer.Rules.Report
 
             }
             sw.Stop();
-            SendNotification($"Writing report complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss")}");
-            #endregion
+            SendNotification($"Writing report complete, elapsed: {sw.Elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture)}");
 
 
             SendNotification($"Done with {request.FileName}.dacpac");
@@ -133,7 +134,7 @@ namespace SqlServer.Rules.Report
             var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var outDir = string.IsNullOrWhiteSpace(request.OutputDirectory) ? currentDir : request.OutputDirectory;
             //not sure where this " is coming from, but it throws an exception trying to use the path
-            outDir = outDir.Replace("\"", "").Trim();
+            outDir = outDir.Replace("\"", "", StringComparison.OrdinalIgnoreCase).Trim();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"OUT DIRECTORY: ' {outDir} '");
             Console.ResetColor();
@@ -179,7 +180,7 @@ namespace SqlServer.Rules.Report
                        File = !string.IsNullOrWhiteSpace(p.SourceName) ? p.SourceName : p.ModelElement.Name.GetName(),
                        Line = p.StartLine,
                        Message = p.Description,// p.ErrorMessageString,
-                       Offset = p.StartColumn.ToString(),
+                       Offset = p.StartColumn.ToString(CultureInfo.InvariantCulture),
                        TypeId = p.Rule()
                    };
         }
@@ -201,7 +202,7 @@ namespace SqlServer.Rules.Report
             }
         }
 
-        private void SerializeReportToCSV(Report report, string outputPath)
+        private static void SerializeReportToCSV(Report report, string outputPath)
         {
             var sb = new StringBuilder();
             sb.AppendLine("Issue Id,Message,Line/Offset,File Name");
@@ -209,7 +210,9 @@ namespace SqlServer.Rules.Report
             {
                 foreach (var issue in line.Issues)
                 {
+#pragma warning disable CA1305 // Specify IFormatProvider
                     sb.AppendLine($"\"{issue.TypeId}\",\"{issue.Message}\",\"{issue.Line}/{issue.Offset}\",\"{issue.File}\"");
+#pragma warning restore CA1305 // Specify IFormatProvider
                 }
             }
             File.WriteAllText(outputPath, sb.ToString());

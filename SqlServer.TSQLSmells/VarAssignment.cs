@@ -2,7 +2,7 @@
 {
     public class VarAssignment
     {
-        public string SrcName;
-        public string VarName;
+        public string SrcName { get; set; }
+        public string VarName { get; set; }
     }
 }

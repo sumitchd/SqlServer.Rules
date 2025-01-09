@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Dac.Model;
 using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Index = Microsoft.SqlServer.Dac.Model.Index;
 
@@ -71,14 +72,14 @@ namespace SqlServer.Rules.Design
         {
             if (i.ObjectType == ModelSchema.Index)
             {
-                return Convert.ToBoolean(i.GetProperty(Index.Clustered));
+                return Convert.ToBoolean(i.GetProperty(Index.Clustered), CultureInfo.InvariantCulture);
             }
 
             if (i.ObjectType == ModelSchema.UniqueConstraint)
             {
-                return Convert.ToBoolean(i.GetProperty(UniqueConstraint.Clustered));
+                return Convert.ToBoolean(i.GetProperty(UniqueConstraint.Clustered), CultureInfo.InvariantCulture);
             }
-            return Convert.ToBoolean(i.GetProperty(PrimaryKeyConstraint.Clustered));
+            return Convert.ToBoolean(i.GetProperty(PrimaryKeyConstraint.Clustered), CultureInfo.InvariantCulture);
         }
     }
 }

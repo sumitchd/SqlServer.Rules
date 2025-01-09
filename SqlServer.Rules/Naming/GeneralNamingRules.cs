@@ -103,16 +103,16 @@ namespace SqlServer.Rules.Performance
             }
 
             var tableName = parentObj.Name.Parts.LastOrDefault();
-            switch (objectType.ToLower())
+            switch (objectType.ToUpperInvariant())
             {
-                case "primarykeyconstraint":
+                case "PRIMARYKEYCONSTRAINT":
                     if (!Regex.IsMatch(name, $"^PK_{tableName}$", RegexOptions.IgnoreCase))
                     {
                         problems.Add(new SqlRuleProblem($"Primary Key '{name}' does not follow the company naming standard. Please use the name PK_{tableName}.", sqlObj, fragment));
                     }
 
                     break;
-                case "index":
+                case "INDEX":
                     var idx = fragment as CreateIndexStatement;
 
                     if (idx == null)
@@ -134,7 +134,7 @@ namespace SqlServer.Rules.Performance
                     }
 
                     break;
-                case "foreignkeyconstraint":
+                case "FOREIGNKEYCONSTRAINT":
                     //var fk = fragment as createke;
                     var tableFk = ruleExecutionContext.SchemaModel.GetObject(ForeignKeyConstraint.TypeClass, sqlObj.Name, DacQueryScopes.All);
                     var foreignTableName = tableFk.GetReferencedRelationshipInstances(ForeignKeyConstraint.ForeignTable, DacQueryScopes.All)
@@ -147,14 +147,14 @@ namespace SqlServer.Rules.Performance
                     }
 
                     break;
-                case "checkconstraint":
+                case "CHECKCONSTRAINT":
                     if (!Regex.IsMatch(name, $@"^CK_{tableName}_.*", RegexOptions.IgnoreCase))
                     {
                         problems.Add(new SqlRuleProblem($"Check Constraint '{name}' does not follow the company naming standard. Please use a format that starts with CK_{tableName}*.", sqlObj, fragment));
                     }
 
                     break;
-                case "defaultconstraint":
+                case "DEFAULTCONSTRAINT":
                     var columnName = GetReferencedName(sqlObj, DefaultConstraint.TargetColumn, "Column");
                     //allow two formats for this one
                     if (!Regex.IsMatch(name, $@"^DF_{tableName}_{columnName}$", RegexOptions.IgnoreCase))

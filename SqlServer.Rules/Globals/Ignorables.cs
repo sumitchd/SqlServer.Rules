@@ -44,6 +44,8 @@ namespace SqlServer.Rules.Globals
                    select s;
         }
 
+        private static readonly char[] separator = new char[] { '.' };
+
         /// <summary>
         /// Shoulds the not ignore rule.
         /// </summary>
@@ -58,7 +60,7 @@ namespace SqlServer.Rules.Globals
                 return false;
             }
 
-            var baseRuleId = ruleId.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Last();
+            var baseRuleId = ruleId.Split(separator, StringSplitOptions.RemoveEmptyEntries).Last();
             var ignoreRegex = $@"\bIGNORE\b.*\b{baseRuleId}\b";
             var globalIgnoreRegex = $@"\bGLOBAL\b\s*\bIGNORE\b.*\b{baseRuleId}\b";
 

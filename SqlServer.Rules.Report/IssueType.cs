@@ -29,7 +29,7 @@ namespace SqlServer.Rules.Report
 
         public int GetHashCode(IssueType obj)
         {
-            return obj.Id.GetHashCode();
+            return obj.Id.GetHashCode(StringComparison.OrdinalIgnoreCase);
         }
     }
 }

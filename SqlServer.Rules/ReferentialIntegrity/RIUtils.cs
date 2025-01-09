@@ -224,12 +224,14 @@ namespace SqlServer.Rules.ReferentialIntegrity
             return parts.Take(parts.Count - 1).ToList();
         }
 
-        private static IList<string> GetTableOrAliasName(IEnumerable<Identifier> identifiers)
+        private static List<string> GetTableOrAliasName(IEnumerable<Identifier> identifiers)
         {
+#pragma warning disable CA1851 // Possible multiple enumerations of 'IEnumerable' collection
             if (identifiers.Count() == 1) { return identifiers.Select(x => x.Value).ToList(); }
 
             //take the first parts minus one from the length. as they could use dbo.Table.Column or Table.Column, or t1.Column
             return identifiers.Take(identifiers.Count() - 1).Select(x => x.Value).ToList();
+#pragma warning restore CA1851 // Possible multiple enumerations of 'IEnumerable' collection
         }
 
         private static bool CheckName(NamedTableReference tbl, ColumnReferenceExpression col)

@@ -37,7 +37,11 @@ namespace SqlServer.Rules
         /// <value>
         /// The aliases.
         /// </value>
-        public IList<string> Aliases { get; set; } = new List<string>();
+#pragma warning disable CA1002 // Do not expose generic lists
+        public List<string> Aliases { get; private set; } = new List<string>();
+#pragma warning restore CA1002 // Do not expose generic lists
+
+        private static readonly char[] separator = new[] { '.' };
 
         /// <summary>
         /// Names to identifier.
@@ -45,7 +49,7 @@ namespace SqlServer.Rules
         /// <returns></returns>
         public ObjectIdentifier NameToId()
         {
-            return new ObjectIdentifier((Name ?? string.Empty).Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries));
+            return new ObjectIdentifier((Name ?? string.Empty).Split(separator, StringSplitOptions.RemoveEmptyEntries));
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace SqlServer.Rules
         /// </returns>
         public override int GetHashCode()
         {
-            if (!string.IsNullOrWhiteSpace(Name)) { return Name.GetHashCode(); }
+            if (!string.IsNullOrWhiteSpace(Name)) { return Name.GetHashCode(StringComparison.OrdinalIgnoreCase); }
             return base.GetHashCode();
         }
         /// <summary>

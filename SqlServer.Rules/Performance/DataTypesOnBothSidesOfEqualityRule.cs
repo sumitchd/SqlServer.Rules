@@ -61,6 +61,7 @@ namespace SqlServer.Rules.Performance
             var sqlObj = ruleExecutionContext.ModelElement; //proc / view / function
             if (sqlObj == null || sqlObj.IsWhiteListed()) { return problems; }
 
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingAndViewSchemaTypes);
@@ -80,9 +81,10 @@ namespace SqlServer.Rules.Performance
                         var comparisons = booleanComparisonVisitor.Statements
                             .Where(x =>
                                 (x.FirstExpression is ColumnReferenceExpression
-                                || x.SecondExpression is ColumnReferenceExpression));
+                                || x.SecondExpression is ColumnReferenceExpression))
+                            .ToList();
 
-                        if (!comparisons.Any()) { continue; }
+                        if (comparisons.Count == 0) { continue; }
                         var dataTypesList = new Dictionary<NamedTableView, IDictionary<string, DataTypeView>>();
                         select.GetTableColumnDataTypes(dataTypesList, ruleExecutionContext.SchemaModel);
 
@@ -142,6 +144,7 @@ namespace SqlServer.Rules.Performance
                 Debug.WriteLine(ex.ToString());
                 //throw;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
 
             return problems;
         }

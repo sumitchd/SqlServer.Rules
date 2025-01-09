@@ -6,6 +6,7 @@ using SqlServer.Dac.Visitors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules
@@ -37,18 +38,22 @@ namespace SqlServer.Rules
         /// <summary>
         /// The comparer
         /// </summary>
-        protected static StringComparer _comparer = StringComparer.InvariantCultureIgnoreCase;
+#pragma warning disable CA2211 // Non-constant fields should not be visible
+        public static StringComparer _comparer = StringComparer.InvariantCultureIgnoreCase;
+#pragma warning restore CA2211 // Non-constant fields should not be visible
         /// <summary>
         /// Gets the problems.
         /// </summary>
         /// <value>
         /// The problems.
         /// </value>
+#pragma warning disable CA1002 // Do not expose generic lists
         protected List<SqlRuleProblem> Problems { get; } = new List<SqlRuleProblem>();
+#pragma warning restore CA1002 // Do not expose generic lists
 
         #region built in function data types
         //really not proud of this... could not figure out another way. has to be maintained with each new SQL Server version.
-        private static readonly IDictionary<string, string> _functions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly Dictionary<string, string> _functions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
 			/*Date and Time Data Types and Functions (Transact-SQL)*/
 			{ "SYSDATETIME", "datetime2" },
@@ -185,16 +190,16 @@ namespace SqlServer.Rules
             var fragmentTypeName = fragment.GetType().Name;
             var statementList = new StatementList();
 
-            switch (fragmentTypeName.ToLower())
+            switch (fragmentTypeName.ToUpperInvariant())
             {
-                case "createprocedurestatement":
+                case "CREATEPROCEDURESTATEMENT":
                     return (fragment as CreateProcedureStatement)?.StatementList;
 
-                case "createviewstatement":
+                case "CREATEVIEWSTATEMENT":
                     statementList.Statements.Add((fragment as CreateViewStatement)?.SelectStatement);
                     return statementList;
 
-                case "createfunctionstatement":
+                case "CREATEFUNCTIONSTATEMENT":
                     var func = (fragment as CreateFunctionStatement);
                     if (func == null) { return null; }
 
@@ -207,7 +212,7 @@ namespace SqlServer.Rules
 
                     return func.StatementList;
 
-                case "createtriggerstatement":
+                case "CREATETRIGGERSTATEMENT":
                     return (fragment as CreateTriggerStatement)?.StatementList;
 
                 default:
@@ -352,7 +357,7 @@ namespace SqlServer.Rules
             }
             if (expression is IntegerLiteral exprInt)
             {
-                var val = long.Parse(exprInt.Value);
+                var val = long.Parse(exprInt.Value, CultureInfo.InvariantCulture);
 
                 if (val >= 0 && val <= 255) // to bit or not to bit? NFC.
                 {
@@ -454,11 +459,11 @@ namespace SqlServer.Rules
         {
             TSqlObject referencedColumn = null;
 
-            var columnName = column.MultiPartIdentifier.Identifiers.Last().Value.ToLower();
+            var columnName = column.MultiPartIdentifier.Identifiers.Last().Value;
             var columns = sqlObj.GetReferenced(DacQueryScopes.All).Where(x =>
                 x.ObjectType == Column.TypeClass &&
-                x.Name.GetName().ToLower().Contains($"[{columnName}]")
-            ).Distinct().ToList();
+                x.Name.GetName().Contains($"[{columnName}]", StringComparison.OrdinalIgnoreCase))
+                .Distinct().ToList();
 
             if (columns.Count == 0)
             {
@@ -486,9 +491,12 @@ namespace SqlServer.Rules
                     sqlObj.GetFragment().Accept(tablesVisitor);
 
                     var columnTableAlias = column.MultiPartIdentifier.Identifiers.First().Value;
-                    var tbls = tablesVisitor.Statements.Where(x => _comparer.Equals(x.Alias?.Value, columnTableAlias) || _comparer.Equals(x.GetName(), $"[{columnTableAlias}]"));
+                    var tbls = tablesVisitor.Statements
+                        .Where(x => _comparer.Equals(x.Alias?.Value, columnTableAlias) || _comparer.Equals(x.GetName(), $"[{columnTableAlias}]"))
+                        .ToList();
+
                     //if we find more than one table with the same alias, we have no idea which one it could be.
-                    if (tbls.Count() == 1)
+                    if (tbls.Count == 1)
                     {
                         referencedColumn = GetReferencedColumn(tbls.FirstOrDefault(), columns, columnName);
                     }
@@ -529,7 +537,8 @@ namespace SqlServer.Rules
                 //sometimes for some reason, I have to call getreferenced multiple times to get to the datatype. nfc why....
                 while (dataType == null && referencedColumn != null)
                 {
-                    var colReferenced = referencedColumn.GetReferenced(DacQueryScopes.All);
+                    var colReferenced = referencedColumn.GetReferenced(DacQueryScopes.All).ToList();
+
                     dataType = colReferenced.FirstOrDefault(x => _comparer.Equals(x.ObjectType.Name, "DataType"));
                     if (dataType == null)
                     {
@@ -567,18 +576,20 @@ namespace SqlServer.Rules
             if (table is NamedTableReference reference)
             {
                 Func<string, string, string, bool> compareNames = (string t1, string t2, string c) =>
-                    (t1.Contains($"{t2}.[{c}]") || t1.Contains($"[{c}]") && !t1.Contains('#'));
-                var tableName = reference.GetName().ToLower();
-                referencedColumn = columns.FirstOrDefault(c => compareNames(c.Name.GetName().ToLower(), tableName, columnName));
+                    (t1.Contains($"{t2}.[{c}]", StringComparison.OrdinalIgnoreCase) 
+                        || t1.Contains($"[{c}]", StringComparison.OrdinalIgnoreCase) 
+                    && !t1.Contains('#', StringComparison.OrdinalIgnoreCase));
+                var tableName = reference.GetName();
+                referencedColumn = columns.FirstOrDefault(c => compareNames(c.Name.GetName(), tableName, columnName));
             }
             else if (table is VariableTableReference reference1)
             {
-                var tableName = reference1.Variable.Name.ToLower();
-                referencedColumn = columns.FirstOrDefault(c => c.Name.GetName().ToLower().Contains($"[{tableName}].[{columnName}]"));
+                var tableName = reference1.Variable.Name;
+                referencedColumn = columns.FirstOrDefault(c => c.Name.GetName().Contains($"[{tableName}].[{columnName}]", StringComparison.OrdinalIgnoreCase));
             }
             else
             {
-                referencedColumn = columns.FirstOrDefault(c => c.Name.GetName().ToLower().Contains($"[{columnName}]"));
+                referencedColumn = columns.FirstOrDefault(c => c.Name.GetName().Contains($"[{columnName}]", StringComparison.OrdinalIgnoreCase));
                 Debug.WriteLine($"Unknown table type:{table.GetType().Name}");
             }
 
@@ -620,55 +631,6 @@ namespace SqlServer.Rules
             }
 
             return null;
-        }
-
-
-        /// <summary>
-        /// Gets the numeric properties.
-        /// </summary>
-        /// <param name="numericValue">The numeric value.</param>
-        /// <returns></returns>
-        protected static NumericProperties GetNumericProperties(NumericLiteral numericValue)
-        {
-            return new NumericProperties
-            {
-                Precision = numericValue.Value.Length,
-                Scale = numericValue.Value.Length - numericValue.Value.IndexOf('.')
-            };
-        }
-
-        /// <summary>
-        /// Gets the numeric properties.
-        /// </summary>
-        /// <param name="numericValue">The numeric value.</param>
-        /// <returns></returns>
-        protected static NumericProperties GetNumericProperties(StringLiteral numericValue)
-        {
-            return new NumericProperties
-            {
-                Precision = numericValue.Value.Length,
-                Scale = numericValue.Value.Length - numericValue.Value.IndexOf('.')
-            };
-        }
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    public struct NumericProperties
-    {
-        internal int Precision;
-        internal int Scale;
-
-        /// <summary>
-        /// Converts to string.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Precision}, {Scale}";
         }
     }
 }
