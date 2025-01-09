@@ -73,7 +73,7 @@ namespace SqlServer.Rules.Design
                 .Statements
                 .Where(p => p.SchemaObjectName
                             .Identifiers
-                            .Any(a => a.Value.StartsWith("#", System.StringComparison.InvariantCultureIgnoreCase)));
+                            .Any(a => a.Value.StartsWith('#')));
 
             foreach (var statement in statements)
             {

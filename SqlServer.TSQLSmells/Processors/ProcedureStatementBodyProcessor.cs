@@ -6,7 +6,7 @@ namespace TSQLSmellSCA
     public class ProcedureStatementBodyProcessor
     {
         private readonly Smells _smells;
-        public bool NoCountSet;
+        public bool NoCountSet { get; set; }
         private IList<ProcedureParameter> _parameterList;
 
         public ProcedureStatementBodyProcessor(Smells smells)
@@ -14,7 +14,9 @@ namespace TSQLSmellSCA
             _smells = smells;
         }
 
+#pragma warning disable CA2227 // Collection properties should be read only
         public IList<ProcedureParameter> ParameterList
+#pragma warning restore CA2227 // Collection properties should be read only
         {
             get { return _parameterList; }
             set { _parameterList = value; }

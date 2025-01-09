@@ -56,8 +56,8 @@ namespace SqlServer.Dac.Visitors
             }
 
             if (target != null && target.SchemaObject.Identifiers.Any(x =>
-                x.Value.Contains('#')
-                || x.Value.Contains('@')))
+                x.Value.Contains('#', System.StringComparison.OrdinalIgnoreCase)
+                || x.Value.Contains('@', System.StringComparison.OrdinalIgnoreCase)))
             {
                 ret = true;
             }

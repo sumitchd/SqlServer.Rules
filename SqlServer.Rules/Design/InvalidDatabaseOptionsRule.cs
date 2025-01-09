@@ -2,6 +2,7 @@
 using Microsoft.SqlServer.Dac.Model;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -86,7 +87,7 @@ namespace SqlServer.Rules.Design
             {
                 //cant pass null into the SqlRuleProblem ctor so we have to create or get a tsqlobject
                 var options = sqlModel.GetObjects(DacQueryScopes.All, ModelSchema.DatabaseOptions).First();
-                problems.Add(new SqlRuleProblem(string.Format(Message, string.Join(", ", invalidOptions)), options));
+                problems.Add(new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, Message, string.Join(", ", invalidOptions)), options));
             }
             return problems;
         }

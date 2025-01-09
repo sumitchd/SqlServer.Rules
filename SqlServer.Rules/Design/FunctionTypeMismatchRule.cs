@@ -5,6 +5,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -105,8 +106,8 @@ namespace SqlServer.Rules.Design
                     }
                     if (!paramTypes.All(x => _comparer.Equals(x, paramTypes.First())))
                     {
-                        var funcName = func.FunctionName.Value.ToUpper();
-                        problems.Add(new SqlRuleProblem(string.Format(Message, funcName), sqlObj, func));
+                        var funcName = func.FunctionName.Value;
+                        problems.Add(new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, Message, funcName), sqlObj, func));
                     }
                 }
             }

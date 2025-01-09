@@ -2,10 +2,8 @@ using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.CodeAnalysis;
 using Microsoft.SqlServer.Dac.Model;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
 
 namespace TSQLSmellSCA
 {
@@ -34,7 +32,6 @@ namespace TSQLSmellSCA
         private readonly SetTransactionIsolationLevelProcessor _setTransactionIsolationLevelProcessor;
         private readonly CursorProcessor _cursorProcessor;
         private readonly BeginEndBlockProcessor _beginEndBlockProcessor;
-        private readonly ScalarFunctionReturnTypeProcessor _scalarFunctionReturnTypeProcessor;
         private readonly SelectFunctionReturnTypeProcessor _selectFunctionReturnTypeProcessor;
         private readonly FunctionStatementBodyProcessor _functionStatementBodyProcessor;
         private readonly ProcedureStatementBodyProcessor _procedureStatementBodyProcessor;
@@ -64,7 +61,6 @@ namespace TSQLSmellSCA
             _setTransactionIsolationLevelProcessor = new SetTransactionIsolationLevelProcessor(this);
             _cursorProcessor = new CursorProcessor(this);
             _beginEndBlockProcessor = new BeginEndBlockProcessor(this);
-            _scalarFunctionReturnTypeProcessor = new ScalarFunctionReturnTypeProcessor();
             _selectFunctionReturnTypeProcessor = new SelectFunctionReturnTypeProcessor(this);
             _functionStatementBodyProcessor = new FunctionStatementBodyProcessor(this);
             _procedureStatementBodyProcessor = new ProcedureStatementBodyProcessor(this);
@@ -95,7 +91,9 @@ namespace TSQLSmellSCA
             get { return _selectSetProcessor; }
         }
 
+#pragma warning disable CA1002 // Do not expose generic lists
         public List<VarAssignment> AssignmentList
+#pragma warning restore CA1002 // Do not expose generic lists
         {
             get { return _assignmentList; }
         }
@@ -114,18 +112,11 @@ namespace TSQLSmellSCA
 
             var rm = Resources.ResourceManager;
 
-            var lookup = "TSQLSmell_RuleName" + errorNum.ToString("D2");
-            var Out = rm.GetString(lookup);
+            var lookup = "TSQLSmell_RuleName" + errorNum.ToString("D2", CultureInfo.InvariantCulture);
+            var Out = rm.GetString(lookup, CultureInfo.InvariantCulture);
 
             _problems.Add(new SqlRuleProblem(Out, _modelElement, errorFrg));
         }
-
-        private void SendFeedBack(int errorNum, TSqlParserToken errorToken)
-        {
-            Console.WriteLine(errorNum.ToString(CultureInfo.InvariantCulture));
-            // TODO : For future, may need offset from following token
-        }
-
 
         public void ProcessQueryExpression(QueryExpression queryExpression, string parentType, bool testTop = false,
             WithCtesAndXmlNamespaces cte = null)
@@ -199,9 +190,6 @@ namespace TSQLSmellSCA
                 case "SelectFunctionReturnType":
                     _selectFunctionReturnTypeProcessor.ProcessSelectFunctionReturnType((SelectFunctionReturnType)fragment);
                     return;
-                case "ScalarFunctionReturnType":
-                    _scalarFunctionReturnTypeProcessor.ProcessScalarFunctionReturnType((ScalarFunctionReturnType)fragment);
-                    break;
                 case "SetTransactionIsolationLevelStatement":
                     _setTransactionIsolationLevelProcessor.ProcessSetTransactionIolationLevelStatement((SetTransactionIsolationLevelStatement)fragment);
                     break;
@@ -327,7 +315,9 @@ namespace TSQLSmellSCA
             }
         }
 
+#pragma warning disable CA1002 // Do not expose generic lists
         public List<SqlRuleProblem> ProcessObject(TSqlObject sqlObject, int iRule)
+#pragma warning restore CA1002 // Do not expose generic lists
         {
             var problems = new List<SqlRuleProblem>();
             _problems = problems;

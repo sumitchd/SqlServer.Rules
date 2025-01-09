@@ -67,6 +67,7 @@ namespace SqlServer.Rules.Design
             var sqlObj = ruleExecutionContext.ModelElement; //proc / view / function
             if (sqlObj == null || sqlObj.IsWhiteListed()) { return problems; }
 
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 var fragment = ruleExecutionContext.ScriptFragment.GetFragment(ProgrammingAndViewSchemaTypes);
@@ -105,6 +106,7 @@ namespace SqlServer.Rules.Design
                 Debug.WriteLine(ex.ToString());
                 //throw;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
 
             return problems;
         }

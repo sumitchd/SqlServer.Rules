@@ -12,7 +12,7 @@ namespace TSQLSmellSCA
             _smells = smells;
         }
 
-        private bool isCteName(SchemaObjectName ObjectName, WithCtesAndXmlNamespaces cte)
+        private static bool isCteName(SchemaObjectName ObjectName, WithCtesAndXmlNamespaces cte)
         {
             if (cte == null)
             {

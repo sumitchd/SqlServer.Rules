@@ -19,14 +19,8 @@ namespace SqlServer.Dac
                 dictionary.Add(key, value);
             }
         }
-        public static void TryRemove<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-        {
-            if (dictionary.ContainsKey(key))
-            {
-                dictionary.Remove(key);
-            }
-        }
-        public static IDictionary<K, T> AddRange<K, T>(this IDictionary<K, T> dic1, IDictionary<K, T> dic2)
+
+        public static IDictionary<TKey, TValue> AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dic1, IDictionary<TKey, TValue> dic2)
         {
             foreach (var item in dic2)
             {
@@ -35,7 +29,7 @@ namespace SqlServer.Dac
 
             return dic1;
         }
-        public static void RemoveAll<K, V>(this IDictionary<K, V> dict, Func<K, V, bool> match)
+        public static void RemoveAll<TKey, TValue>(this IDictionary<TKey, TValue> dict, Func<TKey, TValue, bool> match)
         {
             foreach (var key in dict.Keys.ToArray().Where(key => match(key, dict[key])))
             {

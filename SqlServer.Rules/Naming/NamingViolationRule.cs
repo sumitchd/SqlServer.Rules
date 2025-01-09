@@ -17,15 +17,15 @@ namespace SqlServer.Rules.Naming
         /// <summary>
         /// The message
         /// </summary>
-        protected readonly string Message;
+        protected string Message { get; }
         /// <summary>
         /// The bad characters
         /// </summary>
-        protected readonly string BadCharacters;
+        protected string BadCharacters { get; }
         /// <summary>
         /// The partial predicate
         /// </summary>
-        protected readonly Func<string, Predicate<string>> PartialPredicate;
+        protected Func<string, Predicate<string>> PartialPredicate { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NamingViolationRule"/> class.
@@ -66,7 +66,7 @@ namespace SqlServer.Rules.Naming
                 return problems;
             }
 
-            var name = ruleExecutionContext.GetObjectName(sqlObj, ElementNameStyle.SimpleName).ToLower();
+            var name = ruleExecutionContext.GetObjectName(sqlObj, ElementNameStyle.SimpleName).ToUpperInvariant();
             var fragment = ruleExecutionContext.GetFragment();
 
             if (PartialPredicate(name)(BadCharacters)

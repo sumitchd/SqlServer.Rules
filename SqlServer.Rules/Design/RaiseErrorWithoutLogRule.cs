@@ -4,6 +4,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -76,7 +77,7 @@ namespace SqlServer.Rules.Design
                 from r in visitor.Statements
                 where
                     r.SecondParameter is IntegerLiteral literal &&
-                    int.Parse(literal?.Value) > 18 &&
+                    int.Parse(literal?.Value, CultureInfo.InvariantCulture) > 18 &&
                     (r.RaiseErrorOptions & RaiseErrorOptions.Log) != RaiseErrorOptions.Log
                 select r;
 

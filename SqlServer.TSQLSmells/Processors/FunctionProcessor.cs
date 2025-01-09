@@ -26,14 +26,14 @@ namespace TSQLSmellSCA
                 {
                     if (FunctionCall.OverClause.OrderByClause != null)
                     {
-                        switch (FunctionCall.FunctionName.Value.ToLower())
+                        switch (FunctionCall.FunctionName.Value.ToUpperInvariant())
                         {
-                            case "row_number":
-                            case "rank":
-                            case "dense_rank":
-                            case "ntile":
-                            case "lag":
-                            case "lead":
+                            case "ROW_NUMBER":
+                            case "RANK":
+                            case "DENSE_RANK":
+                            case "NTILE":
+                            case "LAG":
+                            case "LEAD":
                                 break;
                             default:
                                 _smells.SendFeedBack(26, FunctionCall.OverClause);

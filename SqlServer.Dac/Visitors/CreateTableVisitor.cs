@@ -13,7 +13,7 @@ namespace SqlServer.Dac.Visitors
             switch (TypeFilter)
             {
                 case ObjectTypeFilter.PermanentOnly:
-                    if (!node.SchemaObjectName.GetName().Contains('#'))
+                    if (!node.SchemaObjectName.GetName().Contains('#', System.StringComparison.OrdinalIgnoreCase))
                     {
                         Statements.Add(node);
                     }
@@ -21,7 +21,7 @@ namespace SqlServer.Dac.Visitors
                     break;
 
                 case ObjectTypeFilter.TempOnly:
-                    if (node.SchemaObjectName.GetName().Contains('#'))
+                    if (node.SchemaObjectName.GetName().Contains('#', System.StringComparison.OrdinalIgnoreCase))
                     {
                         Statements.Add(node);
                     }

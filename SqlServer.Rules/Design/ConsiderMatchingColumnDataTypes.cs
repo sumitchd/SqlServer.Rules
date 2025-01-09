@@ -5,6 +5,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -101,12 +102,12 @@ namespace SqlServer.Rules.Design
             );
 
             problems.AddRange(offenders
-                .Select(col => new SqlRuleProblem(string.Format(Message, col), col.Table, col.Column)));
+                .Select(col => new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, Message, col), col.Table, col.Column)));
 
             return problems;
         }
 
-        internal string GetDataTypeLengthParameters(ColumnDefinition col)
+        internal static string GetDataTypeLengthParameters(ColumnDefinition col)
         {
             if (col.DataType is SqlDataTypeReference dataType)
             {
@@ -126,7 +127,7 @@ namespace SqlServer.Rules.Design
 
             public override string ToString()
             {
-                return $"{ColumnName} {DataType}({DataTypeParameters.Replace("-1", "MAX")})";
+                return $"{ColumnName} {DataType}({DataTypeParameters.Replace("-1", "MAX", System.StringComparison.OrdinalIgnoreCase)})";
             }
         }
     }

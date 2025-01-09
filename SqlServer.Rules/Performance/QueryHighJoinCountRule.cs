@@ -4,6 +4,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Performance
@@ -84,7 +85,7 @@ namespace SqlServer.Rules.Performance
 
                     if (tableCount > 8)
                     {
-                        var msg = string.Format(Message, tableCount);
+                        var msg = string.Format(CultureInfo.InvariantCulture, Message, tableCount);
                         problems.Add(new SqlRuleProblem(msg, sqlObj, fromClause));
                     }
                 }

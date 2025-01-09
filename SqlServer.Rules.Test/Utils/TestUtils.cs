@@ -40,7 +40,7 @@ namespace SqlServer.Rules.Tests.Utils
     /// Utility class for test code. Useful for supporting dropping of databases after tests have completed,
     /// verification a particular database exists, etc.
     /// </summary>
-    public static class TestUtils
+    internal static class TestUtils
     {
         public const string DefaultDataSourceName = "(localdb)\\MSSQLLocalDB";
 
@@ -140,9 +140,11 @@ END
 
                         if (isAzureDb)
                         {
+#pragma warning disable CA1863 // Use 'CompositeFormat'
                             dropStatement = string.Format(CultureInfo.InvariantCulture,
                                 _dropDatabaseIfExistAzure,
                                 databaseName);
+#pragma warning restore CA1863 // Use 'CompositeFormat'
 
                             // Attempt a retry due to azure instability
                             retryCount = 2;
@@ -150,9 +152,11 @@ END
                         else
                         {
                             conn.ChangeDatabase(MasterDatabaseName);
+#pragma warning disable CA1863 // Use 'CompositeFormat'
                             dropStatement = string.Format(CultureInfo.InvariantCulture,
                                 _dropDatabaseIfExist,
                                 databaseName);
+#pragma warning restore CA1863 // Use 'CompositeFormat'
                         }
 
                         Execute(conn, dropStatement);
@@ -165,7 +169,9 @@ END
                     if (displayException)
                     {
                         // Capture exception information, but don't fail test.
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                         Console.WriteLine("Exception while dropping database {0}", databaseName);
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                         Console.WriteLine(exception);
                     }
                 }
@@ -180,7 +186,9 @@ END
 
         public static bool DoesDatabaseExist(SqlConnection connection, string databaseName)
         {
+#pragma warning disable CA1863 // Use 'CompositeFormat'
             var query = string.Format(CultureInfo.InvariantCulture, _queryDatabaseIfExist, databaseName);
+#pragma warning restore CA1863 // Use 'CompositeFormat'
 
             var result = (int)ExecuteScalar(connection, query);
 
@@ -237,9 +245,13 @@ END
             var cmd = conn.CreateCommand();
             // reasonable hard code to prevent hang client.
             cmd.CommandTimeout = commandTimeOut;
+#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
+#pragma warning disable CA1863 // Use 'CompositeFormat'
             cmd.CommandText = String.Format(CultureInfo.InvariantCulture, _setLockTimeoutDefault, GetLockTimeoutMS());
+#pragma warning restore CA1863 // Use 'CompositeFormat'
             cmd.ExecuteNonQuery();
             cmd.CommandText = sqlCommandText;
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
             return cmd;
         }
 
@@ -277,7 +289,7 @@ END
                 foreach (var script in scripts)
                 {
                     // Replace SqlCmd variables with actual values
-                    var exeScript = script.Replace("$(DatabaseName)", dbName);
+                    var exeScript = script.Replace("$(DatabaseName)", dbName, StringComparison.OrdinalIgnoreCase);
                     ExecuteNonQuery(conn, exeScript, commandTimeout);
                 }
             }
@@ -299,15 +311,19 @@ END
                 cmd.CommandText = "SET NUMERIC_ROUNDABORT OFF;";
                 cmd.ExecuteNonQuery();
 
+#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
                 cmd.CommandText = sql;
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 Console.WriteLine("Exception{0}{1}{0}While executing TSQL:{0}{2}",
                     Environment.NewLine,
                     ex,
                     sql);
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 throw;
             }
         }
@@ -334,7 +350,7 @@ END
 
     }
 
-    public class ArgumentValidation
+    internal class ArgumentValidation
     {
         public static void CheckForEmptyString(string arg, string argName)
         {

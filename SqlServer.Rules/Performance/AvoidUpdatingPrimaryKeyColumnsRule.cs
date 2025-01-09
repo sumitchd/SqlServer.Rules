@@ -80,7 +80,10 @@ namespace SqlServer.Rules.Performance
             fragment.Accept(updateVisitor);
             foreach (var update in updateVisitor.NotIgnoredStatements(RuleId))
             {
-                if (!(update.UpdateSpecification.Target is NamedTableReference target) || target.GetName().Contains('#')) { continue; }
+                if (!(update.UpdateSpecification.Target is NamedTableReference target) || target.GetName().Contains('#', System.StringComparison.OrdinalIgnoreCase)) 
+                { 
+                    continue; 
+                }
 
                 //we have an aliased table we need to find out what the real table is so we can look up its columns
                 if (update.UpdateSpecification.FromClause != null)
@@ -90,7 +93,10 @@ namespace SqlServer.Rules.Performance
 
                     target = namedTableVisitor.Statements
                         .FirstOrDefault(t => _comparer.Equals(t.Alias?.Value, target.SchemaObject.Identifiers.LastOrDefault()?.Value));
-                    if (target == null) { continue; }
+                    if (target == null) 
+                    { 
+                        continue; 
+                    }
                 }
 
                 var targetSqlObj = model.GetObject(Table.TypeClass, target.GetObjectIdentifier(), DacQueryScopes.All);

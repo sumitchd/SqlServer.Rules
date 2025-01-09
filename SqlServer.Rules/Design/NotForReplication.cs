@@ -4,6 +4,7 @@ using Microsoft.SqlServer.TransactSql.ScriptDom;
 using SqlServer.Rules.Globals;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -69,15 +70,15 @@ namespace SqlServer.Rules.Design
 
             if (sqlObj.ObjectType == ForeignKeyConstraint.TypeClass)
             {
-                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(ForeignKeyConstraint.NotForReplication));
+                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(ForeignKeyConstraint.NotForReplication), CultureInfo.InvariantCulture);
             }
             else if (sqlObj.ObjectType == CheckConstraint.TypeClass)
             {
-                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(CheckConstraint.NotForReplication));
+                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(CheckConstraint.NotForReplication), CultureInfo.InvariantCulture);
             }
             else if (sqlObj.ObjectType == DmlTrigger.TypeClass)
             {
-                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(DmlTrigger.NotForReplication));
+                notForReplication = Convert.ToBoolean(sqlObj.GetProperty(DmlTrigger.NotForReplication), CultureInfo.InvariantCulture);
             }
             else if (sqlObj.ObjectType == Table.TypeClass)
             {

@@ -66,7 +66,7 @@ namespace SqlServer.Rules.Tests.Utils
             get
             {
                 var serverName = DataSource;
-                var index = DataSource.IndexOf('\\');
+                var index = DataSource.IndexOf('\\', StringComparison.OrdinalIgnoreCase);
                 if (index > 0)
                 {
                     serverName = DataSource.Substring(0, index);
@@ -87,7 +87,7 @@ namespace SqlServer.Rules.Tests.Utils
             get
             {
                 string name = null;
-                var index = DataSource.IndexOf('\\');
+                var index = DataSource.IndexOf('\\', StringComparison.OrdinalIgnoreCase);
                 if (index > 0)
                 {
                     name = DataSource.Substring(index + 1);

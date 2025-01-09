@@ -53,6 +53,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// <value>
         /// The compares.
         /// </value>
+#pragma warning disable CA2227 // Collection properties should be read only
         public IList<BooleanComparisonExpression> Compares { get; set; }
         /// <summary>
         /// Gets or sets the table1 join columns.
@@ -68,7 +69,7 @@ namespace SqlServer.Rules.ReferentialIntegrity
         /// The table2 join columns.
         /// </value>
         public IList<ColumnReferenceExpression> Table2JoinColumns { get; set; } = new List<ColumnReferenceExpression>();
-
+#pragma warning restore CA2227 // Collection properties should be read only
         /// <summary>
         /// Checks the table names.
         /// </summary>
@@ -115,6 +116,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
 
         private (IList<string> table1Columns, IList<string> table2Columns, IList<string> fkInfoColumnNames, IList<string> fkInfoToColumnNames) GetColumnNames(ForeignKeyInfo fkInfo)
         {
+#pragma warning disable CA1304 // Specify CultureInfo
+#pragma warning disable CA1311 // Specify a culture or use an invariant version
             var table1Columns = Table1JoinColumns
                 .Select(x => x.MultiPartIdentifier.Identifiers.Last().Value.ToLower()).ToList();
             var table2Columns = Table2JoinColumns
@@ -122,6 +125,8 @@ namespace SqlServer.Rules.ReferentialIntegrity
 
             var fkInfoColumnNames = fkInfo.ColumnNames.Select(x => x.Parts.Last().ToLower()).ToList();
             var fkInfoToColumnNames = fkInfo.ToColumnNames.Select(x => x.Parts.Last().ToLower()).ToList();
+#pragma warning restore CA1304 // Specify CultureInfo
+#pragma warning restore CA1311 // Specify a culture or use an invariant version
 
             return (table1Columns, table2Columns, fkInfoColumnNames, fkInfoToColumnNames);
         }

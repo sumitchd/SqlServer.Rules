@@ -4,6 +4,7 @@ using SqlServer.Dac;
 using SqlServer.Dac.Visitors;
 using SqlServer.Rules.Globals;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SqlServer.Rules.Design
@@ -68,6 +69,8 @@ namespace SqlServer.Rules.Design
             fragment.Accept(visitor);
 
 
+#pragma warning disable CA1304 // Specify CultureInfo
+#pragma warning disable CA1311 // Specify a culture or use an invariant version
             var parms = from pp in visitor.ProcedureParameters
                         join t in fragment.ScriptTokenStream
                             on new { Name = pp.VariableName.Value?.ToLower(), Type = TSqlTokenType.Variable }
@@ -77,8 +80,9 @@ namespace SqlServer.Rules.Design
 
             var unusedParms = parms.GroupBy(p => p.VariableName.Value?.ToLower())
                 .Where(g => g.Count() == 1).Select(g => g.First());
-
-            problems.AddRange(unusedParms.Select(rp => new SqlRuleProblem(string.Format(Message, rp.VariableName.Value), sqlObj, rp)));
+#pragma warning restore CA1304 // Specify CultureInfo
+#pragma warning restore CA1311 // Specify a culture or use an invariant version
+            problems.AddRange(unusedParms.Select(rp => new SqlRuleProblem(string.Format(CultureInfo.InvariantCulture, Message, rp.VariableName.Value), sqlObj, rp)));
 
             return problems;
         }
