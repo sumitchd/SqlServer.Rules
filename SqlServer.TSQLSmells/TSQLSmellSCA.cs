@@ -79,7 +79,7 @@ namespace TSQLSmellSCA
         // ID used to look up the description inside the resources file
         Category = RuleConstants.CategorySmells,
         RuleScope = SqlRuleScope.Model)] // This rule targets the whole model
-    public sealed class TSQLSmellSCA : SqlCodeAnalysisRule
+    public sealed class TSQLSmellSCA1 : SqlCodeAnalysisRule
     {
 
         public const string RuleId = "Smells.SML001";
