@@ -35,7 +35,7 @@ namespace SqlServer.Dac
             Name = name;
             DataType = dataType.Name.Identifiers.Last().Value;
             var length = (dataType as ParameterizedDataTypeReference)?.Parameters.FirstOrDefault()?.Value;
-            Length = length?.ToUpperInvariant() == "max" ? -1 : Convert.ToInt32(length, CultureInfo.InvariantCulture);
+            Length = length?.ToUpperInvariant() == "MAX" ? -1 : Convert.ToInt32(length, CultureInfo.InvariantCulture);
             Type = type;
         }
 

@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
-		key.snk = key.snk
 		LICENSE = LICENSE
 		README.md = README.md
 		SQL Server Rules.csv = SQL Server Rules.csv
@@ -21,18 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer.Rules.Generator",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer.Rules.Report", "SqlServer.Rules.Report\SqlServer.Rules.Report.csproj", "{B8C13F50-FE33-4416-AA9B-9502F4C039F7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{86E895C7-42B7-4334-889B-DF1C0D733B15}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer.Dac", "SqlServer.Dac\SqlServer.Dac.csproj", "{958B2716-4E46-4498-A742-23DCCF5CE22A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer.Rules.Tests", "SqlServer.Rules.Test\SqlServer.Rules.Tests.csproj", "{54816BB2-6952-4573-BA7C-B387D86D5425}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin Scripts", "Admin Scripts", "{9B7DA20C-6191-4102-B2A9-F8100AD66FD9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{42637764-8B6D-4211-81AE-617833721BF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A3CFDF6A-9D73-4814-BE43-DD223FE1C275}"
 	ProjectSection(SolutionItems) = preProject
@@ -188,7 +178,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{42637764-8B6D-4211-81AE-617833721BF8} = {9B7DA20C-6191-4102-B2A9-F8100AD66FD9}
 		{8FF2252D-599A-43EC-B907-AFFDDEAF0552} = {A3CFDF6A-9D73-4814-BE43-DD223FE1C275}
 		{544D4AA6-CCA1-47A7-8155-9BC7673177CA} = {596B2FD7-2684-4DC5-BD46-31EE223C49E4}
 		{B1B0D9D0-3F3A-476A-A71A-58FFEC5A47FB} = {596B2FD7-2684-4DC5-BD46-31EE223C49E4}
