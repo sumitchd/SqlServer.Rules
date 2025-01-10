@@ -1,4 +1,4 @@
-# SqlServer.Rules
+# TSQLSmellSCA
 
 This project implements a number of SQL Server static code analysis rules, and publishes these as a NuGet package, that you can use with [Microsoft.Build.Sql](https://github.com/microsoft/DacFx/tree/main/src/Microsoft.Build.Sql) and [MsBuild.Sdk.Sqlproj](https://github.com/rr-wfm/MSBuild.Sdk.SqlProj).
 
