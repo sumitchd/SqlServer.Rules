@@ -51,12 +51,14 @@ namespace SqlServer.Rules
         protected List<SqlRuleProblem> Problems { get; } = new List<SqlRuleProblem>();
 #pragma warning restore CA1002 // Do not expose generic lists
 
-        #region built in function data types
         //really not proud of this... could not figure out another way. has to be maintained with each new SQL Server version.
         private static readonly Dictionary<string, string> _functions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
 			/*Date and Time Data Types and Functions (Transact-SQL)*/
+            { "CURRENT_DATE", "date" },
             { "CURRENT_TIMESTAMP", "datetime" },
+            { "CURRENT_TIMEZONE", "varchar" },
+            { "CURRENT_TIMEZONE_ID", "varchar" },
             { "DATEDIFF", "int" },
             { "DATEDIFF_BIG", "bigint" },
             { "DATEFROMPARTS", "date" },
@@ -66,15 +68,18 @@ namespace SqlServer.Rules
             { "DATETIMEFROMPARTS", "datetime" },
             { "DATETIMEOFFSETFROMPARTS", "datetimeoffset" },
             { "DAY", "int" },
+            { "EOMONTH", "date" },
             { "GETDATE", "datetime" },
             { "GETUTCDATE", "datetime" },
             { "ISDATE", "int" },
             { "MONTH", "int" },
             { "SMALLDATETIMEFROMPARTS", "smalldatetime" },
+            { "SWITCHOFFSET", "datetimeoffset" },
             { "SYSDATETIME", "datetime2" },
             { "SYSDATETIMEOFFSET", "datetimeoffset" },
             { "SYSUTCDATETIME", "datetime2" },
             { "TIMEFROMPARTS", "time" },
+            { "TODATETIMEOFFSET", "datetimeoffset" },
             { "YEAR", "int" },
 			/* Mathematical Functions (Transact-SQL)*/
 			{ "ACOS", "float" },
@@ -97,6 +102,8 @@ namespace SqlServer.Rules
             { "TAN", "float" },
 			/*String Functions (Transact-SQL)*/
 			{ "ASCII", "int" },
+            { "BASE64_DECODE", "varbinary" },
+            { "BASE64_ENCODE", "varchar" },
             { "CHAR", "char" },
             { "DIFFERENCE", "int" },
             { "FORMAT", "nvarchar" },
@@ -177,8 +184,6 @@ namespace SqlServer.Rules
             { "USER_ID", "int" },
             { "USER_NAME", "nvarchar" }
         };
-
-        #endregion built in function data types
 
         /// <summary>
         /// Gets the statement list.
