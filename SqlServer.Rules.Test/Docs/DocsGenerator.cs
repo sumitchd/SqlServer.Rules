@@ -181,7 +181,7 @@ namespace SqlServer.Rules.Tests.Docs
                 stringBuilder.AppendLine(spaces);
                 stringBuilder.AppendLine("### Remarks");
                 stringBuilder.AppendLine(spaces);
-                stringBuilder.Append($"{comments.Remarks}");
+                stringBuilder.AppendLine($"{comments.Remarks}");
             }
 
             stringBuilder.AppendLine(spaces);
