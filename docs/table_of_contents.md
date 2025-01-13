@@ -1,4 +1,4 @@
-  
+﻿  
 # Table of Contents
   
   
@@ -46,7 +46,7 @@
 | [SRD0046](Design/SRD0046.md) | Use of approximate data type |   | Do not use the real or float data types for parameters or columns as they are approximate value data types. |   |
 | [SRD0047](Design/SRD0047.md) | Ambiguous column name across design | Yes | Avoid using columns that match other columns by name, but are different in type or size. |   |
 | [SRD0050](Design/SRD0050.md) | Expression reducible to constaint | Yes | The comparison expression always evaluates to TRUE or FALSE. | Yes |
-| [SRD0051](Design/SRD0051.md) | Do Not Use Deprecated Types Rule |   | Don?t use deprecated TEXT, NTEXT and IMAGE data types. |   |
+| [SRD0051](Design/SRD0051.md) | Do Not Use Deprecated Types Rule |   | Don’t use deprecated TEXT, NTEXT and IMAGE data types. |   |
 | [SRD0052](Design/SRD0052.md) | Duplicate/Overlapping Index |   | Index has exact duplicate or borderline overlapping index. |   |
 | [SRD0053](Design/SRD0053.md) | Explicit collation other | Yes | Object has different collation than the rest of the database. Try to avoid using a different collation unless by design. |   |
 | [SRD0055](Design/SRD0055.md) | Object level option override |   | The object was created with invalid options. |   |
