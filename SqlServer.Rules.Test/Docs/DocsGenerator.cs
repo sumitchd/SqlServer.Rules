@@ -252,7 +252,6 @@ namespace SqlServer.Rules.Tests.Docs
     {
         public static string ToSentence(this string input)
         {
-            //return new Regex("(?=[A-Z][a-z])").Replace(input, " ").TrimStart();
             var parts = Regex.Split(input, @"([A-Z]?[a-z]+)").Where(str => !string.IsNullOrEmpty(str));
             return string.Join(' ', parts);
         }
