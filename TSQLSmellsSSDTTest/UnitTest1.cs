@@ -518,10 +518,9 @@ namespace TSQLSmellsSSDTTest
 
         public testLagFunction()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/LagFunction.sql");
+            this._TestFiles.Add("../../../../TSQLSmellsTest/LAGFunction.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
-
         }
 
         [TestMethod]
@@ -719,7 +718,7 @@ namespace TSQLSmellsSSDTTest
 
         public testSets()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Sets.sql");
+            this._TestFiles.Add("../../../../TSQLSmellsTest/SETs.sql");
 
             this._ExpectedProblems.Add(new TestProblem(10, 1, "Smells.SML013"));
             this._ExpectedProblems.Add(new TestProblem(4, 1, "Smells.SML014"));
@@ -747,7 +746,7 @@ namespace TSQLSmellsSSDTTest
 
         public testSets2()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Sets2.sql");
+            this._TestFiles.Add("../../../../TSQLSmellsTest/SETs2.sql");
 
             this._ExpectedProblems.Add(new TestProblem(5, 16, "Smells.SML008"));
             this._ExpectedProblems.Add(new TestProblem(6, 15, "Smells.SML009"));
