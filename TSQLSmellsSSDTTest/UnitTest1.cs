@@ -27,9 +27,9 @@ namespace TSQLSmellsSSDTTest
         public override bool Equals(Object obj)
         {
             TestProblem prb = obj as TestProblem;
-            if(prb.RuleId.Equals(this.RuleId,StringComparison.OrdinalIgnoreCase)&&
-                prb.StartColumn == this.StartColumn &&
-                prb.StartLine == this.StartLine)
+            if (prb.RuleId.Equals(RuleId, StringComparison.OrdinalIgnoreCase) &&
+                prb.StartColumn == StartColumn &&
+                prb.StartLine == StartLine)
             {
                 return true;
             }
@@ -38,18 +38,18 @@ namespace TSQLSmellsSSDTTest
         }
 
         public override int GetHashCode()
-        { 
-            return string.Format("{0}:{1}:{2}", RuleId, StartColumn, StartLine).GetHashCode(); 
+        {
+            return string.Format("{0}:{1}:{2}", RuleId, StartColumn, StartLine).GetHashCode();
         }
     };
 
 
-    
-    public class TestModel 
+
+    public class TestModel
     {
         public List<TestProblem> _ExpectedProblems = new List<TestProblem>();
         public List<TestProblem> _FoundProblems = new List<TestProblem>();
-        public List<String>_TestFiles= new List<String>();
+        public List<String> _TestFiles = new List<String>();
 
         private TSqlModel _Model;
 
@@ -113,10 +113,10 @@ namespace TSQLSmellsSSDTTest
 
         public testConvertDate()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ConvertDate.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ConvertDate.sql");
 
 
-            this._ExpectedProblems.Add(new TestProblem(8,7, "Smells.SML006"));
+            _ExpectedProblems.Add(new TestProblem(8, 7, "Smells.SML006"));
 
 
         }
@@ -135,13 +135,13 @@ namespace TSQLSmellsSSDTTest
 
         public testsqlInjection()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Inject.sql");
-            
-            this._ExpectedProblems.Add(new TestProblem(14,10, "Smells.SML043"));
-            this._ExpectedProblems.Add(new TestProblem(23,10,  "Smells.SML043"));
-            this._ExpectedProblems.Add(new TestProblem(52,10,  "Smells.SML043"));
-            this._ExpectedProblems.Add(new TestProblem(88,10,  "Smells.SML043"));
-            this._ExpectedProblems.Add(new TestProblem(5,7,  "Smells.SML043"));
+            _TestFiles.Add("../../../../TSQLSmellsTest/Inject.sql");
+
+            _ExpectedProblems.Add(new TestProblem(14, 10, "Smells.SML043"));
+            _ExpectedProblems.Add(new TestProblem(23, 10, "Smells.SML043"));
+            _ExpectedProblems.Add(new TestProblem(52, 10, "Smells.SML043"));
+            _ExpectedProblems.Add(new TestProblem(88, 10, "Smells.SML043"));
+            _ExpectedProblems.Add(new TestProblem(5, 7, "Smells.SML043"));
         }
 
         [TestMethod]
@@ -158,9 +158,9 @@ namespace TSQLSmellsSSDTTest
 
         public testCreateViewOrderBy()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/CreateViewOrderBy.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/CreateViewOrderBy.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML028"));
+            _ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML028"));
         }
 
         [TestMethod]
@@ -178,10 +178,10 @@ namespace TSQLSmellsSSDTTest
 
         public testConvertDateMultipleCond()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ConvertDateMultiCond.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ConvertDateMultiCond.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 7, "Smells.SML006"));
-            this._ExpectedProblems.Add(new TestProblem(8, 5, "Smells.SML006"));
+            _ExpectedProblems.Add(new TestProblem(7, 7, "Smells.SML006"));
+            _ExpectedProblems.Add(new TestProblem(8, 5, "Smells.SML006"));
         }
 
         [TestMethod]
@@ -220,10 +220,10 @@ namespace TSQLSmellsSSDTTest
 
         public testConvertInt()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ConvertInt.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ConvertInt.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 7, "Smells.SML006"));
-            
+            _ExpectedProblems.Add(new TestProblem(7, 7, "Smells.SML006"));
+
         }
 
         [TestMethod]
@@ -241,9 +241,9 @@ namespace TSQLSmellsSSDTTest
 
         public testConvertInt2()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ConvertInt2.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ConvertInt2.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 14, "Smells.SML006"));
+            _ExpectedProblems.Add(new TestProblem(7, 14, "Smells.SML006"));
 
         }
 
@@ -262,9 +262,9 @@ namespace TSQLSmellsSSDTTest
 
         public testCreateProcedureNoSchema()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/CreateProcedureNoSchema.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/CreateProcedureNoSchema.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(2, 18, "Smells.SML024"));
+            _ExpectedProblems.Add(new TestProblem(2, 18, "Smells.SML024"));
 
         }
 
@@ -283,9 +283,9 @@ namespace TSQLSmellsSSDTTest
 
         public testCreateTableNoSchema()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/CreateTableNoSchema.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/CreateTableNoSchema.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(1, 1, "Smells.SML027"));
+            _ExpectedProblems.Add(new TestProblem(1, 1, "Smells.SML027"));
 
         }
 
@@ -304,9 +304,9 @@ namespace TSQLSmellsSSDTTest
 
         public testDeclareCursor()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/DeclareCursor.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/DeclareCursor.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML029"));
+            _ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML029"));
 
         }
 
@@ -325,9 +325,9 @@ namespace TSQLSmellsSSDTTest
 
         public testDerived()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Derived.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/Derived.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 24, "Smells.SML035"));
+            _ExpectedProblems.Add(new TestProblem(7, 24, "Smells.SML035"));
 
         }
 
@@ -347,9 +347,9 @@ namespace TSQLSmellsSSDTTest
 
         public testExec1PartName()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Exec1PartName.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/Exec1PartName.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 6, "Smells.SML021"));
+            _ExpectedProblems.Add(new TestProblem(5, 6, "Smells.SML021"));
 
         }
 
@@ -368,9 +368,9 @@ namespace TSQLSmellsSSDTTest
 
         public testExecSQL()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ExecSQL.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ExecSQL.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 1, "Smells.SML012"));
+            _ExpectedProblems.Add(new TestProblem(6, 1, "Smells.SML012"));
 
         }
 
@@ -391,9 +391,9 @@ namespace TSQLSmellsSSDTTest
 
         public testExplicitRangeWindow()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ExplicitRangeWindow.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ExplicitRangeWindow.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 19, "Smells.SML025"));
+            _ExpectedProblems.Add(new TestProblem(7, 19, "Smells.SML025"));
 
         }
 
@@ -412,7 +412,7 @@ namespace TSQLSmellsSSDTTest
 
         public testExists()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/Exists.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/Exists.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(7, 19, "Smells.SML025"));
 
@@ -433,9 +433,9 @@ namespace TSQLSmellsSSDTTest
 
         public testForceScan()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ForceScan.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ForceScan.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 30, "Smells.SML044"));
+            _ExpectedProblems.Add(new TestProblem(6, 30, "Smells.SML044"));
 
         }
 
@@ -454,9 +454,9 @@ namespace TSQLSmellsSSDTTest
 
         public testImplicitRangeWindow()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/ImplicitRangeWindow.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/ImplicitRangeWindow.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 32, "Smells.SML026"));
+            _ExpectedProblems.Add(new TestProblem(5, 32, "Smells.SML026"));
 
         }
 
@@ -475,9 +475,9 @@ namespace TSQLSmellsSSDTTest
 
         public testInsertMissingColumnSpecifiers()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/InsertMissingColumnSpecifiers.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/InsertMissingColumnSpecifiers.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 5, "Smells.SML012"));
+            _ExpectedProblems.Add(new TestProblem(5, 5, "Smells.SML012"));
 
         }
 
@@ -496,9 +496,9 @@ namespace TSQLSmellsSSDTTest
 
         public testInsertSelectStar()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/InsertSelectStar.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/InsertSelectStar.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
 
         }
 
@@ -518,7 +518,7 @@ namespace TSQLSmellsSSDTTest
 
         public testLagFunction()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/LAGFunction.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/LAGFunction.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
         }
@@ -539,9 +539,9 @@ namespace TSQLSmellsSSDTTest
 
         public testMultiCteTest()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/MultiCteTest.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/MultiCteTest.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(8, 10, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(8, 10, "Smells.SML005"));
 
         }
 
@@ -560,11 +560,11 @@ namespace TSQLSmellsSSDTTest
 
         public testOrderByOrdinal()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/orderbyordinal.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/orderbyordinal.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 34, "Smells.SML007"));
-            this._ExpectedProblems.Add(new TestProblem(6, 36, "Smells.SML007"));
-            this._ExpectedProblems.Add(new TestProblem(6, 38, "Smells.SML007"));
+            _ExpectedProblems.Add(new TestProblem(6, 34, "Smells.SML007"));
+            _ExpectedProblems.Add(new TestProblem(6, 36, "Smells.SML007"));
+            _ExpectedProblems.Add(new TestProblem(6, 38, "Smells.SML007"));
 
         }
 
@@ -583,10 +583,10 @@ namespace TSQLSmellsSSDTTest
 
         public testRangeWindow()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/RangeWindow.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/RangeWindow.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(8, 19, "Smells.SML025"));
-            
+            _ExpectedProblems.Add(new TestProblem(8, 19, "Smells.SML025"));
+
         }
 
         [TestMethod]
@@ -606,10 +606,10 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectFromTableVar()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SelectFromTableVar.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SelectFromTableVar.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(9, 8, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(4, 1, "Smells.SML033"));
+            _ExpectedProblems.Add(new TestProblem(9, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(4, 1, "Smells.SML033"));
 
         }
 
@@ -629,9 +629,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarFromViewInProc()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SelectStarFromViewInProc.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SelectStarFromViewInProc.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(4, 8, "Smells.SML005"));
 
         }
 
@@ -652,10 +652,10 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarOutOfCteTest()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SelectStarOutOfCteTest.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SelectStarOutOfCteTest.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(8, 8, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(10, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(8, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(10, 8, "Smells.SML005"));
 
         }
 
@@ -675,9 +675,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectTopNoParen()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SelectTopNoParen.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SelectTopNoParen.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML034"));
+            _ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML034"));
 
         }
 
@@ -696,7 +696,7 @@ namespace TSQLSmellsSSDTTest
 
         public testSetNoCountON()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SetNoCountON.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SetNoCountON.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML034"));
 
@@ -718,16 +718,16 @@ namespace TSQLSmellsSSDTTest
 
         public testSets()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SETs.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SETs.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(10, 1, "Smells.SML013"));
-            this._ExpectedProblems.Add(new TestProblem(4, 1, "Smells.SML014"));
-            this._ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML015"));
-            this._ExpectedProblems.Add(new TestProblem(6, 1, "Smells.SML016"));
-            this._ExpectedProblems.Add(new TestProblem(7, 1, "Smells.SML017"));
-            this._ExpectedProblems.Add(new TestProblem(8, 1, "Smells.SML018"));
-            this._ExpectedProblems.Add(new TestProblem(9, 1, "Smells.SML019"));
-            this._ExpectedProblems.Add(new TestProblem(2, 18, "Smells.SML030"));
+            _ExpectedProblems.Add(new TestProblem(10, 1, "Smells.SML013"));
+            _ExpectedProblems.Add(new TestProblem(4, 1, "Smells.SML014"));
+            _ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML015"));
+            _ExpectedProblems.Add(new TestProblem(6, 1, "Smells.SML016"));
+            _ExpectedProblems.Add(new TestProblem(7, 1, "Smells.SML017"));
+            _ExpectedProblems.Add(new TestProblem(8, 1, "Smells.SML018"));
+            _ExpectedProblems.Add(new TestProblem(9, 1, "Smells.SML019"));
+            _ExpectedProblems.Add(new TestProblem(2, 18, "Smells.SML030"));
         }
 
         [TestMethod]
@@ -746,13 +746,13 @@ namespace TSQLSmellsSSDTTest
 
         public testSets2()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SETs2.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SETs2.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 16, "Smells.SML008"));
-            this._ExpectedProblems.Add(new TestProblem(6, 15, "Smells.SML009"));
-            this._ExpectedProblems.Add(new TestProblem(7, 1, "Smells.SML020"));
-            this._ExpectedProblems.Add(new TestProblem(8, 1, "Smells.SML022"));
-            
+            _ExpectedProblems.Add(new TestProblem(5, 16, "Smells.SML008"));
+            _ExpectedProblems.Add(new TestProblem(6, 15, "Smells.SML009"));
+            _ExpectedProblems.Add(new TestProblem(7, 1, "Smells.SML020"));
+            _ExpectedProblems.Add(new TestProblem(8, 1, "Smells.SML022"));
+
         }
 
         [TestMethod]
@@ -771,10 +771,10 @@ namespace TSQLSmellsSSDTTest
 
         public testSetTransactionIsolationLevel()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SetTransactionIsolationLevel.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SetTransactionIsolationLevel.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML010"));
-            
+            _ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML010"));
+
 
         }
 
@@ -794,9 +794,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSingleCharAlias()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SingleCharAlias.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SingleCharAlias.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 8, "Smells.SML011"));
+            _ExpectedProblems.Add(new TestProblem(6, 8, "Smells.SML011"));
 
 
         }
@@ -818,9 +818,9 @@ namespace TSQLSmellsSSDTTest
 
         public testTableHints()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TableHints.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TableHints.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML004"));
+            _ExpectedProblems.Add(new TestProblem(5, 1, "Smells.SML004"));
 
 
         }
@@ -841,9 +841,9 @@ namespace TSQLSmellsSSDTTest
 
         public testCrossServerJoin()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestCrossServerJoin.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestCrossServerJoin.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 18, "Smells.SML001"));
+            _ExpectedProblems.Add(new TestProblem(5, 18, "Smells.SML001"));
 
 
         }
@@ -863,9 +863,9 @@ namespace TSQLSmellsSSDTTest
 
         public testOnePartNamedSelect()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestOnePartNamedSelect.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestOnePartNamedSelect.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 19, "Smells.SML002"));
+            _ExpectedProblems.Add(new TestProblem(6, 19, "Smells.SML002"));
 
 
         }
@@ -885,9 +885,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarBeginEndBlock()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarBeginEndBlock.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarBeginEndBlock.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
 
 
         }
@@ -907,9 +907,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarInCteTest()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInCteTest.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInCteTest.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
 
 
         }
@@ -929,9 +929,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarIninlineTVF()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarIninlineTVF.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarIninlineTVF.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(6, 9, "Smells.SML005"));
 
 
         }
@@ -951,10 +951,10 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarInMultiStatementTVF()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInMultiStatementTVF.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInMultiStatementTVF.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(12, 10, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(8, 10, "Smells.SML033"));
+            _ExpectedProblems.Add(new TestProblem(12, 10, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(8, 10, "Smells.SML033"));
 
 
         }
@@ -974,10 +974,10 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarInScalarUDF()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInScalarUDF.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInScalarUDF.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(9, 10, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(5, 10, "Smells.SML033"));
+            _ExpectedProblems.Add(new TestProblem(9, 10, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(5, 10, "Smells.SML033"));
 
 
         }
@@ -997,9 +997,9 @@ namespace TSQLSmellsSSDTTest
 
         public testSelectStarInWhileLoop()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInWhileLoop.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestSelectStarInWhileLoop.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML005"));
 
 
         }
@@ -1019,9 +1019,9 @@ namespace TSQLSmellsSSDTTest
 
         public testWithExists()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithExists.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithExists.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 18, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(5, 18, "Smells.SML005"));
 
 
         }
@@ -1042,10 +1042,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithExistsAndNestedSelectStar()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithExistsAndNestedSelectStar.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithExistsAndNestedSelectStar.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4,18, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(4, 18, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(5, 9, "Smells.SML005"));
 
 
         }
@@ -1066,10 +1066,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithExistsAndNestedSelectStarInlineIF()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithExistsAndNestedSelectStarInlineIF.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithExistsAndNestedSelectStarInlineIF.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4, 18, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(4, 51, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(4, 18, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(4, 51, "Smells.SML005"));
 
 
         }
@@ -1089,10 +1089,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithNoLock()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLock.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLock.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
-            
+            _ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
+
 
 
         }
@@ -1112,10 +1112,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithNoLockIndexhint()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockIndexhint.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockIndexhint.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
-            this._ExpectedProblems.Add(new TestProblem(4, 49, "Smells.SML045"));
+            _ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
+            _ExpectedProblems.Add(new TestProblem(4, 49, "Smells.SML045"));
 
 
 
@@ -1135,10 +1135,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithNoLockInWhiteList()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockInWhiteList.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockInWhiteList.sql");
 
-          //  this._ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
-            
+            //  this._ExpectedProblems.Add(new TestProblem(4, 42, "Smells.SML003"));
+
         }
 
         [TestMethod]
@@ -1157,10 +1157,10 @@ namespace TSQLSmellsSSDTTest
 
         public testWithNoLockNoWith()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockNoWith.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TestWithNoLockNoWith.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(4, 38, "Smells.SML003"));
-            
+            _ExpectedProblems.Add(new TestProblem(4, 38, "Smells.SML003"));
+
         }
 
         [TestMethod]
@@ -1180,11 +1180,11 @@ namespace TSQLSmellsSSDTTest
 
         public testUnion()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/UnionTest.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/UnionTest.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(5, 8, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
-            this._ExpectedProblems.Add(new TestProblem(9, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(5, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
+            _ExpectedProblems.Add(new TestProblem(9, 8, "Smells.SML005"));
 
         }
 
@@ -1204,7 +1204,7 @@ namespace TSQLSmellsSSDTTest
 
         public testUnnamedPrimaryKey()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/UnnamedPK.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/UnnamedPK.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(5, 8, "Smells.SML005"));
             //this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
@@ -1227,7 +1227,7 @@ namespace TSQLSmellsSSDTTest
 
         public testWhiteListTest()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/WhiteListTest.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/WhiteListTest.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(5, 8, "Smells.SML005"));
             //this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
@@ -1250,7 +1250,7 @@ namespace TSQLSmellsSSDTTest
 
         public testSingleLineComment()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/SingleLineComment.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/SingleLineComment.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(5, 8, "Smells.SML005"));
             //this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
@@ -1273,9 +1273,9 @@ namespace TSQLSmellsSSDTTest
 
         public testTempTableWithNamedPK()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedPK.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedPK.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(14, 3, "Smells.SML038"));
+            _ExpectedProblems.Add(new TestProblem(14, 3, "Smells.SML038"));
             //this._ExpectedProblems.Add(new TestProblem(7, 8, "Smells.SML005"));
             //this._ExpectedProblems.Add(new TestProblem(9, 8, "Smells.SML005"));
 
@@ -1296,10 +1296,10 @@ namespace TSQLSmellsSSDTTest
 
         public testTempTableWithNamedDefConstraint()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedDefConstraint.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedDefConstraint.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(14, 3, "Smells.SML039"));
-            
+            _ExpectedProblems.Add(new TestProblem(14, 3, "Smells.SML039"));
+
         }
 
         [TestMethod]
@@ -1317,10 +1317,10 @@ namespace TSQLSmellsSSDTTest
 
         public testTempTableWithNamedFK()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedFK.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedFK.sql");
 
             //this._ExpectedProblems.Add(new TestProblem(14, 3, "Smells.SML040"));
-            
+
         }
 
         [TestMethod]
@@ -1339,10 +1339,10 @@ namespace TSQLSmellsSSDTTest
 
         public testTempTableWithNamedCheckConstraint()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedCheckConstraint.sql");
+            _TestFiles.Add("../../../../TSQLSmellsTest/TempTableWithNamedCheckConstraint.sql");
 
-            this._ExpectedProblems.Add(new TestProblem(14, 16, "Smells.SML040"));
-            
+            _ExpectedProblems.Add(new TestProblem(14, 16, "Smells.SML040"));
+
         }
 
         [TestMethod]
@@ -1361,10 +1361,10 @@ namespace TSQLSmellsSSDTTest
 
         public testEqualsNull()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/EqualsNull.sql");
-            this._ExpectedProblems.Add(new TestProblem(13, 39, "Smells.SML046"));
+            _TestFiles.Add("../../../../TSQLSmellsTest/EqualsNull.sql");
+            _ExpectedProblems.Add(new TestProblem(13, 39, "Smells.SML046"));
 
-            
+
         }
 
         [TestMethod]
@@ -1382,8 +1382,8 @@ namespace TSQLSmellsSSDTTest
 
         public testDeprecatedType()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/DeprecatedTypes.sql");
-            this._ExpectedProblems.Add(new TestProblem(4, 16, "Smells.SML047"));
+            _TestFiles.Add("../../../../TSQLSmellsTest/DeprecatedTypes.sql");
+            _ExpectedProblems.Add(new TestProblem(4, 16, "Smells.SML047"));
 
 
         }
@@ -1403,9 +1403,9 @@ namespace TSQLSmellsSSDTTest
 
         public testDeprecatedTypeSP()
         {
-            this._TestFiles.Add("../../../../TSQLSmellsTest/DeprecatedTypesSP.sql");
-            this._ExpectedProblems.Add(new TestProblem(4, 14, "Smells.SML047"));
-            this._ExpectedProblems.Add(new TestProblem(5, 14, "Smells.SML047"));
+            _TestFiles.Add("../../../../TSQLSmellsTest/DeprecatedTypesSP.sql");
+            _ExpectedProblems.Add(new TestProblem(4, 14, "Smells.SML047"));
+            _ExpectedProblems.Add(new TestProblem(5, 14, "Smells.SML047"));
 
         }
 
@@ -1415,5 +1415,5 @@ namespace TSQLSmellsSSDTTest
 
             RunTest();
         }
-    }    
+    }
 }
