@@ -30,7 +30,7 @@ namespace SqlServer.Rules.Design
         /// <summary>
         /// The rule display name
         /// </summary>
-        public const string RuleDisplayName = "Don’t use deprecated TEXT, NTEXT and IMAGE data types.";
+        public const string RuleDisplayName = "Don't use deprecated TEXT, NTEXT and IMAGE data types.";
         /// <summary>
         /// The message
         /// </summary>
