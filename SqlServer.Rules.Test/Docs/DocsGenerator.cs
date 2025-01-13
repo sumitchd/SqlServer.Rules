@@ -44,7 +44,7 @@ namespace SqlServer.Rules.Tests.Docs
             {
                 var ruleAttribute = t.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).FirstOrDefault() as ExportCodeAnalysisRuleAttribute;
                 return ruleAttribute.Category;
-            }).Distinct().ToList();
+            }).Distinct().Order().ToList();
 
             CreateFolders(docsFolder, categories);
 
@@ -59,8 +59,10 @@ namespace SqlServer.Rules.Tests.Docs
 
                 var elements = GetRuleElements(t, ruleAttribute);
 
-                GenerateMarkdown(comments, elements, ruleAttribute, Path.Combine(docsFolder, ruleAttribute.Category), t.Assembly.GetName().Name, t.Namespace, t.Name);
+                GenerateRuleMarkdown(comments, elements, ruleAttribute, Path.Combine(docsFolder, ruleAttribute.Category), t.Assembly.GetName().Name, t.Namespace, t.Name);
             });
+
+            GenerateTocMarkdown(rules, null, categories, reader, docsFolder);
         }
 
         private static void CreateFolders(string docsFolder, List<string> categories)
@@ -109,7 +111,7 @@ namespace SqlServer.Rules.Tests.Docs
             return elements.Order().ToList();
         }
 
-        private void GenerateMarkdown(TypeComments comments, List<string> elements, ExportCodeAnalysisRuleAttribute attribute, string docsFolder, string assemblyName, string nameSpace, string className)
+        private void GenerateRuleMarkdown(TypeComments comments, List<string> elements, ExportCodeAnalysisRuleAttribute attribute, string docsFolder, string assemblyName, string nameSpace, string className)
         {
             var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
             var fullComments = new XmlDocument();
@@ -171,7 +173,7 @@ namespace SqlServer.Rules.Tests.Docs
                 stringBuilder.AppendLine(spaces);
                 stringBuilder.AppendLine("### Examples");
                 stringBuilder.AppendLine(spaces);
-                stringBuilder.Append($"{comments.Example}");
+                stringBuilder.Append($"{exampleMd}");
             }
 
             //if (!string.IsNullOrWhiteSpace(comments.Remarks))
@@ -188,6 +190,62 @@ namespace SqlServer.Rules.Tests.Docs
             var filePath = Path.Combine(docsFolder, $"{attribute.Id.ToId()}.md");
             File.WriteAllText(filePath, stringBuilder.ToString(), Encoding.ASCII);
         }
+
+        private void GenerateTocMarkdown(List<Type> sqlServerRules, List<Type> tSqlSmellRules, List<string> categories, DocXmlReader reader, string docsFolder)
+        {
+            var spaces = "  ";
+
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(spaces);
+            stringBuilder.AppendLine("# Table of Contents");
+            stringBuilder.AppendLine(spaces);
+
+            foreach (var category in categories) 
+            {
+                stringBuilder.AppendLine(spaces);
+                stringBuilder.AppendLine($"## {category}");
+                stringBuilder.AppendLine(spaces);
+
+                stringBuilder.AppendLine("| Rule Id | Friendly Name | Ignorable | Description | Example? |");
+                stringBuilder.AppendLine("|----|----|----|----|----|");
+                var categoryRules = sqlServerRules
+                        .Where(t => ((ExportCodeAnalysisRuleAttribute)t.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).FirstOrDefault()).Category == category)
+                        .OrderBy(t => ((ExportCodeAnalysisRuleAttribute)t.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).FirstOrDefault()).Id)
+                        .ToList();
+                foreach (var rule in categoryRules)
+                {
+                    var comments = reader.GetTypeComments(rule);
+                    var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
+                    var fullComments = new XmlDocument();
+                    fullComments.LoadXml(fullXml);
+
+                    var isIgnorable = fullComments.SelectSingleNode("comments/IsIgnorable")?.InnerText ?? "false";
+                    var friendlyName = fullComments.SelectSingleNode("comments/FriendlyName")?.InnerText;
+
+                    if (string.IsNullOrWhiteSpace(friendlyName))
+                    {
+                        friendlyName = rule.Name.ToSentence();
+                    }
+
+                    friendlyName.Replace("|", "&#124;");
+
+                    isIgnorable = isIgnorable != "false" ? "Yes" : " ";
+
+                    var exampleMd = fullComments.SelectSingleNode("comments/ExampleMd")?.InnerText;
+
+                    exampleMd = string.IsNullOrWhiteSpace(exampleMd) ? " " : "Yes";
+
+                    var ruleAttribute = (ExportCodeAnalysisRuleAttribute)rule.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).FirstOrDefault();
+                    var ruleLink = $"[{ruleAttribute.Id.ToId()}]({category}/{ruleAttribute.Id.ToId()}.md)";
+                    stringBuilder.AppendLine($"| {ruleLink} | {friendlyName} | {isIgnorable} | {ruleAttribute.Description?.Replace("|", "&#124;")} | {exampleMd} |");
+                }
+            }
+
+            stringBuilder.AppendLine(spaces);
+            stringBuilder.AppendLine("[Generated by a tool]");
+
+            File.WriteAllText(Path.Combine(docsFolder, "table_of_contents.md"), stringBuilder.ToString(), Encoding.ASCII);
+        }
     }
 
     public static class Extensions
@@ -198,10 +256,6 @@ namespace SqlServer.Rules.Tests.Docs
             var parts = Regex.Split(input, @"([A-Z]?[a-z]+)").Where(str => !string.IsNullOrEmpty(str));
             return string.Join(' ', parts);
         }
-        //public static string ToSentence(this string Input)
-        //{
-        //    return new string(Input.SelectMany((c, i) => i > 0 && char.IsUpper(c) ? new[] { ' ', c } : new[] { c }).ToArray());
-        //}
 
         public static string ToId(this string Input)
         {
