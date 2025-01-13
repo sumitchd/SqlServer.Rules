@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using TSQLSmellSCA;
 
 namespace SqlServer.Rules.Tests.Docs
 {
@@ -17,13 +18,6 @@ namespace SqlServer.Rules.Tests.Docs
     [TestCategory("Docs")]
     public class DocsGenerator
     {
-        private readonly TestContext _testContext;
-
-        public DocsGenerator(TestContext testContext)
-        {
-            _testContext = testContext;
-        }
-
         [TestMethod]
         public void GenerateDocs()
         {
@@ -39,6 +33,17 @@ namespace SqlServer.Rules.Tests.Docs
                     && t.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).Any()
                 )
                 .ToList();
+
+            var smellsAssembly = typeof(Smells).Assembly;
+
+            var tSqlSmellRules = smellsAssembly.GetTypes()
+                .Where(t => t.IsClass
+                    && !t.IsAbstract
+                    && t.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).Any()
+                )
+                .ToList();
+
+            rules.AddRange(tSqlSmellRules);
 
             var categories = rules.Select(t =>
             {
@@ -113,19 +118,31 @@ namespace SqlServer.Rules.Tests.Docs
 
         private void GenerateRuleMarkdown(TypeComments comments, List<string> elements, ExportCodeAnalysisRuleAttribute attribute, string docsFolder, string assemblyName, string nameSpace, string className)
         {
-            var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
-            var fullComments = new XmlDocument();
-            fullComments.LoadXml(fullXml);
+            var isIgnorable = string.Empty;
+            var friendlyName = string.Empty;
+            var exampleMd = string.Empty;
 
-            var isIgnorable = fullComments.SelectSingleNode("comments/IsIgnorable")?.InnerText ?? "false";
-            var friendlyName = fullComments.SelectSingleNode("comments/FriendlyName")?.InnerText;
+            if (comments != null && comments.FullCommentText != null)
+            {
+                var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
+                var fullComments = new XmlDocument();
+                fullComments.LoadXml(fullXml);
+
+                isIgnorable = fullComments.SelectSingleNode("comments/IsIgnorable")?.InnerText ?? "false";
+                friendlyName = fullComments.SelectSingleNode("comments/FriendlyName")?.InnerText;
+                exampleMd = fullComments.SelectSingleNode("comments/ExampleMd")?.InnerText;
+            }
 
             if (string.IsNullOrWhiteSpace(friendlyName))
             {
-                friendlyName = className.Trim().ToSentence();
+                friendlyName = className.ToSentence();
             }
 
-            var exampleMd = fullComments.SelectSingleNode("comments/ExampleMd")?.InnerText;
+            if (attribute.Id.StartsWith("Smells."))
+            {
+                friendlyName = attribute.Description;
+                isIgnorable = "false";
+            }
 
             var stringBuilder = new StringBuilder();
 
@@ -215,12 +232,21 @@ namespace SqlServer.Rules.Tests.Docs
                 foreach (var rule in categoryRules)
                 {
                     var comments = reader.GetTypeComments(rule);
-                    var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
-                    var fullComments = new XmlDocument();
-                    fullComments.LoadXml(fullXml);
 
-                    var isIgnorable = fullComments.SelectSingleNode("comments/IsIgnorable")?.InnerText ?? "false";
-                    var friendlyName = fullComments.SelectSingleNode("comments/FriendlyName")?.InnerText;
+                    var isIgnorable = "No";
+                    var friendlyName = string.Empty;
+                    var exampleMd = string.Empty;
+
+                    if (comments != null && comments.FullCommentText != null)
+                    {
+                        var fullXml = "<comments>" + comments.FullCommentText.Trim() + "</comments>";
+                        var fullComments = new XmlDocument();
+                        fullComments.LoadXml(fullXml);
+
+                        isIgnorable = fullComments.SelectSingleNode("comments/IsIgnorable")?.InnerText ?? "No";
+                        friendlyName = fullComments.SelectSingleNode("comments/FriendlyName")?.InnerText;
+                        exampleMd = fullComments.SelectSingleNode("comments/ExampleMd")?.InnerText;
+                    }
 
                     if (string.IsNullOrWhiteSpace(friendlyName))
                     {
@@ -231,11 +257,16 @@ namespace SqlServer.Rules.Tests.Docs
 
                     isIgnorable = isIgnorable != "false" ? "Yes" : " ";
 
-                    var exampleMd = fullComments.SelectSingleNode("comments/ExampleMd")?.InnerText;
-
                     exampleMd = string.IsNullOrWhiteSpace(exampleMd) ? " " : "Yes";
 
                     var ruleAttribute = (ExportCodeAnalysisRuleAttribute)rule.GetCustomAttributes(typeof(ExportCodeAnalysisRuleAttribute), false).FirstOrDefault();
+
+                    if (ruleAttribute.Id.StartsWith("Smells."))
+                    {
+                        friendlyName = ruleAttribute.Description;
+                        isIgnorable = " ";
+                    }                   
+
                     var ruleLink = $"[{ruleAttribute.Id.ToId()}]({category}/{ruleAttribute.Id.ToId()}.md)";
                     stringBuilder.AppendLine($"| {ruleLink} | {friendlyName} | {isIgnorable} | {ruleAttribute.Description?.Replace("|", "&#124;")} | {exampleMd} |");
                 }

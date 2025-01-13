@@ -12,6 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlServer.Rules\SqlServer.Rules.csproj" />
+    <ProjectReference Include="..\SqlServer.TSQLSmells\TSQLSmellSCA.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestScripts/**/*">
