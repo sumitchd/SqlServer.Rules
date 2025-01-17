@@ -6,7 +6,6 @@
         <CodeAnalysisRules>-SqlServer.Rules.*;-Microsoft.Rules.*</CodeAnalysisRules>
         <!-- For additional properties that can be set here, please refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#model-properties -->
     </PropertyGroup>
-
     <ItemGroup>
         <!-- These packages adds additional code analysis rules -->
         <!-- We recommend using these, but they can be removed if desired -->
@@ -19,7 +18,6 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
-
     <PropertyGroup>
         <!-- Refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#publishing-support for supported publishing options -->
     </PropertyGroup>

@@ -5,5 +5,4 @@
 	Col2 integer,
 	Col3 integer,
 	DateCol datetime
-
 )

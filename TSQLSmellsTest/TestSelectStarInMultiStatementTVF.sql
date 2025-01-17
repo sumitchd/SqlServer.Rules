@@ -15,5 +15,4 @@ BEGIN
 	FROM cteTest
 	return
 end
-
---SML005,SML033
+-- SML005, SML033

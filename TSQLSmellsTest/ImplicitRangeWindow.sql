@@ -9,5 +9,4 @@ select sum(TestTableSSDT.Col1) over(partition by TestTableSSDT.IdCol
 	                      order by TestTableSSDT.Col2 ) as Rown
   from dbo.TestTableSSDT
 order by Col1,Col2;
-
---SML026
+-- SML026

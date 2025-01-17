@@ -10,8 +10,6 @@ BEGIN
 	)
 	SELECT @s = IdCol
 	FROM cteTest
-
 	RETURN @s
 end
-
---SML005,SML033
+-- SML005, SML033

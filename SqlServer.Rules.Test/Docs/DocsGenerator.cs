@@ -218,7 +218,7 @@ namespace SqlServer.Rules.Tests.Docs
                 foreach (var script in scriptExamples)
                 {
                     stringBuilder.AppendLine("```sql");
-                    stringBuilder.AppendLine(script);
+                    stringBuilder.AppendLine(script.Trim());
                     stringBuilder.AppendLine("```");
                 }
             }
@@ -318,7 +318,7 @@ namespace SqlServer.Rules.Tests.Docs
             var files = Directory.GetFiles(rulesScriptFolder, "*.sql", SearchOption.AllDirectories).ToList();
             foreach (var file in files)
             {
-                var ruleLine = File.ReadAllLines(file).FirstOrDefault(l => l.StartsWith("--", StringComparison.OrdinalIgnoreCase));
+                var ruleLine = File.ReadAllLines(file).FirstOrDefault(l => l.StartsWith("-- ", StringComparison.OrdinalIgnoreCase));
 
                 if (ruleLine == null || string.IsNullOrWhiteSpace(ruleLine))
                 {

@@ -4,5 +4,4 @@ SET NOCOUNT on
 WHILE(0=0) begin
 	SELECT * FROM dbo.TestTableSSDT
 end
-
---SML005
+-- SML005

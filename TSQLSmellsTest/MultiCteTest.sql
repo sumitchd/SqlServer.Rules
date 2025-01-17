@@ -13,7 +13,5 @@ set nocount on ;
 		)
 	SELECT  col1
 	from successfulOrder;
-	
 END;
-
---SML005
+-- SML005
